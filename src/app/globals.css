@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+/* COLORS */
+@theme {
+	--color-paper: #fbf9f4;
+	--color-ink: #2c2a29;
+	--color-ink-muted: #767676;
+	--color-kraft: #d2b48c;
+	--color-accent-coral: #fbc8cd;
+	--color-accent-blue: #a0cfe4;
+	--color-accent-yellow: #fff4a3;
+}
+
+/* FONTS */
+@theme {
+	--font-heading: var(--font-inter);
+	--font-body: var(--font-noto-sans);
+	--font-mono: var(--font-jetbrains-mono);
+}
+
+/* SPACING, SHADOWS, ETC (later) */
+@theme {
+	/* add as you discover them in the sandbox */
+}
