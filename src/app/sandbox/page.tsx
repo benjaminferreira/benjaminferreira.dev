@@ -232,6 +232,160 @@ export default function page() {
 					</div>
 				</div>
 			</section>
+
+			{/* ===== SECTION: Textures & Patterns ===== */}
+			<section className="space-y-2">
+				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">
+					Textures & Patterns{" "}
+					<span className="normal-case font-mono text-[10px] text-graphite-hb/60">
+						(will use Canvas component)
+					</span>
+				</h2>
+				<div className="grid grid-cols-3 gap-4">
+					{/* Cream paper grain texture (PNG) */}
+					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
+						<div
+							className="absolute inset-0 opacity-[0.25]"
+							style={{ backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" }}
+						/>
+						<span className="text-xs text-graphite-hb relative z-10">Cream Paper (PNG)</span>
+					</div>
+
+					{/* Beige paper texture (PNG) */}
+					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
+						<div
+							className="absolute inset-0 opacity-[0.25]"
+							style={{ backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" }}
+						/>
+						<span className="text-xs text-graphite-hb relative z-10">Beige Paper (PNG)</span>
+					</div>
+
+					{/* Handmade paper texture (PNG) */}
+					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
+						<div
+							className="absolute inset-0 opacity-[0.25]"
+							style={{ backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" }}
+						/>
+						<span className="text-xs text-graphite-hb relative z-10">Handmade Paper (PNG)</span>
+					</div>
+
+					{/* Dot grid (CSS) */}
+					<div
+						className="h-40 bg-paper relative overflow-hidden flex items-end p-3"
+						style={{
+							backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
+							backgroundSize: "20px 20px",
+						}}
+					>
+						<span className="text-xs text-graphite-hb">Dot Grid (CSS)</span>
+					</div>
+
+					{/* Ruled lines (CSS) */}
+					<div
+						className="h-40 bg-paper relative overflow-hidden flex items-end p-3"
+						style={{
+							backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)",
+							backgroundSize: "100% 24px",
+						}}
+					>
+						<span className="text-xs text-graphite-hb">Ruled Lines (CSS)</span>
+					</div>
+
+					{/* Square grid (CSS) */}
+					<div
+						className="h-40 bg-paper relative overflow-hidden flex items-end p-3"
+						style={{
+							backgroundImage:
+								"linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)",
+							backgroundSize: "20px 20px",
+						}}
+					>
+						<span className="text-xs text-graphite-hb">Square Grid (CSS)</span>
+					</div>
+
+					{/* Dot B Ruled - Campus style (CSS) - dots sit ON the lines */}
+					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
+						<div
+							className="absolute inset-0 opacity-[0.65]"
+							style={{
+								backgroundImage: "linear-gradient(var(--color-campus-dot) 1px, transparent 1px)",
+								backgroundSize: "100% 24px",
+							}}
+						/>
+						<div
+							className="absolute inset-0"
+							style={{
+								backgroundImage: "radial-gradient(circle, var(--color-campus-dot) 1px, transparent 1px)",
+								backgroundSize: "24px 24px",
+								backgroundPosition: "0 -11px",
+							}}
+						/>
+						<span className="text-xs text-graphite-hb relative z-10">Dot B Ruled - Campus (CSS)</span>
+					</div>
+
+					{/* Cream texture + Dot grid combo */}
+					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
+						<div
+							className="absolute inset-0 opacity-[0.25]"
+							style={{ backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" }}
+						/>
+						<div
+							className="absolute inset-0"
+							style={{
+								backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
+								backgroundSize: "20px 20px",
+							}}
+						/>
+						<span className="text-xs text-graphite-hb relative z-10">Cream Texture + Dot Grid</span>
+					</div>
+
+					{/* Handmade texture + Ruled lines combo */}
+					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
+						<div
+							className="absolute inset-0 opacity-[0.25]"
+							style={{ backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" }}
+						/>
+						<div
+							className="absolute inset-0"
+							style={{
+								backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)",
+								backgroundSize: "100% 24px",
+							}}
+						/>
+						<span className="text-xs text-graphite-hb relative z-10">Handmade Texture + Ruled</span>
+					</div>
+
+					{/* Dot grid on kraft (CSS) */}
+					<div
+						className="h-40 bg-kraft relative overflow-hidden flex items-end p-3"
+						style={{
+							backgroundImage:
+								"radial-gradient(circle, var(--color-graphite-guide) 1px, transparent 1px)",
+							backgroundSize: "20px 20px",
+						}}
+					>
+						<span className="text-xs text-graphite-2b">Dot Grid on Kraft</span>
+					</div>
+
+					{/* Cream paper grain on charcoal (dark mode preview) */}
+					<div className="h-40 bg-charcoal relative overflow-hidden flex items-end p-3">
+						<div
+							className="absolute inset-0 opacity-[0.15]"
+							style={{ backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" }}
+						/>
+						<span className="text-xs text-paper relative z-10">Cream on Charcoal</span>
+					</div>
+
+					{/* Handmade paper on charcoal (dark mode preview) */}
+					<div className="h-40 bg-charcoal relative overflow-hidden flex items-end p-3">
+						<div
+							className="absolute inset-0 opacity-[0.15]"
+							style={{ backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" }}
+						/>
+						<span className="text-xs text-paper relative z-10">Handmade on Charcoal</span>
+					</div>
+				</div>
+			</section>
 		</main>
 	);
 }

@@ -31,6 +31,10 @@
 	--color-lines: #e8e5e0;
 	--color-grid: #e8e5e0;
 
+	/* Campus Dot B Ruled (placeholder - eyedrop from real notebook later) */
+	--color-campus-line: #c8d4dc;
+	--color-campus-dot: #9ba5ab;
+
 	/* Mildliner Accents */
 	--color-mild-pink: #fbc8cd;
 	--color-mild-blue: #a0cfe4;
