@@ -1,24 +1,46 @@
 @import "tailwindcss";
 
+:root {
+	font-family: var(--font-work-sans);
+}
+
 /* COLORS */
 @theme {
+	/* Paper & Canvas */
 	--color-paper: #fbf9f4;
+	--color-divider: #eae6df;
 	--color-ink: #2c2a29;
-	--color-ink-muted: #767676;
+	--color-charcoal: #1c1c1c;
 	--color-kraft: #d2b48c;
-	--color-accent-coral: #fbc8cd;
-	--color-accent-blue: #a0cfe4;
-	--color-accent-yellow: #fff4a3;
+	--color-tracing: rgba(255, 255, 255, 0.4);
+
+	/* Graphite (Text & Borders) */
+	--color-graphite-2b: #4a4a4a;
+	--color-graphite-hb: #767676;
+	--color-graphite-guide: #d9d9d9;
+
+	/* Fountain Pen Inks (Action Colors) */
+	--color-pen-shinkai: #3a506b;
+	--color-pen-tsutsuji: #e05a87;
+	--color-pen-kujaku: #008080;
+
+	/* Structure/Grids */
+	--color-dot-grey: #e2e0ec;
+	--color-dot-blue: #e0eae9;
+	--color-margin: #f0a59e;
+	--color-lines: #e8e5e0;
+	--color-grid: #e8e5e0;
+
+	/* Mildliner Accents */
+	--color-mild-pink: #fbc8cd;
+	--color-mild-blue: #a0cfe4;
+	--color-mild-yellow: #fff4a3;
+	--color-mild-grey: #d0cfcd;
 }
 
 /* FONTS */
 @theme {
-	--font-heading: var(--font-inter);
-	--font-body: var(--font-noto-sans);
-	--font-mono: var(--font-jetbrains-mono);
-}
-
-/* SPACING, SHADOWS, ETC (later) */
-@theme {
-	/* add as you discover them in the sandbox */
+	--font-heading: var(--font-instrument-serif);
+	--font-body: var(--font-work-sans);
+	--font-mono: var(--font-fira-code);
 }
