@@ -1,25 +1,12 @@
 /**
- * Canvas Component - Design System Foundation
- *
- * This file is a learning template showing the standard structure
- * and best practices for building a React component with TypeScript.
- * Replace the placeholder logic with your actual implementation.
+ * Canvas Component
  */
 
-// ============================================================
-// 1. IMPORTS
-// ============================================================
-// Order: React/framework first, then external libs, then internal/local
 import React from "react";
 
-// ============================================================
-// 2. TYPE DEFINITIONS
-// ============================================================
-// Define your props interface BEFORE the component.
-// This is the "API" of your component - what the consumer can pass in.
-// Use union types (|) for props that accept specific values.
-// Use '?' for optional props.
-
+/**
+ * Props interface for Canvas component
+ */
 interface CanvasProps {
 	/** The base background color of the canvas */
 	variant?: "paper" | "kraft" | "divider" | "charcoal" | "white";
@@ -30,13 +17,14 @@ interface CanvasProps {
 	/** Tailwind padding class (default: "p-6") */
 	padding?: string;
 
-	/** Whether corners are rounded (default: true) */
+	/** Whether corners are rounded (default: false)
+	 *      NOTE: Most paper is not rounded, though some sticky notes etc. might be) */
 	rounded?: boolean;
 
 	/** Additional Tailwind classes (escape hatch for one-off styling) */
 	className?: string;
 
-	/** Content inside the canvas */
+	/** Content inside the Canvas */
 	children: React.ReactNode;
 }
 
@@ -48,13 +36,13 @@ interface CanvasProps {
 // don't get recreated on every render.
 
 // Example: map variant names to Tailwind classes
-// const variantClasses: Record<string, string> = {
-//     paper: "bg-paper",
-//     kraft: "bg-kraft",
-//     divider: "bg-divider",
-//     charcoal: "bg-charcoal",
-//     white: "bg-white",
-// };
+const variantClasses: Record<string, string> = {
+	paper: "bg-paper",
+	kraft: "bg-kraft",
+	divider: "bg-divider",
+	charcoal: "bg-charcoal",
+	white: "bg-white",
+};
 
 // Example: map texture names to CSS background styles
 // const textureStyles: Record<string, React.CSSProperties> = {

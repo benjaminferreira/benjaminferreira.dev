@@ -366,24 +366,6 @@ export default function page() {
 					>
 						<span className="text-xs text-graphite-2b">Dot Grid on Kraft</span>
 					</div>
-
-					{/* Cream paper grain on charcoal (dark mode preview) */}
-					<div className="h-40 bg-charcoal relative overflow-hidden flex items-end p-3">
-						<div
-							className="absolute inset-0 opacity-[0.15]"
-							style={{ backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" }}
-						/>
-						<span className="text-xs text-paper relative z-10">Cream on Charcoal</span>
-					</div>
-
-					{/* Handmade paper on charcoal (dark mode preview) */}
-					<div className="h-40 bg-charcoal relative overflow-hidden flex items-end p-3">
-						<div
-							className="absolute inset-0 opacity-[0.15]"
-							style={{ backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" }}
-						/>
-						<span className="text-xs text-paper relative z-10">Handmade on Charcoal</span>
-					</div>
 				</div>
 			</section>
 		</main>
