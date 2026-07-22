@@ -9,10 +9,13 @@ import React from "react";
  */
 interface CanvasProps {
 	/** The base background color of the canvas */
-	variant?: "paper" | "kraft" | "divider" | "charcoal" | "white";
+	variant?: "paper" | "kraft" | "divider" | "white";
 
 	/** Optional texture overlay on top of the base color */
-	texture?: "none" | "grain" | "dotgrid" | "ruled" | "grid";
+	texture?: "none" | "cream" | "beige" | "handmade";
+
+	/** Optional line, grid or pattern overlay */
+	pattern?: "none" | "ruled" | "grid" | "dotgrid" | "dotruled";
 
 	/** Tailwind padding class (default: "p-6") */
 	padding?: string;
@@ -35,23 +38,34 @@ interface CanvasProps {
 // component uses here - OUTSIDE the component function so they
 // don't get recreated on every render.
 
-// Example: map variant names to Tailwind classes
+//Example: map variant names to Tailwind classes
 const variantClasses: Record<string, string> = {
 	paper: "bg-paper",
 	kraft: "bg-kraft",
 	divider: "bg-divider",
-	charcoal: "bg-charcoal",
 	white: "bg-white",
 };
 
 // Example: map texture names to CSS background styles
-// const textureStyles: Record<string, React.CSSProperties> = {
-//     none: {},
-//     grain: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" },
-//     dotgrid: { backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)", backgroundSize: "20px 20px" },
-//     ruled: { backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)", backgroundSize: "100% 24px" },
-//     grid: { backgroundImage: "linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)", backgroundSize: "20px 20px" },
-// };
+const textureStyles: Record<string, React.CSSProperties> = {
+	cream: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" },
+	beige: { backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" },
+	handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" },
+};
+
+const patternStyles: Record<string, React.CSSProperties> = {
+	dotgrid: {
+		backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
+		backgroundSize: "20px 20px",
+	},
+	ruled: { backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)", backgroundSize: "100% 24px" },
+	grid: {
+		backgroundImage:
+			"linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)",
+		backgroundSize: "20px 20px",
+	},
+	// Need to add dotruled pattern style as well
+};
 
 // ============================================================
 // 4. THE COMPONENT FUNCTION
@@ -64,8 +78,9 @@ const variantClasses: Record<string, string> = {
 export default function Canvas({
 	variant = "paper",
 	texture = "none",
+	pattern = "none",
 	padding = "p-6",
-	rounded = true,
+	rounded = false,
 	className = "",
 	children,
 }: CanvasProps) {
