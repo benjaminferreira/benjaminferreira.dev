@@ -21,23 +21,26 @@ import React from "react";
 // Use '?' for optional props.
 
 interface CanvasProps {
-	/** The base background color of the canvas */
-	variant?: "paper" | "kraft" | "divider" | "charcoal" | "white";
+    /** The base background color of the canvas */
+    variant?: "paper" | "kraft" | "divider" | "white";
 
-	/** Optional texture overlay on top of the base color */
-	texture?: "none" | "grain" | "dotgrid" | "ruled" | "grid";
+    /** Optional texture overlay on top of the base color */
+    texture?: "none" | "cream" | "beige" | "handmade";
 
-	/** Tailwind padding class (default: "p-6") */
-	padding?: string;
+    /** Optional line, grid or pattern overlay */
+    pattern?: "none" | "ruled" | "grid" | "dotgrid" | "dotruled";
 
-	/** Whether corners are rounded (default: true) */
-	rounded?: boolean;
+    /** Tailwind padding class (default: "p-6") */
+    padding?: string;
 
-	/** Additional Tailwind classes (escape hatch for one-off styling) */
-	className?: string;
+    /** Whether corners are rounded (default: true) */
+    rounded?: boolean;
 
-	/** Content inside the canvas */
-	children: React.ReactNode;
+    /** Additional Tailwind classes (escape hatch for one-off styling) */
+    className?: string;
+
+    /** Content inside the canvas */
+    children: React.ReactNode;
 }
 
 // ============================================================
@@ -47,23 +50,34 @@ interface CanvasProps {
 // component uses here - OUTSIDE the component function so they
 // don't get recreated on every render.
 
-// Example: map variant names to Tailwind classes
-// const variantClasses: Record<string, string> = {
-//     paper: "bg-paper",
-//     kraft: "bg-kraft",
-//     divider: "bg-divider",
-//     charcoal: "bg-charcoal",
-//     white: "bg-white",
-// };
+//Example: map variant names to Tailwind classes
+const variantClasses: Record<string, string> = {
+    paper: "bg-paper",
+    kraft: "bg-kraft",
+    divider: "bg-divider",
+    white: "bg-white",
+};
 
 // Example: map texture names to CSS background styles
-// const textureStyles: Record<string, React.CSSProperties> = {
-//     none: {},
-//     grain: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" },
-//     dotgrid: { backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)", backgroundSize: "20px 20px" },
-//     ruled: { backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)", backgroundSize: "100% 24px" },
-//     grid: { backgroundImage: "linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)", backgroundSize: "20px 20px" },
-// };
+const textureStyles: Record<string, React.CSSProperties> = {
+    cream: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" },
+    beige: { backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" },
+    handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" },
+};
+
+const patternStyles: Record<string, React.CSSProperties> = {
+    dotgrid: {
+        backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
+        backgroundSize: "20px 20px",
+    },
+    ruled: { backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)", backgroundSize: "100% 24px" },
+    grid: {
+        backgroundImage:
+            "linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)",
+        backgroundSize: "20px 20px",
+    },
+    // Need to add dotruled pattern style as well
+};
 
 // ============================================================
 // 4. THE COMPONENT FUNCTION
@@ -74,44 +88,45 @@ interface CanvasProps {
 //   b) Return JSX
 
 export default function Canvas({
-	variant = "paper",
-	texture = "none",
-	padding = "p-6",
-	rounded = true,
-	className = "",
-	children,
+    variant = "paper",
+    texture = "none",
+    pattern = "none",
+    padding = "p-6",
+    rounded = false,
+    className = "",
+    children,
 }: CanvasProps) {
-	// --------------------------------------------------------
-	// 4a. DERIVED VALUES / LOGIC
-	// --------------------------------------------------------
-	// Compute class strings, styles, etc. from props here.
-	// Keep this section short - if it gets complex, extract
-	// into helper functions (section 3 above).
+    // --------------------------------------------------------
+    // 4a. DERIVED VALUES / LOGIC
+    // --------------------------------------------------------
+    // Compute class strings, styles, etc. from props here.
+    // Keep this section short - if it gets complex, extract
+    // into helper functions (section 3 above).
 
-	// Example:
-	// const baseClasses = variantClasses[variant] || "bg-paper";
-	// const roundedClass = rounded ? "rounded" : "";
-	// const combinedClasses = `${baseClasses} ${padding} ${roundedClass} ${className}`;
-	// const textureStyle = textureStyles[texture] || {};
+    // Example:
+    // const baseClasses = variantClasses[variant] || "bg-paper";
+    // const roundedClass = rounded ? "rounded" : "";
+    // const combinedClasses = `${baseClasses} ${padding} ${roundedClass} ${className}`;
+    // const textureStyle = textureStyles[texture] || {};
 
-	// --------------------------------------------------------
-	// 4b. RETURN JSX
-	// --------------------------------------------------------
-	// The component's visual output.
-	// For a component with a texture overlay, you'll need:
-	//   - An outer wrapper (relative positioning)
-	//   - A texture layer (absolute, low opacity, covers the wrapper)
-	//   - Content layer (relative, on top of texture via z-index)
+    // --------------------------------------------------------
+    // 4b. RETURN JSX
+    // --------------------------------------------------------
+    // The component's visual output.
+    // For a component with a texture overlay, you'll need:
+    //   - An outer wrapper (relative positioning)
+    //   - A texture layer (absolute, low opacity, covers the wrapper)
+    //   - Content layer (relative, on top of texture via z-index)
 
-	return (
-		<section className={`relative ${padding} ${rounded ? "rounded" : ""} ${className}`}>
-			{/* Texture overlay layer (if texture !== "none") */}
-			{/* <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={textureStyle} /> */}
+    return (
+        <section className={`relative ${padding} ${rounded ? "rounded" : ""} ${className}`}>
+            {/* Texture overlay layer (if texture !== "none") */}
+            {/* <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={textureStyle} /> */}
 
-			{/* Content layer - sits on top of texture */}
-			<div className="relative z-10">{children}</div>
-		</section>
-	);
+            {/* Content layer - sits on top of texture */}
+            <div className="relative z-10">{children}</div>
+        </section>
+    );
 }
 
 // ============================================================
