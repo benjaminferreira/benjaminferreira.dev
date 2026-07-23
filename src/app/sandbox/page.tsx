@@ -10,10 +10,11 @@ export default function page() {
 			<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Canvas Component Test</h2>
 			<Canvas
 				variant="paper"
-				texture="beige"
+				texture="grain"
 				pattern="grid"
 				padding="p-10"
 				rounded
+				raised
 			>
 				<div className="space-y-6">
 					<div>
@@ -164,216 +165,259 @@ export default function page() {
 			{/* ===== SECTION: Buttons ===== */}
 			<section className="space-y-2">
 				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Button Variants</h2>
-				<div className="bg-paper p-6 flex gap-3 flex-wrap">
-					<button className="px-4 py-2 rounded-md bg-pen-shinkai text-paper text-sm font-medium">
-						Navigate
-					</button>
-					<button className="px-4 py-2 rounded-md bg-pen-tsutsuji text-paper text-sm font-medium">
-						Submit
-					</button>
-					<button className="px-4 py-2 rounded-md bg-pen-kujaku text-paper text-sm font-medium">Save</button>
-					<button className="px-4 py-2 rounded-md border border-graphite-guide text-ink text-sm font-medium">
-						Cancel
-					</button>
-				</div>
+				<Canvas
+					pattern="dotgrid"
+					padding="p-6"
+					raised
+				>
+					<div className="flex gap-3 flex-wrap">
+						<button className="px-4 py-2 rounded-md bg-pen-shinkai text-paper text-sm font-medium">
+							Navigate
+						</button>
+						<button className="px-4 py-2 rounded-md bg-pen-tsutsuji text-paper text-sm font-medium">
+							Submit
+						</button>
+						<button className="px-4 py-2 rounded-md bg-pen-kujaku text-paper text-sm font-medium">
+							Save
+						</button>
+						<button className="px-4 py-2 rounded-md border border-graphite-guide text-ink text-sm font-medium">
+							Cancel
+						</button>
+					</div>
+				</Canvas>
 			</section>
 
 			{/* ===== SECTION: Highlighted Headings/Text ===== */}
 			<section className="space-y-2">
 				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Highlighted Headings/Text</h2>
-				<div className="bg-paper p-6 space-y-8">
-					<div>
-						<p className="text-xs text-graphite-hb mb-2">Option 1: Inline span with bg</p>
-						<h3 className="text-4xl font-heading text-ink">
-							<span className="bg-mild-yellow/70 px-1">Heading Example</span>
-						</h3>
-						<p className="text-base text-ink mt-2">
-							This is a section of body text with a{" "}
-							<span className="bg-mild-yellow/70 px-1">highlighted phrase</span> inside it.
-						</p>
+				<Canvas
+					pattern="ruled"
+					padding="p-6"
+					raised
+				>
+					<div className="space-y-8">
+						<div>
+							<p className="text-xs text-graphite-hb mb-2">Option 1: Inline span with bg</p>
+							<h3 className="text-4xl font-heading text-ink">
+								<span className="bg-mild-yellow/70 px-1">Heading Example</span>
+							</h3>
+							<p className="text-base text-ink mt-2">
+								This is a section of body text with a{" "}
+								<span className="bg-mild-yellow/70 px-1">highlighted phrase</span> inside it.
+							</p>
+						</div>
+						<div>
+							<p className="text-xs text-graphite-hb mb-2">Option 2: Inset box-shadow underline</p>
+							<h3 className="text-4xl font-heading text-ink">
+								<span className="shadow-[inset_0_-0.25em_0_var(--color-mild-yellow)]">
+									Heading Example
+								</span>
+							</h3>
+							<p className="text-base text-ink mt-2">
+								This is a section of body text with a{" "}
+								<span className="shadow-[inset_0_-0.25em_0_var(--color-mild-yellow)]">
+									highlighted phrase
+								</span>{" "}
+								inside it.
+							</p>
+						</div>
+						<div>
+							<p className="text-xs text-graphite-hb mb-2">
+								Option 3: ::after pseudo-element (rotated bar)
+							</p>
+							<h3 className="text-4xl font-heading text-ink">
+								<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10">
+									Heading Example
+								</span>
+							</h3>
+							<p className="text-base text-ink mt-2">
+								This is a section of body text with a{" "}
+								<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10">
+									highlighted phrase
+								</span>{" "}
+								inside it.
+							</p>
+						</div>
+						<div>
+							<p className="text-xs text-graphite-hb mb-2">
+								Option 4: ::after with hover transition (left to right)
+							</p>
+							<h3 className="text-4xl font-heading text-ink">
+								<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-0 hover:after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10 after:transition-all after:duration-1000">
+									Heading Example
+								</span>
+							</h3>
+							<p className="text-base text-ink mt-2">
+								This is a section of body text with a{" "}
+								<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-0 hover:after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10 after:transition-all after:duration-1000">
+									highlighted phrase
+								</span>{" "}
+								inside it.
+							</p>
+						</div>
 					</div>
-					<div>
-						<p className="text-xs text-graphite-hb mb-2">Option 2: Inset box-shadow underline</p>
-						<h3 className="text-4xl font-heading text-ink">
-							<span className="shadow-[inset_0_-0.25em_0_var(--color-mild-yellow)]">Heading Example</span>
-						</h3>
-						<p className="text-base text-ink mt-2">
-							This is a section of body text with a{" "}
-							<span className="shadow-[inset_0_-0.25em_0_var(--color-mild-yellow)]">
-								highlighted phrase
-							</span>{" "}
-							inside it.
-						</p>
-					</div>
-					<div>
-						<p className="text-xs text-graphite-hb mb-2">Option 3: ::after pseudo-element (rotated bar)</p>
-						<h3 className="text-4xl font-heading text-ink">
-							<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10">
-								Heading Example
-							</span>
-						</h3>
-						<p className="text-base text-ink mt-2">
-							This is a section of body text with a{" "}
-							<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10">
-								highlighted phrase
-							</span>{" "}
-							inside it.
-						</p>
-					</div>
-					<div>
-						<p className="text-xs text-graphite-hb mb-2">
-							Option 4: ::after with hover transition (left to right)
-						</p>
-						<h3 className="text-4xl font-heading text-ink">
-							<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-0 hover:after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10 after:transition-all after:duration-1000">
-								Heading Example
-							</span>
-						</h3>
-						<p className="text-base text-ink mt-2">
-							This is a section of body text with a{" "}
-							<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-0 hover:after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10 after:transition-all after:duration-1000">
-								highlighted phrase
-							</span>{" "}
-							inside it.
-						</p>
-					</div>
-				</div>
+				</Canvas>
 			</section>
 
-			{/* ===== SECTION: Textures & Patterns ===== */}
-			<section className="space-y-2">
-				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">
-					Textures & Patterns{" "}
-					<span className="normal-case font-mono text-[10px] text-graphite-hb/60">
-						(will use Canvas component)
-					</span>
-				</h2>
+			{/* ===== SECTION: Canvas Variants ===== */}
+			<section className="space-y-4">
+				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Canvas Variants</h2>
+
+				{/* Textures */}
+				<p className="text-xs text-graphite-hb">Textures (default / grain / handmade)</p>
 				<div className="grid grid-cols-3 gap-4">
-					{/* Cream paper grain texture (PNG) */}
-					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
-						<div
-							className="absolute inset-0 opacity-[0.35]"
-							style={{ backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" }}
-						/>
-						<span className="text-xs text-graphite-hb relative z-10">Cream Paper (PNG)</span>
-					</div>
-
-					{/* Beige paper texture (PNG) */}
-					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
-						<div
-							className="absolute inset-0 opacity-[0.35]"
-							style={{ backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" }}
-						/>
-						<span className="text-xs text-graphite-hb relative z-10">Beige Paper (PNG)</span>
-					</div>
-
-					{/* Handmade paper texture (PNG) */}
-					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
-						<div
-							className="absolute inset-0 opacity-[0.35]"
-							style={{ backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" }}
-						/>
-						<span className="text-xs text-graphite-hb relative z-10">Handmade Paper (PNG)</span>
-					</div>
-
-					{/* Dot grid (CSS) */}
-					<div
-						className="h-40 bg-paper relative overflow-hidden flex items-end p-3"
-						style={{
-							backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
-							backgroundSize: "20px 20px",
-						}}
+					<Canvas padding="p-4">
+						<span className="text-xs text-graphite-hb">default</span>
+					</Canvas>
+					<Canvas
+						texture="grain"
+						padding="p-4"
 					>
-						<span className="text-xs text-graphite-hb">Dot Grid (CSS)</span>
-					</div>
-
-					{/* Ruled lines (CSS) */}
-					<div
-						className="h-40 bg-paper relative overflow-hidden flex items-end p-3"
-						style={{
-							backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)",
-							backgroundSize: "100% 24px",
-						}}
+						<span className="text-xs text-graphite-hb">grain</span>
+					</Canvas>
+					<Canvas
+						texture="handmade"
+						padding="p-4"
 					>
-						<span className="text-xs text-graphite-hb">Ruled Lines (CSS)</span>
-					</div>
+						<span className="text-xs text-graphite-hb">handmade</span>
+					</Canvas>
+				</div>
 
-					{/* Square grid (CSS) */}
-					<div
-						className="h-40 bg-paper relative overflow-hidden flex items-end p-3"
-						style={{
-							backgroundImage:
-								"linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)",
-							backgroundSize: "20px 20px",
-						}}
+				{/* Patterns */}
+				<p className="text-xs text-graphite-hb">Patterns (dotgrid / ruled / grid / dotruled)</p>
+				<div className="grid grid-cols-4 gap-4">
+					<Canvas
+						pattern="dotgrid"
+						padding="p-4"
+						className="h-32"
 					>
-						<span className="text-xs text-graphite-hb">Square Grid (CSS)</span>
-					</div>
-
-					{/* Dot B Ruled - Campus style (CSS) - dots sit ON the lines */}
-					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
-						<div
-							className="absolute inset-0 opacity-[0.65]"
-							style={{
-								backgroundImage: "linear-gradient(var(--color-campus-dot) 1px, transparent 1px)",
-								backgroundSize: "100% 24px",
-							}}
-						/>
-						<div
-							className="absolute inset-0"
-							style={{
-								backgroundImage:
-									"radial-gradient(circle, var(--color-campus-dot) 1px, transparent 1px)",
-								backgroundSize: "24px 24px",
-								backgroundPosition: "0 -11px",
-							}}
-						/>
-						<span className="text-xs text-graphite-hb relative z-10">Dot B Ruled - Campus (CSS)</span>
-					</div>
-
-					{/* Cream texture + Dot grid combo */}
-					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
-						<div
-							className="absolute inset-0 opacity-[0.35]"
-							style={{ backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" }}
-						/>
-						<div
-							className="absolute inset-0"
-							style={{
-								backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
-								backgroundSize: "20px 20px",
-							}}
-						/>
-						<span className="text-xs text-graphite-hb relative z-10">Cream Texture + Dot Grid</span>
-					</div>
-
-					{/* Handmade texture + Ruled lines combo */}
-					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
-						<div
-							className="absolute inset-0 opacity-[0.35]"
-							style={{ backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" }}
-						/>
-						<div
-							className="absolute inset-0"
-							style={{
-								backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)",
-								backgroundSize: "100% 24px",
-							}}
-						/>
-						<span className="text-xs text-graphite-hb relative z-10">Handmade Texture + Ruled</span>
-					</div>
-
-					{/* Dot grid on kraft (CSS) */}
-					<div
-						className="h-40 bg-kraft relative overflow-hidden flex items-end p-3"
-						style={{
-							backgroundImage:
-								"radial-gradient(circle, var(--color-graphite-guide) 1px, transparent 1px)",
-							backgroundSize: "20px 20px",
-						}}
+						<span className="text-xs text-graphite-hb">dotgrid</span>
+					</Canvas>
+					<Canvas
+						pattern="ruled"
+						padding="p-4"
+						className="h-32"
 					>
-						<span className="text-xs text-graphite-2b">Dot Grid on Kraft</span>
+						<span className="text-xs text-graphite-hb">ruled</span>
+					</Canvas>
+					<Canvas
+						pattern="grid"
+						padding="p-4"
+						className="h-32"
+					>
+						<span className="text-xs text-graphite-hb">grid</span>
+					</Canvas>
+					<Canvas
+						pattern="dotruled"
+						padding="p-4"
+						className="h-32"
+					>
+						<span className="text-xs text-graphite-hb">dotruled</span>
+					</Canvas>
+				</div>
+
+				{/* Variants */}
+				<p className="text-xs text-graphite-hb">Materials (paper / kraft / tracing / white)</p>
+				<div className="grid grid-cols-4 gap-4">
+					<Canvas
+						padding="p-4"
+						className="h-24"
+					>
+						<span className="text-xs text-graphite-hb">paper</span>
+					</Canvas>
+					<Canvas
+						variant="kraft"
+						padding="p-4"
+						className="h-24"
+					>
+						<span className="text-xs text-graphite-2b">kraft</span>
+					</Canvas>
+					<Canvas
+						variant="tracing"
+						padding="p-4"
+						className="h-24"
+					>
+						<span className="text-xs text-graphite-hb">tracing</span>
+					</Canvas>
+					<Canvas
+						variant="white"
+						padding="p-4"
+						className="h-24"
+					>
+						<span className="text-xs text-graphite-hb">white</span>
+					</Canvas>
+				</div>
+
+				{/* Tracing overlay test */}
+				<p className="text-xs text-graphite-hb">Tracing paper overlay (text showing through)</p>
+				<div className="relative bg-pen-shinkai p-6">
+					<p className="text-xl font-heading text-white">This text is underneath the tracing paper.</p>
+					<p className="text-base text-white mt-2">
+						You should see this dimmed through the translucent overlay.
+					</p>
+					<div className="absolute top-4">
+						<Canvas
+							variant="tracing"
+							padding="p-10"
+						>
+							<p className="text-ink font-bold">This is on tracing paper, layered on top.</p>
+						</Canvas>
 					</div>
+				</div>
+
+				{/* Elevation + Interactive */}
+				<p className="text-xs text-graphite-hb">Elevation and interaction (hover and click these)</p>
+				<div className="grid grid-cols-4 gap-4">
+					<Canvas padding="p-4" className="h-40">
+						<span className="text-xs text-graphite-hb">flat (default)</span>
+					</Canvas>
+					<Canvas
+						raised
+						padding="p-4"
+						className="h-40"
+					>
+						<span className="text-xs text-graphite-hb">raised</span>
+					</Canvas>
+					<Canvas
+						interactive
+						padding="p-4"
+						className="h-40"
+					>
+						<span className="text-xs text-graphite-hb">flat + interactive</span>
+					</Canvas>
+					<Canvas
+						raised
+						interactive
+						padding="p-4"
+						className="h-40"
+					>
+						<span className="text-xs text-graphite-hb">raised + interactive</span>
+					</Canvas>
+				</div>
+
+				{/* Combos */}
+				<p className="text-xs text-graphite-hb">Combinations</p>
+				<div className="grid grid-cols-2 gap-4">
+					<Canvas
+						texture="handmade"
+						pattern="ruled"
+						raised
+						interactive
+						padding="p-6"
+						className="h-40"
+					>
+						<p className="text-sm text-ink">Handmade texture + ruled + raised + interactive</p>
+					</Canvas>
+					<Canvas
+						variant="kraft"
+						texture="grain"
+						pattern="dotgrid"
+						raised
+						padding="p-6"
+						className="h-40"
+					>
+						<p className="text-sm text-graphite-2b">Kraft + grain + dotgrid + raised</p>
+					</Canvas>
 				</div>
 			</section>
 		</main>

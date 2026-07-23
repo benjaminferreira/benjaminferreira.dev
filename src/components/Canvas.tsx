@@ -2,19 +2,28 @@
  * Themed surface component for the Japanese stationery design system.
  * Provides paper-like backgrounds with optional texture and pattern overlays.
  */
+"use client";
+
+import React, { useState, useRef } from "react";
 
 /**
  * Props interface for Canvas component
  */
 interface CanvasProps {
-	/** The base background color of the canvas */
-	variant?: "paper" | "kraft" | "divider" | "white";
+	/** The base material/background of the canvas */
+	variant?: "paper" | "kraft" | "tracing" | "white";
 
-	/** Optional texture overlay on top of the base color */
-	texture?: "none" | "cream" | "beige" | "handmade";
+	/** Surface texture overlay (default has a faint paper grain) */
+	texture?: "default" | "grain" | "handmade";
 
 	/** Optional line, grid or pattern overlay */
 	pattern?: "none" | "ruled" | "grid" | "dotgrid" | "dotruled";
+
+	/** Whether the canvas is raised off the surface with a shadow */
+	raised?: boolean;
+
+	/** Enables hover lift + active press physics */
+	interactive?: boolean;
 
 	/** Tailwind padding class (default: "p-6") */
 	padding?: string;
@@ -36,17 +45,26 @@ interface CanvasProps {
 const variantClasses: Record<NonNullable<CanvasProps["variant"]>, string> = {
 	paper: "bg-paper",
 	kraft: "bg-kraft",
-	divider: "bg-divider",
+	tracing: "bg-tracing",
 	white: "bg-white",
 };
 
 /**
  * Canvas texture overlay CSS style mappings
  */
-const textureStyles: Record<string, React.CSSProperties> = {
-	cream: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" },
-	beige: { backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" },
+const textureStyles: Record<NonNullable<CanvasProps["texture"]>, React.CSSProperties> = {
+	default: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" },
+	grain: { backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" },
 	handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" },
+};
+
+/**
+ * Texture opacity per type (default is subtle, grain/handmade are more visible)
+ */
+const textureOpacity: Record<NonNullable<CanvasProps["texture"]>, string> = {
+	default: "opacity-[0.25]",
+	grain: "opacity-[0.45]",
+	handmade: "opacity-[0.65]",
 };
 
 /**
@@ -57,7 +75,10 @@ const patternStyles: Record<string, React.CSSProperties> = {
 		backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
 		backgroundSize: "20px 20px",
 	},
-	ruled: { backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)", backgroundSize: "100% 24px" },
+	ruled: {
+		backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)",
+		backgroundSize: "100% 24px",
+	},
 	grid: {
 		backgroundImage:
 			"linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)",
@@ -107,31 +128,89 @@ function renderPattern(pattern: NonNullable<CanvasProps["pattern"]>) {
 /**
  * A themed surface component inspired by physical paper media.
  * Renders a background with optional texture and pattern overlays.
+ * Supports physical interaction states (lift on hover, press on click).
  *
  * @example
- * <Canvas variant="paper" texture="handmade" pattern="dotgrid" padding="p-10">
+ * <Canvas variant="paper" texture="grain" pattern="dotgrid" raised interactive>
  *   <p>Content on textured paper</p>
  * </Canvas>
  */
 export default function Canvas({
 	variant = "paper",
-	texture = "none",
+	texture = "default",
 	pattern = "none",
+	raised = false,
+	interactive = false,
 	padding = "p-6",
 	rounded = false,
 	className = "",
 	children,
 }: CanvasProps) {
+	const [lifted, setLifted] = useState(false);
+	const [pressed, setPressed] = useState(false);
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	const elevationClass = raised ? "shadow-md" : "";
+
+	// Track cursor position via CSS custom properties (no re-renders)
+	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (!interactive || !containerRef.current) return;
+		const rect = containerRef.current.getBoundingClientRect();
+		const x = ((e.clientX - rect.left) / rect.width - 0.5) * -8;
+		const y = ((e.clientY - rect.top) / rect.height - 0.5) * -8;
+		containerRef.current.style.setProperty("--shadow-x", `${x}px`);
+		containerRef.current.style.setProperty("--shadow-y", `${y}px`);
+	};
+
+	// Interactive states:
+	// - hover: gentle shadow appears (CSS class)
+	// - mousedown (pressed): paper presses flat, shadow disappears
+	// - mouseup/click (lifted): paper lifts up with big shadow
+	// - blur: paper floats back down
+	const interactiveStyle: React.CSSProperties = interactive
+		? pressed
+			? {
+					transform: "translateY(1px) scale(0.995)",
+					boxShadow: "0 1px 2px 0 rgba(0,0,0,0.04)",
+					transition: "all 100ms ease-in",
+				}
+			: lifted
+				? {
+						transform: "translateY(-6px) rotate(0.4deg)",
+						boxShadow: "var(--shadow-x, 0px) calc(12px + var(--shadow-y, 0px)) 28px -4px rgba(0,0,0,0.16), calc(var(--shadow-x, 0px) * 0.5) calc(6px + var(--shadow-y, 0px) * 0.5) 10px -2px rgba(0,0,0,0.08)",
+						transition: "transform 200ms cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 100ms ease-out",
+					}
+				: {
+						transition: "all 500ms cubic-bezier(0.4, 0, 0.2, 1)",
+					}
+		: {};
+
+	const interactiveHoverClass = interactive && !lifted && !pressed
+		? "[&:hover]:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] cursor-pointer"
+		: interactive
+			? "cursor-pointer"
+			: "";
+
 	return (
 		<div
-			className={`relative overflow-hidden ${variantClasses[variant]} ${padding} ${rounded ? "rounded-3xl" : ""} ${className}`}
+			ref={containerRef}
+			className={`relative overflow-hidden ${variantClasses[variant]} ${padding} ${elevationClass} ${interactiveHoverClass} ${rounded ? "rounded-3xl" : ""} ${className}`}
+			style={interactiveStyle}
+			onMouseMove={handleMouseMove}
+			{...(interactive && {
+				tabIndex: 0,
+				onMouseDown: () => setPressed(true),
+				onMouseUp: () => { setPressed(false); setLifted(true); },
+				onBlur: () => { setLifted(false); setPressed(false); },
+			})}
 		>
-			{texture !== "none" && (
-				<div
-					className="absolute inset-0 opacity-[0.35] pointer-events-none"
-					style={textureStyles[texture]}
-				/>
-			)}
+			{/* Texture layer */}
+			<div
+				className={`absolute inset-0 ${textureOpacity[texture]} pointer-events-none`}
+				style={textureStyles[texture]}
+			/>
+
+			{/* Pattern layer */}
 			{pattern !== "none" && renderPattern(pattern)}
 
 			{/* Content layer - sits on top of texture/pattern */}
