@@ -1,8 +1,7 @@
 /**
- * Canvas Component
+ * Themed surface component for the Japanese stationery design system.
+ * Provides paper-like backgrounds with optional texture and pattern overlays.
  */
-
-import React from "react";
 
 /**
  * Props interface for Canvas component
@@ -31,28 +30,28 @@ interface CanvasProps {
 	children: React.ReactNode;
 }
 
-// ============================================================
-// 3. HELPER FUNCTIONS / CONSTANTS
-// ============================================================
-// Put any lookup maps, utility functions, or constants that the
-// component uses here - OUTSIDE the component function so they
-// don't get recreated on every render.
-
-//Example: map variant names to Tailwind classes
-const variantClasses: Record<string, string> = {
+/**
+ * Canvas material-type variant classes
+ */
+const variantClasses: Record<NonNullable<CanvasProps["variant"]>, string> = {
 	paper: "bg-paper",
 	kraft: "bg-kraft",
 	divider: "bg-divider",
 	white: "bg-white",
 };
 
-// Example: map texture names to CSS background styles
+/**
+ * Canvas texture overlay CSS style mappings
+ */
 const textureStyles: Record<string, React.CSSProperties> = {
 	cream: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" },
 	beige: { backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" },
 	handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" },
 };
 
+/**
+ * Canvas line/dot/grid pattern overlay CSS style mappings
+ */
 const patternStyles: Record<string, React.CSSProperties> = {
 	dotgrid: {
 		backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
@@ -64,17 +63,56 @@ const patternStyles: Record<string, React.CSSProperties> = {
 			"linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)",
 		backgroundSize: "20px 20px",
 	},
-	// Need to add dotruled pattern style as well
 };
 
-// ============================================================
-// 4. THE COMPONENT FUNCTION
-// ============================================================
-// - Use default values in the destructured props (the = "value" syntax)
-// - The function body should:
-//   a) Compute any derived values from props
-//   b) Return JSX
+/**
+ * Function to render the pattern prop selected
+ * @param pattern Pattern prop to return associated JSX
+ * @returns JSX to render the pattern layer
+ */
+function renderPattern(pattern: NonNullable<CanvasProps["pattern"]>) {
+	// Dotruled pattern needs its own special render since it uses two layers.
+	if (pattern === "dotruled") {
+		return (
+			<>
+				<div
+					className="absolute inset-0 opacity-[0.65] pointer-events-none"
+					style={{
+						backgroundImage: "linear-gradient(var(--color-campus-dot) 1px, transparent 1px)",
+						backgroundSize: "100% 24px",
+					}}
+				/>
+				<div
+					className="absolute inset-0 pointer-events-none"
+					style={{
+						backgroundImage: "radial-gradient(circle, var(--color-campus-dot) 1px, transparent 1px)",
+						backgroundSize: "24px 24px",
+						backgroundPosition: "0 -11px",
+					}}
+				/>
+			</>
+		);
+	}
 
+	const style = patternStyles[pattern];
+	if (!style) return null;
+	return (
+		<div
+			className="absolute inset-0 pointer-events-none"
+			style={style}
+		/>
+	);
+}
+
+/**
+ * A themed surface component inspired by physical paper media.
+ * Renders a background with optional texture and pattern overlays.
+ *
+ * @example
+ * <Canvas variant="paper" texture="handmade" pattern="dotgrid" padding="p-10">
+ *   <p>Content on textured paper</p>
+ * </Canvas>
+ */
 export default function Canvas({
 	variant = "paper",
 	texture = "none",
@@ -84,58 +122,20 @@ export default function Canvas({
 	className = "",
 	children,
 }: CanvasProps) {
-	// --------------------------------------------------------
-	// 4a. DERIVED VALUES / LOGIC
-	// --------------------------------------------------------
-	// Compute class strings, styles, etc. from props here.
-	// Keep this section short - if it gets complex, extract
-	// into helper functions (section 3 above).
-
-	// Example:
-	// const baseClasses = variantClasses[variant] || "bg-paper";
-	// const roundedClass = rounded ? "rounded" : "";
-	// const combinedClasses = `${baseClasses} ${padding} ${roundedClass} ${className}`;
-	// const textureStyle = textureStyles[texture] || {};
-
-	// --------------------------------------------------------
-	// 4b. RETURN JSX
-	// --------------------------------------------------------
-	// The component's visual output.
-	// For a component with a texture overlay, you'll need:
-	//   - An outer wrapper (relative positioning)
-	//   - A texture layer (absolute, low opacity, covers the wrapper)
-	//   - Content layer (relative, on top of texture via z-index)
-
 	return (
-		<section className={`relative ${padding} ${rounded ? "rounded" : ""} ${className}`}>
-			{/* Texture overlay layer (if texture !== "none") */}
-			{/* <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={textureStyle} /> */}
+		<div
+			className={`relative overflow-hidden ${variantClasses[variant]} ${padding} ${rounded ? "rounded-3xl" : ""} ${className}`}
+		>
+			{texture !== "none" && (
+				<div
+					className="absolute inset-0 opacity-[0.35] pointer-events-none"
+					style={textureStyles[texture]}
+				/>
+			)}
+			{pattern !== "none" && renderPattern(pattern)}
 
-			{/* Content layer - sits on top of texture */}
+			{/* Content layer - sits on top of texture/pattern */}
 			<div className="relative z-10">{children}</div>
-		</section>
+		</div>
 	);
 }
-
-// ============================================================
-// 5. NOTES ON PATTERNS YOU'LL USE ACROSS COMPONENTS
-// ============================================================
-//
-// - "Record<string, string>" is a TypeScript utility type meaning
-//   "an object where keys are strings and values are strings"
-//
-// - "React.ReactNode" means "anything renderable" - strings, JSX,
-//   arrays of elements, null, etc.
-//
-// - The "className" escape hatch prop is standard practice - it lets
-//   consumers add one-off styling without needing a new prop for every case.
-//
-// - "pointer-events-none" on the texture layer means clicks pass through
-//   to the content below - the texture is purely visual.
-//
-// - For textures: PNG files go in public/textures/ and are referenced
-//   as "/textures/filename.png" in CSS/style (the public/ part is implicit).
-//
-// - For CSS-generated patterns (dots, lines, grids): use background-image
-//   with gradients - no image file needed, infinitely scalable, lighter.
-//

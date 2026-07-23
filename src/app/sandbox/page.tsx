@@ -1,4 +1,5 @@
 import React from "react";
+import Canvas from "@/components/Canvas";
 
 export default function page() {
 	return (
@@ -6,9 +7,15 @@ export default function page() {
 			<h1 className="text-3xl font-heading text-ink">Design Sandbox</h1>
 
 			{/* ===== SECTION: Typography System ===== */}
-			<section className="space-y-2">
-				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Typography System</h2>
-				<div className="bg-paper p-6 space-y-6">
+			<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Canvas Component Test</h2>
+			<Canvas
+				variant="paper"
+				texture="beige"
+				pattern="grid"
+				padding="p-10"
+				rounded
+			>
+				<div className="space-y-6">
 					<div>
 						<p className="text-xs text-graphite-hb mb-1">Heading - Instrument Serif</p>
 						<p className="text-4xl font-heading text-ink">Benjamin Ferreira - Portfolio / Design System</p>
@@ -27,7 +34,7 @@ export default function page() {
 						</p>
 					</div>
 				</div>
-			</section>
+			</Canvas>
 
 			<section className="bg-white p-8 space-y-8 rounded">
 				{/* ===== SECTION: Color Palette - Main ===== */}
@@ -245,7 +252,7 @@ export default function page() {
 					{/* Cream paper grain texture (PNG) */}
 					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
 						<div
-							className="absolute inset-0 opacity-[0.25]"
+							className="absolute inset-0 opacity-[0.35]"
 							style={{ backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" }}
 						/>
 						<span className="text-xs text-graphite-hb relative z-10">Cream Paper (PNG)</span>
@@ -254,7 +261,7 @@ export default function page() {
 					{/* Beige paper texture (PNG) */}
 					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
 						<div
-							className="absolute inset-0 opacity-[0.25]"
+							className="absolute inset-0 opacity-[0.35]"
 							style={{ backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" }}
 						/>
 						<span className="text-xs text-graphite-hb relative z-10">Beige Paper (PNG)</span>
@@ -263,7 +270,7 @@ export default function page() {
 					{/* Handmade paper texture (PNG) */}
 					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
 						<div
-							className="absolute inset-0 opacity-[0.25]"
+							className="absolute inset-0 opacity-[0.35]"
 							style={{ backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" }}
 						/>
 						<span className="text-xs text-graphite-hb relative z-10">Handmade Paper (PNG)</span>
@@ -315,7 +322,8 @@ export default function page() {
 						<div
 							className="absolute inset-0"
 							style={{
-								backgroundImage: "radial-gradient(circle, var(--color-campus-dot) 1px, transparent 1px)",
+								backgroundImage:
+									"radial-gradient(circle, var(--color-campus-dot) 1px, transparent 1px)",
 								backgroundSize: "24px 24px",
 								backgroundPosition: "0 -11px",
 							}}
@@ -326,7 +334,7 @@ export default function page() {
 					{/* Cream texture + Dot grid combo */}
 					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
 						<div
-							className="absolute inset-0 opacity-[0.25]"
+							className="absolute inset-0 opacity-[0.35]"
 							style={{ backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" }}
 						/>
 						<div
@@ -342,7 +350,7 @@ export default function page() {
 					{/* Handmade texture + Ruled lines combo */}
 					<div className="h-40 bg-paper relative overflow-hidden flex items-end p-3">
 						<div
-							className="absolute inset-0 opacity-[0.25]"
+							className="absolute inset-0 opacity-[0.35]"
 							style={{ backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" }}
 						/>
 						<div
