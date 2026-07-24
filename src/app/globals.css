@@ -8,6 +8,7 @@
 @theme {
 	/* Paper & Canvas */
 	--color-paper: #fbf9f4;
+	--color-paper-md: #faf4e8;
 	--color-divider: #eae6df;
 	--color-ink: #2c2a29;
 	--color-charcoal: #1c1c1c;
@@ -33,7 +34,7 @@
 
 	/* Campus Dot B Ruled (placeholder - eyedrop from real notebook later) */
 	--color-campus-line: #c8d4dc;
-	--color-campus-dot: #9ba5ab;
+	--color-campus-dot: #c4d1d9;
 
 	/* Mildliner Accents */
 	--color-mild-pink: #fbc8cd;

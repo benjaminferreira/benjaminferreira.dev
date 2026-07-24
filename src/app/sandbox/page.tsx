@@ -10,7 +10,7 @@ export default function page() {
 			<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Canvas Component Test</h2>
 			<Canvas
 				variant="paper"
-				texture="grain"
+				texture="handmade"
 				pattern="grid"
 				padding="p-10"
 				rounded
@@ -49,6 +49,9 @@ export default function page() {
 					<div className="flex gap-4 flex-wrap">
 						<div className="w-24 h-24 bg-paper rounded border border-ink/10 flex items-end p-2">
 							<span className="text-xs text-graphite-hb">Paper</span>
+						</div>
+						<div className="w-24 h-24 bg-paper-md rounded border border-ink/10 flex items-end p-2">
+							<span className="text-xs text-graphite-hb">Paper MD</span>
 						</div>
 						<div className="w-24 h-24 bg-divider rounded flex items-end p-2">
 							<span className="text-xs text-graphite-hb">Divider</span>
@@ -191,7 +194,7 @@ export default function page() {
 			<section className="space-y-2">
 				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Highlighted Headings/Text</h2>
 				<Canvas
-					pattern="ruled"
+					pattern="dotruled"
 					padding="p-6"
 					raised
 				>
@@ -317,13 +320,20 @@ export default function page() {
 				</div>
 
 				{/* Variants */}
-				<p className="text-xs text-graphite-hb">Materials (paper / kraft / tracing / white)</p>
-				<div className="grid grid-cols-4 gap-4">
+				<p className="text-xs text-graphite-hb">Materials (paper / paper-md / kraft / tracing / white)</p>
+				<div className="grid grid-cols-5 gap-4">
 					<Canvas
 						padding="p-4"
 						className="h-24"
 					>
 						<span className="text-xs text-graphite-hb">paper</span>
+					</Canvas>
+					<Canvas
+						variant="paper-md"
+						padding="p-4"
+						className="h-24"
+					>
+						<span className="text-xs text-graphite-hb">paper-md</span>
 					</Canvas>
 					<Canvas
 						variant="kraft"
@@ -368,7 +378,10 @@ export default function page() {
 				{/* Elevation + Interactive */}
 				<p className="text-xs text-graphite-hb">Elevation and interaction (hover and click these)</p>
 				<div className="grid grid-cols-4 gap-4">
-					<Canvas padding="p-4" className="h-40">
+					<Canvas
+						padding="p-4"
+						className="h-40"
+					>
 						<span className="text-xs text-graphite-hb">flat (default)</span>
 					</Canvas>
 					<Canvas
@@ -409,14 +422,15 @@ export default function page() {
 						<p className="text-sm text-ink">Handmade texture + ruled + raised + interactive</p>
 					</Canvas>
 					<Canvas
-						variant="kraft"
+						variant="paper-md"
 						texture="grain"
-						pattern="dotgrid"
+						pattern="dotruled"
 						raised
+						rounded
 						padding="p-6"
 						className="h-40"
 					>
-						<p className="text-sm text-graphite-2b">Kraft + grain + dotgrid + raised</p>
+						<p className="text-sm text-graphite-2b">Paper-md + grain + dotruled + raised + rounded</p>
 					</Canvas>
 				</div>
 			</section>

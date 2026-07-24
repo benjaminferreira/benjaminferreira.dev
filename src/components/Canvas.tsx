@@ -4,14 +4,14 @@
  */
 "use client";
 
-import React, { useState, useRef } from "react";
+import { useState } from "react";
 
 /**
  * Props interface for Canvas component
  */
 interface CanvasProps {
 	/** The base material/background of the canvas */
-	variant?: "paper" | "kraft" | "tracing" | "white";
+	variant?: "paper" | "paper-md" | "kraft" | "tracing" | "white";
 
 	/** Surface texture overlay (default has a faint paper grain) */
 	texture?: "default" | "grain" | "handmade";
@@ -44,6 +44,7 @@ interface CanvasProps {
  */
 const variantClasses: Record<NonNullable<CanvasProps["variant"]>, string> = {
 	paper: "bg-paper",
+	"paper-md": "bg-paper-md",
 	kraft: "bg-kraft",
 	tracing: "bg-tracing",
 	white: "bg-white",
@@ -63,8 +64,8 @@ const textureStyles: Record<NonNullable<CanvasProps["texture"]>, React.CSSProper
  */
 const textureOpacity: Record<NonNullable<CanvasProps["texture"]>, string> = {
 	default: "opacity-[0.25]",
-	grain: "opacity-[0.45]",
-	handmade: "opacity-[0.65]",
+	grain: "opacity-[0.50]",
+	handmade: "opacity-[0.75]",
 };
 
 /**
@@ -78,6 +79,7 @@ const patternStyles: Record<string, React.CSSProperties> = {
 	ruled: {
 		backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)",
 		backgroundSize: "100% 24px",
+		backgroundPosition: "0 -13px",
 	},
 	grid: {
 		backgroundImage:
@@ -101,6 +103,7 @@ function renderPattern(pattern: NonNullable<CanvasProps["pattern"]>) {
 					style={{
 						backgroundImage: "linear-gradient(var(--color-campus-dot) 1px, transparent 1px)",
 						backgroundSize: "100% 24px",
+						backgroundPosition: "0 -13px",
 					}}
 				/>
 				<div
@@ -108,7 +111,6 @@ function renderPattern(pattern: NonNullable<CanvasProps["pattern"]>) {
 					style={{
 						backgroundImage: "radial-gradient(circle, var(--color-campus-dot) 1px, transparent 1px)",
 						backgroundSize: "24px 24px",
-						backgroundPosition: "0 -11px",
 					}}
 				/>
 			</>
@@ -148,19 +150,8 @@ export default function Canvas({
 }: CanvasProps) {
 	const [lifted, setLifted] = useState(false);
 	const [pressed, setPressed] = useState(false);
-	const containerRef = useRef<HTMLDivElement>(null);
 
 	const elevationClass = raised ? "shadow-md" : "";
-
-	// Track cursor position via CSS custom properties (no re-renders)
-	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (!interactive || !containerRef.current) return;
-		const rect = containerRef.current.getBoundingClientRect();
-		const x = ((e.clientX - rect.left) / rect.width - 0.5) * -8;
-		const y = ((e.clientY - rect.top) / rect.height - 0.5) * -8;
-		containerRef.current.style.setProperty("--shadow-x", `${x}px`);
-		containerRef.current.style.setProperty("--shadow-y", `${y}px`);
-	};
 
 	// Interactive states:
 	// - hover: gentle shadow appears (CSS class)
@@ -177,31 +168,36 @@ export default function Canvas({
 			: lifted
 				? {
 						transform: "translateY(-6px) rotate(0.4deg)",
-						boxShadow: "var(--shadow-x, 0px) calc(12px + var(--shadow-y, 0px)) 28px -4px rgba(0,0,0,0.16), calc(var(--shadow-x, 0px) * 0.5) calc(6px + var(--shadow-y, 0px) * 0.5) 10px -2px rgba(0,0,0,0.08)",
-						transition: "transform 200ms cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 100ms ease-out",
+						boxShadow: "0 12px 28px -4px rgba(0,0,0,0.16), 0 6px 10px -2px rgba(0,0,0,0.08)",
+						transition: "transform 200ms cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 200ms ease-out",
 					}
 				: {
 						transition: "all 500ms cubic-bezier(0.4, 0, 0.2, 1)",
 					}
 		: {};
 
-	const interactiveHoverClass = interactive && !lifted && !pressed
-		? "[&:hover]:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] cursor-pointer"
-		: interactive
-			? "cursor-pointer"
-			: "";
+	const interactiveHoverClass =
+		interactive && !lifted && !pressed
+			? "[&:hover]:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] cursor-pointer"
+			: interactive
+				? "cursor-pointer"
+				: "";
 
 	return (
 		<div
-			ref={containerRef}
 			className={`relative overflow-hidden ${variantClasses[variant]} ${padding} ${elevationClass} ${interactiveHoverClass} ${rounded ? "rounded-3xl" : ""} ${className}`}
 			style={interactiveStyle}
-			onMouseMove={handleMouseMove}
 			{...(interactive && {
 				tabIndex: 0,
 				onMouseDown: () => setPressed(true),
-				onMouseUp: () => { setPressed(false); setLifted(true); },
-				onBlur: () => { setLifted(false); setPressed(false); },
+				onMouseUp: () => {
+					setPressed(false);
+					setLifted(true);
+				},
+				onBlur: () => {
+					setLifted(false);
+					setPressed(false);
+				},
 			})}
 		>
 			{/* Texture layer */}
