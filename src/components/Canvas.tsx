@@ -54,18 +54,18 @@ const variantClasses: Record<NonNullable<CanvasProps["variant"]>, string> = {
  * Canvas texture overlay CSS style mappings
  */
 const textureStyles: Record<NonNullable<CanvasProps["texture"]>, React.CSSProperties> = {
-	default: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "200px" },
+	default: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "144" },
 	grain: { backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" },
-	handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "200px" },
+	handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "100" },
 };
 
 /**
  * Texture opacity per type (default is subtle, grain/handmade are more visible)
  */
 const textureOpacity: Record<NonNullable<CanvasProps["texture"]>, string> = {
-	default: "opacity-[0.25]",
-	grain: "opacity-[0.50]",
-	handmade: "opacity-[0.75]",
+	default: "opacity-25",
+	grain: "opacity-50",
+	handmade: "opacity-75",
 };
 
 /**
@@ -99,7 +99,7 @@ function renderPattern(pattern: NonNullable<CanvasProps["pattern"]>) {
 		return (
 			<>
 				<div
-					className="absolute inset-0 opacity-[0.65] pointer-events-none"
+					className="absolute inset-0 opacity-65 pointer-events-none"
 					style={{
 						backgroundImage: "linear-gradient(var(--color-campus-dot) 1px, transparent 1px)",
 						backgroundSize: "100% 24px",
