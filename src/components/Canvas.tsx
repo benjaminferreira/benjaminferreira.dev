@@ -14,7 +14,7 @@ interface CanvasProps {
 	variant?: "paper" | "paper-md" | "kraft" | "tracing" | "white";
 
 	/** Surface texture overlay (default has a faint paper grain) */
-	texture?: "default" | "grain" | "handmade";
+	texture?: "default" | "grain" | "handmade" | "lines" | "leather";
 
 	/** Optional line, grid or pattern overlay */
 	pattern?: "none" | "ruled" | "grid" | "dotgrid" | "dotruled";
@@ -54,18 +54,22 @@ const variantClasses: Record<NonNullable<CanvasProps["variant"]>, string> = {
  * Canvas texture overlay CSS style mappings
  */
 const textureStyles: Record<NonNullable<CanvasProps["texture"]>, React.CSSProperties> = {
-	default: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "144" },
+	default: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "158px 144px" },
 	grain: { backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" },
-	handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "100" },
+	handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "100px" },
+	lines: { backgroundImage: "url('/textures/lines.png')", backgroundSize: "4px" },
+	leather: { backgroundImage: "url('/textures/leather.png')", backgroundSize: "300px" },
 };
 
 /**
  * Texture opacity per type (default is subtle, grain/handmade are more visible)
  */
 const textureOpacity: Record<NonNullable<CanvasProps["texture"]>, string> = {
-	default: "opacity-25",
+	default: "opacity-35",
 	grain: "opacity-50",
 	handmade: "opacity-75",
+	lines: "opacity-75",
+	leather: "opacity-100",
 };
 
 /**
