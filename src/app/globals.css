@@ -50,3 +50,10 @@
 	--font-body: var(--font-work-sans);
 	--font-mono: var(--font-fira-code);
 }
+
+@utility scrollbar-hidden {
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}

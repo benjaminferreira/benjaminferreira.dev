@@ -32,6 +32,9 @@ interface CanvasProps {
 	 *      NOTE: Most paper is not rounded, though some sticky notes etc. might be) */
 	rounded?: boolean;
 
+	/** Whether content within the canvas is scrollable or not (default: false) */
+	scrollable?: boolean;
+
 	/** Additional Tailwind classes (escape hatch for one-off styling) */
 	className?: string;
 
@@ -149,6 +152,7 @@ export default function Canvas({
 	interactive = false,
 	padding = "p-6",
 	rounded = false,
+	scrollable = false,
 	className = "",
 	children,
 }: CanvasProps) {
@@ -214,7 +218,9 @@ export default function Canvas({
 			{pattern !== "none" && renderPattern(pattern)}
 
 			{/* Content layer - sits on top of texture/pattern */}
-			<div className="relative z-10">{children}</div>
+			<div className={`relative z-10 ${scrollable ? "h-full overflow-y-auto scrollbar-hidden" : ""}`}>
+				{children}
+			</div>
 		</div>
 	);
 }
