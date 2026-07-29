@@ -2,9 +2,9 @@ import Canvas from "@/components/Canvas";
 
 export default function NotebookLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="h-screen bg-divider flex flex-col">
+		<div className="bg-divider flex flex-col">
 			{/* Notebook Area */}
-			<main className="flex-1 py-8 px-4 sm:px-12 min-h-0">
+			<main className="h-screen py-8 px-4 sm:px-12 min-h-0">
 				{/* Notebook Itself (the content) */}
 				<article className="h-full max-w-4xl mx-auto flex flex-col">
 					{/* Tab Navigation - index tabs fixed to top of notebook */}
@@ -40,11 +40,33 @@ export default function NotebookLayout({ children }: { children: React.ReactNode
 
 			{/* Footer - back cover or leather pad or something */}
 			<footer>
+				{/* Stitch line - recessed channel */}
+				<div
+					className="h-2 bg-paper-md-dark"
+					style={{
+						backgroundImage:
+							"repeating-linear-gradient(90deg, var(--color-kraft) 0px, var(--color-kraft) 10px, transparent 8px, transparent 16px)",
+						backgroundSize: "16px 1px",
+						backgroundRepeat: "repeat-x",
+						backgroundPosition: "center bottom",
+					}}
+				/>
+
+				{/* Pad surface - puffs up above the stitching */}
 				<Canvas
 					variant="paper-md"
 					texture="leather"
+					padding="p-0"
+					className="relative shadow-[0_-4px_6px_-2px_rgba(0,0,0,0.1)]"
 				>
-					<div className="grid grid-cols-3 place-items-center tracking-wider text-sm text-graphite-2b">
+					<div
+						className="absolute top-0 left-0 right-0 h-5 pointer-events-none z-20"
+						style={{
+							background:
+								"linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.04) 50%, transparent 100%)",
+						}}
+					/>
+					<div className="py-5 grid grid-cols-3 place-items-center tracking-wider text-sm text-graphite-2b">
 						<div className="flex-col">
 							<div>Contact me!</div>
 							<div>This</div>

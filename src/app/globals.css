@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-	font-family: var(--font-work-sans);
+	font-family: var(--font-body);
 	color: var(--color-ink);
 }
 
@@ -10,6 +10,7 @@
 	/* Paper & Canvas */
 	--color-paper: #fbf9f4;
 	--color-paper-md: #faf4e8;
+	--color-paper-md-dark: #dcd6cb;
 	--color-divider: #eae6df;
 	--color-ink: #2c2a29;
 	--color-charcoal: #1c1c1c;
