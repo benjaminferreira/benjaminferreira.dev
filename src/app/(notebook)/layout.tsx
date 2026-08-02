@@ -2,7 +2,7 @@ import Canvas from "@/components/Canvas";
 
 export default function NotebookLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="bg-divider flex flex-col">
+		<div className="bg-birch flex flex-col">
 			{/* Notebook Area */}
 			<main className="h-screen py-8 px-4 sm:px-12 min-h-0">
 				{/* Notebook Itself (the content) */}
@@ -13,7 +13,7 @@ export default function NotebookLayout({ children }: { children: React.ReactNode
 					{/* Notebook Body */}
 					<section className="flex flex-1 min-h-0 shadow-md rounded-r-2xl">
 						{/* Binding edge (left) */}
-						<aside className="bg-amber-200 shadow-[2px_0_6px_-1px_rgba(0,0,0,0.06)] z-20">
+						<aside className="bg-amber-200 shadow-[1px_0_6px_-1px_rgba(0,0,0,0.06)] z-20">
 							{/* Stitches/spine visual */}
 							<div
 								className="pointer-events-none w-7 opacity-75 h-full"
@@ -45,7 +45,7 @@ export default function NotebookLayout({ children }: { children: React.ReactNode
 					className="h-2 bg-paper-md-dark"
 					style={{
 						backgroundImage:
-							"repeating-linear-gradient(90deg, var(--color-kraft) 0px, var(--color-kraft) 10px, transparent 8px, transparent 16px)",
+							"repeating-linear-gradient(90deg, var(--color-paper-md) 0px, var(--color-paper-md) 10px, transparent 8px, transparent 16px)",
 						backgroundSize: "16px 1px",
 						backgroundRepeat: "repeat-x",
 						backgroundPosition: "center bottom",

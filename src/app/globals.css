@@ -17,6 +17,12 @@
 	--color-kraft: #d2b48c;
 	--color-tracing: rgba(255, 255, 255, 0.4);
 
+	/* Desks (Backgrounds) */
+	--color-birch: #c4a882;
+	--color-cork: #b8956b;
+	--color-oak: #8b7355;
+	--color-slate: #6b6b6b;
+
 	/* Graphite (Text & Borders) */
 	--color-graphite-2b: #4a4a4a;
 	--color-graphite-hb: #767676;
