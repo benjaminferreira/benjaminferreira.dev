@@ -18,10 +18,12 @@
 	--color-tracing: rgba(255, 255, 255, 0.4);
 
 	/* Desks (Backgrounds) */
-	--color-birch: #c4a882;
-	--color-cork: #b8956b;
-	--color-oak: #8b7355;
-	--color-slate: #6b6b6b;
+	--color-desk-birch: #c4a882;
+	--color-desk-cork: #b8956b;
+	--color-desk-oak: #8b7355;
+	--color-desk-slate: #6b6b6b;
+	--color-desk-grey: #ebedee;
+	--color-desk-white: #f7f7f7;
 
 	/* Graphite (Text & Borders) */
 	--color-graphite-2b: #4a4a4a;

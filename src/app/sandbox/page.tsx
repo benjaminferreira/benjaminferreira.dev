@@ -3,7 +3,7 @@ import Canvas from "@/components/Canvas";
 
 export default function page() {
 	return (
-		<main className="p-8 bg-divider space-y-12">
+		<main className="p-8 bg-desk-grey space-y-12">
 			<h1 className="text-3xl font-heading text-ink">Design Sandbox</h1>
 
 			{/* ===== SECTION: Typography System ===== */}
@@ -432,6 +432,67 @@ export default function page() {
 					>
 						<p className="text-sm text-graphite-2b">Paper-md + grain + dotruled + raised + rounded</p>
 					</Canvas>
+				</div>
+			</section>
+
+			{/* ===== SECTION: Desk Layout Tests ===== */}
+			<section className="space-y-4">
+				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Desk Layout Tests</h2>
+				<p className="text-xs text-graphite-hb">Layering: desk surface → items → optional tracing desk pad</p>
+
+				{/* Mini desk test area */}
+				<div className="bg-desk-oak relative min-h-[500px] rounded-lg overflow-hidden">
+					{/* Note under tracing layer */}
+					<div className="absolute top-8 right-8 z-10">
+						<Canvas
+							pattern="dotruled"
+							className="rotate-2 w-2xs"
+							rounded
+						>
+							<h2 className="font-heading text-charcoal text-xl">Under the pad</h2>
+							<p className="text-sm text-graphite-2b">
+								This note is between the desk and the tracing layer.
+							</p>
+						</Canvas>
+					</div>
+
+					{/* Tracing desk pad layer */}
+					<Canvas
+						variant="tracing"
+						className="relative z-15 mx-auto max-w-2xl min-h-[400px]"
+						padding="p-8"
+					>
+						<p className="text-graphite-2b text-sm">
+							Content inside the tracing desk pad. Items below this z-index show through.
+						</p>
+					</Canvas>
+
+					{/* Note on top of tracing layer */}
+					<div className="absolute top-40 right-8 z-20">
+						<Canvas
+							pattern="dotruled"
+							className="-rotate-1 w-2xs"
+							rounded
+							raised
+							interactive
+						>
+							<h2 className="font-heading text-charcoal text-xl">On top of pad</h2>
+							<p className="text-sm text-graphite-2b">This note sits above the tracing layer.</p>
+						</Canvas>
+					</div>
+
+					{/* Note on desk, no pad, left side */}
+					<div className="absolute bottom-8 left-8 z-20">
+						<Canvas
+							variant="paper-md"
+							texture="grain"
+							pattern="ruled"
+							className="rotate-1 w-2xs"
+							raised
+						>
+							<p className="text-sm text-ink">A ruled note sitting directly on the desk.</p>
+						</Canvas>
+					</div>
 				</div>
 			</section>
 		</main>

@@ -1,9 +1,15 @@
 export default function HomePage() {
 	return (
-		<div className="space-y-8">
+		<div className="space-y-8 max-w-lg mx-auto">
 			<section className="space-y-6">
 				<h1 className="text-4xl font-heading text-ink italic">Hello!</h1>
-				<h2 className="text-3xl font-heading text-ink">My name is Benjamin Ferreira.</h2>
+				<h2 className="text-3xl font-heading text-ink">
+					My name is{" "}
+					<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-0 hover:after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:-rotate-1 after:-z-10 after:transition-all after:duration-1000">
+						Benjamin Ferreira
+					</span>{" "}
+					.
+				</h2>
 				<p className="font-mono">A bit about me...</p>
 			</section>
 			<section className="space-y-4">
