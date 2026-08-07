@@ -13,8 +13,8 @@ export default function page() {
 				texture="handmade"
 				pattern="grid"
 				padding="p-10"
-				rounded
-				raised
+				// rounded
+				// raised
 			>
 				<div className="space-y-6">
 					<div>
@@ -171,7 +171,7 @@ export default function page() {
 				<Canvas
 					pattern="dotgrid"
 					padding="p-6"
-					raised
+					// raised
 				>
 					<div className="flex gap-3 flex-wrap">
 						<button className="px-4 py-2 rounded-md bg-pen-shinkai text-paper text-sm font-medium">
@@ -196,7 +196,7 @@ export default function page() {
 				<Canvas
 					pattern="dotruled"
 					padding="p-6"
-					raised
+					// raised
 				>
 					<div className="space-y-8">
 						<div>
@@ -385,22 +385,22 @@ export default function page() {
 						<span className="text-xs text-graphite-hb">flat (default)</span>
 					</Canvas>
 					<Canvas
-						raised
+						// raised
 						padding="p-4"
 						className="h-40"
 					>
 						<span className="text-xs text-graphite-hb">raised</span>
 					</Canvas>
 					<Canvas
-						interactive
+						// interactive
 						padding="p-4"
 						className="h-40"
 					>
 						<span className="text-xs text-graphite-hb">flat + interactive</span>
 					</Canvas>
 					<Canvas
-						raised
-						interactive
+						// raised
+						// interactive
 						padding="p-4"
 						className="h-40"
 					>
@@ -414,8 +414,8 @@ export default function page() {
 					<Canvas
 						texture="handmade"
 						pattern="ruled"
-						raised
-						interactive
+						// raised
+						// interactive
 						padding="p-6"
 						className="h-40"
 					>
@@ -425,8 +425,8 @@ export default function page() {
 						variant="paper-md"
 						texture="grain"
 						pattern="dotruled"
-						raised
-						rounded
+						// raised
+						// rounded
 						padding="p-6"
 						className="h-40"
 					>
@@ -441,13 +441,13 @@ export default function page() {
 				<p className="text-xs text-graphite-hb">Layering: desk surface → items → optional tracing desk pad</p>
 
 				{/* Mini desk test area */}
-				<div className="bg-desk-oak relative min-h-[500px] rounded-lg overflow-hidden">
+				<div className="bg-desk-oak relative min-h-125 rounded-lg overflow-hidden">
 					{/* Note under tracing layer */}
 					<div className="absolute top-8 right-8 z-10">
 						<Canvas
 							pattern="dotruled"
 							className="rotate-2 w-2xs"
-							rounded
+							// rounded
 						>
 							<h2 className="font-heading text-charcoal text-xl">Under the pad</h2>
 							<p className="text-sm text-graphite-2b">
@@ -459,7 +459,7 @@ export default function page() {
 					{/* Tracing desk pad layer */}
 					<Canvas
 						variant="tracing"
-						className="relative z-15 mx-auto max-w-2xl min-h-[400px]"
+						className="relative z-15 mx-auto max-w-2xl min-h-100"
 						padding="p-8"
 					>
 						<p className="text-graphite-2b text-sm">
@@ -472,9 +472,9 @@ export default function page() {
 						<Canvas
 							pattern="dotruled"
 							className="-rotate-1 w-2xs"
-							rounded
-							raised
-							interactive
+							// rounded
+							// raised
+							// interactive
 						>
 							<h2 className="font-heading text-charcoal text-xl">On top of pad</h2>
 							<p className="text-sm text-graphite-2b">This note sits above the tracing layer.</p>
@@ -488,7 +488,7 @@ export default function page() {
 							texture="grain"
 							pattern="ruled"
 							className="rotate-1 w-2xs"
-							raised
+							// raised
 						>
 							<p className="text-sm text-ink">A ruled note sitting directly on the desk.</p>
 						</Canvas>
