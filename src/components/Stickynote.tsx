@@ -1,5 +1,5 @@
 /**
- * Sheet - a flat piece of paper.
+ * Stickynote - a small, usually square piece of colored paper that is sticky on one side.
  * Uses Canvas internally for the surface material.
  * Handles behavior: elevation, interactivity, scrollability.
  */
@@ -9,48 +9,42 @@ import { useState } from "react";
 import Canvas, { CanvasMaterialProps } from "./Canvas";
 
 /**
- * Props interface for Sheet component.
+ * Props interface for Stickynote component.
  * Extends CanvasMaterialProps to pass material options through to Canvas.
  */
-interface SheetProps extends CanvasMaterialProps {
-	/** Whether the sheet is raised off the surface with a shadow */
-	raised?: boolean;
+interface StickynoteProps extends CanvasMaterialProps {
+	// /** Whether the stickynote is raised off the surface with a shadow */
+	// raised?: boolean;
 
 	/** Enables hover lift + active press physics */
 	interactive?: boolean;
 
-	/** Whether content within the sheet is scrollable or not (default: false) */
-	scrollable?: boolean;
-
 	/** Additional Tailwind classes (escape hatch for one-off styling) */
 	className?: string;
 
-	/** Content inside the Sheet */
+	/** Content inside the Stickynote */
 	children: React.ReactNode;
 }
 
 /**
- * A flat sheet of paper.
+ * A stickynote with a flat (stuck) top side where the rest is slightly lifted
  * Renders a Canvas internally for the surface material, and handles
  * object-level behavior: elevation, interactivity, and scrollability.
  *
  * @example
- * <Sheet variant="paper-md" pattern="ruled" raised interactive>
- *   <p>Content on an interactive sheet of paper</p>
- * </Sheet>
+
  */
-export default function Sheet({
-	raised = false,
+export default function Stickynote({
+	// raised = false,
 	interactive = false,
-	scrollable = false,
 	className = "",
 	children,
 	...canvasProps
-}: SheetProps) {
+}: StickynoteProps) {
 	const [lifted, setLifted] = useState(false);
 	const [pressed, setPressed] = useState(false);
 
-	const elevationClass = raised ? "shadow-md" : "";
+	const elevationClass = "shadow-md";
 
 	// Interactive states:
 	// - hover: gentle shadow appears (CSS class)
@@ -103,7 +97,7 @@ export default function Sheet({
 				className="h-full"
 				{...canvasProps}
 			>
-				{scrollable ? <div className="h-full overflow-y-auto scrollbar-hidden">{children}</div> : children}
+				{children}
 			</Canvas>
 		</div>
 	);

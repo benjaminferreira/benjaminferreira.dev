@@ -16,6 +16,9 @@ export interface CanvasMaterialProps {
 
 	/** Optional line, grid or pattern overlay */
 	pattern?: "none" | "ruled" | "grid" | "dotgrid" | "dotruled";
+
+	/** Background color override */
+	bgColor?: string;
 }
 
 /**
@@ -141,12 +144,15 @@ export default function Canvas({
 	variant = "paper",
 	texture = "default",
 	pattern = "none",
+	bgColor = "",
 	padding = "p-6",
 	className = "",
 	children,
 }: CanvasProps) {
 	return (
-		<div className={`relative overflow-hidden ${variantClasses[variant]} ${padding} ${className}`}>
+		<div
+			className={`relative overflow-hidden ${bgColor !== "" ? bgColor : variantClasses[variant]} ${padding} ${className}`}
+		>
 			{/* Texture layer */}
 			<div
 				className={`absolute inset-0 ${textureOpacity[texture]} pointer-events-none`}

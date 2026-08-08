@@ -158,6 +158,9 @@ export default function page() {
 						<div className="w-24 h-24 bg-mild-yellow rounded flex items-end p-2">
 							<span className="text-xs text-ink">Mild Yellow</span>
 						</div>
+						<div className="w-24 h-24 bg-mild-green rounded flex items-end p-2">
+							<span className="text-xs text-ink">Mild Green</span>
+						</div>
 						<div className="w-24 h-24 bg-mild-grey rounded flex items-end p-2">
 							<span className="text-xs text-ink">Mild Grey</span>
 						</div>

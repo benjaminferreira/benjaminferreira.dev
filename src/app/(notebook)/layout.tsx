@@ -1,5 +1,6 @@
 import Canvas from "@/components/Canvas";
 import Sheet from "@/components/Sheet";
+import Stickynote from "@/components/Stickynote";
 
 export default function NotebookLayout({ children }: { children: React.ReactNode }) {
 	return (
@@ -9,7 +10,7 @@ export default function NotebookLayout({ children }: { children: React.ReactNode
 					pattern="dotruled"
 					className="rotate-2 w-2xs"
 				>
-					<h2 className="font-heading text-charcoal text-3xl">Test note 1 😏</h2>
+					<h2 className="font-heading text-charcoal text-3xl">Test sheet 1 😏</h2>
 					<p>I'm underneath the transparent desk pad!</p>
 				</Sheet>
 			</div>
@@ -18,13 +19,23 @@ export default function NotebookLayout({ children }: { children: React.ReactNode
 			<div className="absolute top-65 right-20 z-20">
 				<Sheet
 					pattern="dotruled"
-					className="-rotate-1 w-2xs"
 					raised
 					interactive
+					className="-rotate-1 w-2xs"
 				>
-					<h2 className="font-heading text-charcoal text-3xl">Test note 2 😳</h2>
+					<h2 className="font-heading text-charcoal text-3xl">Test sheet 2 😳</h2>
 					<p>I'm on top of the transparent desk pad!</p>
 				</Sheet>
+			</div>
+			<div className="absolute top-45 left-20 z-20">
+				<Stickynote
+					bgColor="bg-mild-yellow"
+					interactive
+					className="-rotate-3 w-2xs aspect-square"
+				>
+					<h2 className="font-heading text-charcoal text-3xl">Test stickynote 1 ✏️</h2>
+					<p>I'm a stickynote, so I'm here for some important or temporary info!</p>
+				</Stickynote>
 			</div>
 		</div>
 	);
