@@ -1,18 +1,18 @@
 /**
- * Stickynote - a small, usually square piece of colored paper that is sticky on one side.
- * Uses Canvas internally for the surface material.
+ * StickyNote - a small, usually square piece of colored paper that is sticky on one side.
+ * Uses Surface internally for the surface material.
  * Handles behavior: elevation, interactivity, scrollability.
  */
 "use client";
 
 import { useState } from "react";
-import Canvas, { CanvasMaterialProps } from "./Canvas";
+import Surface, { SurfaceMaterialProps } from "./Surface";
 
 /**
- * Props interface for Stickynote component.
- * Extends CanvasMaterialProps to pass material options through to Canvas.
+ * Props interface for StickyNote component.
+ * Extends SurfaceMaterialProps to pass material options through to Surface.
  */
-interface StickynoteProps extends CanvasMaterialProps {
+interface StickyNoteProps extends SurfaceMaterialProps {
 	// /** Whether the stickynote is raised off the surface with a shadow */
 	// raised?: boolean;
 
@@ -22,25 +22,25 @@ interface StickynoteProps extends CanvasMaterialProps {
 	/** Additional Tailwind classes (escape hatch for one-off styling) */
 	className?: string;
 
-	/** Content inside the Stickynote */
+	/** Content inside the StickyNote */
 	children: React.ReactNode;
 }
 
 /**
  * A stickynote with a flat (stuck) top side where the rest is slightly lifted
- * Renders a Canvas internally for the surface material, and handles
+ * Renders a Surface internally for the surface material, and handles
  * object-level behavior: elevation, interactivity, and scrollability.
  *
  * @example
 
  */
-export default function Stickynote({
+export default function StickyNote({
 	// raised = false,
 	interactive = false,
 	className = "",
 	children,
-	...canvasProps
-}: StickynoteProps) {
+	...surfaceProps
+}: StickyNoteProps) {
 	const [lifted, setLifted] = useState(false);
 	const [pressed, setPressed] = useState(false);
 
@@ -93,12 +93,12 @@ export default function Stickynote({
 				},
 			})}
 		>
-			<Canvas
+			<Surface
 				className="h-full"
-				{...canvasProps}
+				{...surfaceProps}
 			>
 				{children}
-			</Canvas>
+			</Surface>
 		</div>
 	);
 }

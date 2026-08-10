@@ -1,5 +1,5 @@
 /**
- * Canvas Component - Design System Foundation
+ * Surface Component - Design System Foundation
  *
  * This file is a learning template showing the standard structure
  * and best practices for building a React component with TypeScript.
@@ -20,8 +20,8 @@ import React from "react";
 // Use union types (|) for props that accept specific values.
 // Use '?' for optional props.
 
-interface CanvasProps {
-    /** The base background color of the canvas */
+interface SurfaceProps {
+    /** The base background color of the surface */
     variant?: "paper" | "kraft" | "divider" | "charcoal" | "white";
 
     /** Optional texture overlay on top of the base color */
@@ -36,7 +36,7 @@ interface CanvasProps {
     /** Additional Tailwind classes (escape hatch for one-off styling) */
     className?: string;
 
-    /** Content inside the canvas */
+    /** Content inside the surface */
     children: React.ReactNode;
 }
 
@@ -73,14 +73,14 @@ interface CanvasProps {
 //   a) Compute any derived values from props
 //   b) Return JSX
 
-export default function Canvas({
+export default function Surface({
     variant = "paper",
     texture = "none",
     padding = "p-6",
     rounded = true,
     className = "",
     children,
-}: CanvasProps) {
+}: SurfaceProps) {
     // --------------------------------------------------------
     // 4a. DERIVED VALUES / LOGIC
     // --------------------------------------------------------

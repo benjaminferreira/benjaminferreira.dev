@@ -4,11 +4,11 @@
  */
 
 /**
- * Material props shared by Canvas and all object components that use it.
+ * Material props shared by Surface and all object components that use it.
  * Export this so object components (Sheet, StickyNote, etc.) can extend it.
  */
-export interface CanvasMaterialProps {
-	/** The base material/background of the canvas */
+export interface SurfaceMaterialProps {
+	/** The base material/background of the surface */
 	variant?: "paper" | "paper-md" | "kraft" | "tracing" | "white";
 
 	/** Surface texture overlay (default has a faint paper grain) */
@@ -22,25 +22,25 @@ export interface CanvasMaterialProps {
 }
 
 /**
- * Props interface for Canvas component.
- * Canvas is a material/surface only. It handles what things LOOK like.
+ * Props interface for Surface component.
+ * Surface is a material/surface only. It handles what things LOOK like.
  * Object components (Sheet, StickyNote, etc.) handle behavior (raised, interactive, etc.)
  */
-interface CanvasProps extends CanvasMaterialProps {
+interface SurfaceProps extends SurfaceMaterialProps {
 	/** Tailwind padding class (default: "p-6") */
 	padding?: string;
 
 	/** Additional Tailwind classes (escape hatch for one-off styling) */
 	className?: string;
 
-	/** Content inside the Canvas */
+	/** Content inside the Surface */
 	children: React.ReactNode;
 }
 
 /**
- * Canvas material-type variant classes
+ * Surface material-type variant classes
  */
-const variantClasses: Record<NonNullable<CanvasProps["variant"]>, string> = {
+const variantClasses: Record<NonNullable<SurfaceProps["variant"]>, string> = {
 	paper: "bg-paper",
 	"paper-md": "bg-paper-md",
 	kraft: "bg-kraft",
@@ -49,9 +49,9 @@ const variantClasses: Record<NonNullable<CanvasProps["variant"]>, string> = {
 };
 
 /**
- * Canvas texture overlay CSS style mappings
+ * Surface texture overlay CSS style mappings
  */
-const textureStyles: Record<NonNullable<CanvasProps["texture"]>, React.CSSProperties> = {
+const textureStyles: Record<NonNullable<SurfaceProps["texture"]>, React.CSSProperties> = {
 	default: { backgroundImage: "url('/textures/cream-paper.png')", backgroundSize: "158px 144px" },
 	grain: { backgroundImage: "url('/textures/beige-paper.png')", backgroundSize: "200px" },
 	handmade: { backgroundImage: "url('/textures/handmade-paper.png')", backgroundSize: "100px" },
@@ -62,7 +62,7 @@ const textureStyles: Record<NonNullable<CanvasProps["texture"]>, React.CSSProper
 /**
  * Texture opacity per type (default is subtle, grain/handmade are more visible)
  */
-const textureOpacity: Record<NonNullable<CanvasProps["texture"]>, string> = {
+const textureOpacity: Record<NonNullable<SurfaceProps["texture"]>, string> = {
 	default: "opacity-35",
 	grain: "opacity-50",
 	handmade: "opacity-75",
@@ -71,7 +71,7 @@ const textureOpacity: Record<NonNullable<CanvasProps["texture"]>, string> = {
 };
 
 /**
- * Canvas line/dot/grid pattern overlay CSS style mappings
+ * Surface line/dot/grid pattern overlay CSS style mappings
  */
 const patternStyles: Record<string, React.CSSProperties> = {
 	dotgrid: {
@@ -95,7 +95,7 @@ const patternStyles: Record<string, React.CSSProperties> = {
  * @param pattern Pattern prop to return associated JSX
  * @returns JSX to render the pattern layer
  */
-function renderPattern(pattern: NonNullable<CanvasProps["pattern"]>) {
+function renderPattern(pattern: NonNullable<SurfaceProps["pattern"]>) {
 	// Dotruled pattern needs its own special render since it uses two layers.
 	if (pattern === "dotruled") {
 		return (
@@ -132,15 +132,15 @@ function renderPattern(pattern: NonNullable<CanvasProps["pattern"]>) {
 /**
  * A themed surface component inspired by physical paper media.
  * Renders a background with optional texture and pattern overlays.
- * This is a material/surface only, handling what thinks look like.
+ * This is a material/surface only, handling what things look like.
  * For behavior (raised, interactive, etc.), use object components (Sheet, StickyNote, etc.)
  *
  * @example
- * <Canvas variant="paper-md" texture="grain" pattern="dotgrid">
+ * <Surface variant="paper-md" texture="grain" pattern="dotgrid">
  *   <p>Content on textured paper</p>
- * </Canvas>
+ * </Surface>
  */
-export default function Canvas({
+export default function Surface({
 	variant = "paper",
 	texture = "default",
 	pattern = "none",
@@ -148,7 +148,7 @@ export default function Canvas({
 	padding = "p-6",
 	className = "",
 	children,
-}: CanvasProps) {
+}: SurfaceProps) {
 	return (
 		<div
 			className={`relative overflow-hidden ${bgColor !== "" ? bgColor : variantClasses[variant]} ${padding} ${className}`}

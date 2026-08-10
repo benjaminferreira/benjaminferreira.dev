@@ -1,18 +1,18 @@
 /**
  * Sheet - a flat piece of paper.
- * Uses Canvas internally for the surface material.
+ * Uses Surface internally for the surface material.
  * Handles behavior: elevation, interactivity, scrollability.
  */
 "use client";
 
 import { useState } from "react";
-import Canvas, { CanvasMaterialProps } from "./Canvas";
+import Surface, { SurfaceMaterialProps } from "./Surface";
 
 /**
  * Props interface for Sheet component.
- * Extends CanvasMaterialProps to pass material options through to Canvas.
+ * Extends SurfaceMaterialProps to pass material options through to Surface.
  */
-interface SheetProps extends CanvasMaterialProps {
+interface SheetProps extends SurfaceMaterialProps {
 	/** Whether the sheet is raised off the surface with a shadow */
 	raised?: boolean;
 
@@ -31,7 +31,7 @@ interface SheetProps extends CanvasMaterialProps {
 
 /**
  * A flat sheet of paper.
- * Renders a Canvas internally for the surface material, and handles
+ * Renders a Surface internally for the surface material, and handles
  * object-level behavior: elevation, interactivity, and scrollability.
  *
  * @example
@@ -45,7 +45,7 @@ export default function Sheet({
 	scrollable = false,
 	className = "",
 	children,
-	...canvasProps
+	...surfaceProps
 }: SheetProps) {
 	const [lifted, setLifted] = useState(false);
 	const [pressed, setPressed] = useState(false);
@@ -99,12 +99,12 @@ export default function Sheet({
 				},
 			})}
 		>
-			<Canvas
+			<Surface
 				className="h-full"
-				{...canvasProps}
+				{...surfaceProps}
 			>
 				{scrollable ? <div className="h-full overflow-y-auto scrollbar-hidden">{children}</div> : children}
-			</Canvas>
+			</Surface>
 		</div>
 	);
 }

@@ -7,7 +7,7 @@
 
 /* COLORS */
 @theme {
-	/* Paper & Canvas */
+	/* Paper & Surface */
 	--color-paper: #fbf9f4;
 	--color-paper-md: #faf4e8;
 	--color-paper-md-dark: #dcd6cb;
@@ -62,7 +62,8 @@
 
 /* FONTS */
 @theme {
-	--font-heading: var(--font-instrument-serif);
+	--font-heading: var(--font-heading);
+	--font-serif: var(--font-instrument-serif);
 	--font-body: var(--font-work-sans);
 	--font-mono: var(--font-fira-code);
 }

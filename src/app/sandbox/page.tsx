@@ -1,5 +1,5 @@
 import React from "react";
-import Canvas from "@/components/Canvas";
+import Surface from "@/components/Surface";
 
 export default function page() {
 	return (
@@ -7,8 +7,8 @@ export default function page() {
 			<h1 className="text-3xl font-heading text-ink">Design Sandbox</h1>
 
 			{/* ===== SECTION: Typography System ===== */}
-			<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Canvas Component Test</h2>
-			<Canvas
+			<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Surface Component Test</h2>
+			<Surface
 				variant="paper"
 				texture="handmade"
 				pattern="grid"
@@ -35,13 +35,13 @@ export default function page() {
 						</p>
 					</div>
 				</div>
-			</Canvas>
+			</Surface>
 
 			<section className="bg-white p-8 space-y-8 rounded">
 				{/* ===== SECTION: Color Palette - Main ===== */}
 				<section className="space-y-2">
 					<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">
-						Color Palette - Paper & Canvas{" "}
+						Color Palette - Paper & Surface{" "}
 						<span className="normal-case font-mono text-[10px] text-graphite-hb/60">
 							--color-{"{name}"}
 						</span>
@@ -171,7 +171,7 @@ export default function page() {
 			{/* ===== SECTION: Buttons ===== */}
 			<section className="space-y-2">
 				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Button Variants</h2>
-				<Canvas
+				<Surface
 					pattern="dotgrid"
 					padding="p-6"
 					// raised
@@ -190,13 +190,13 @@ export default function page() {
 							Cancel
 						</button>
 					</div>
-				</Canvas>
+				</Surface>
 			</section>
 
 			{/* ===== SECTION: Highlighted Headings/Text ===== */}
 			<section className="space-y-2">
 				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Highlighted Headings/Text</h2>
-				<Canvas
+				<Surface
 					pattern="dotruled"
 					padding="p-6"
 					// raised
@@ -262,103 +262,103 @@ export default function page() {
 							</p>
 						</div>
 					</div>
-				</Canvas>
+				</Surface>
 			</section>
 
-			{/* ===== SECTION: Canvas Variants ===== */}
+			{/* ===== SECTION: Surface Variants ===== */}
 			<section className="space-y-4">
-				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Canvas Variants</h2>
+				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Surface Variants</h2>
 
 				{/* Textures */}
 				<p className="text-xs text-graphite-hb">Textures (default / grain / handmade)</p>
 				<div className="grid grid-cols-3 gap-4">
-					<Canvas padding="p-4">
+					<Surface padding="p-4">
 						<span className="text-xs text-graphite-hb">default</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						texture="grain"
 						padding="p-4"
 					>
 						<span className="text-xs text-graphite-hb">grain</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						texture="handmade"
 						padding="p-4"
 					>
 						<span className="text-xs text-graphite-hb">handmade</span>
-					</Canvas>
+					</Surface>
 				</div>
 
 				{/* Patterns */}
 				<p className="text-xs text-graphite-hb">Patterns (dotgrid / ruled / grid / dotruled)</p>
 				<div className="grid grid-cols-4 gap-4">
-					<Canvas
+					<Surface
 						pattern="dotgrid"
 						padding="p-4"
 						className="h-32"
 					>
 						<span className="text-xs text-graphite-hb">dotgrid</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						pattern="ruled"
 						padding="p-4"
 						className="h-32"
 					>
 						<span className="text-xs text-graphite-hb">ruled</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						pattern="grid"
 						padding="p-4"
 						className="h-32"
 					>
 						<span className="text-xs text-graphite-hb">grid</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						pattern="dotruled"
 						padding="p-4"
 						className="h-32"
 					>
 						<span className="text-xs text-graphite-hb">dotruled</span>
-					</Canvas>
+					</Surface>
 				</div>
 
 				{/* Variants */}
 				<p className="text-xs text-graphite-hb">Materials (paper / paper-md / kraft / tracing / white)</p>
 				<div className="grid grid-cols-5 gap-4">
-					<Canvas
+					<Surface
 						padding="p-4"
 						className="h-24"
 					>
 						<span className="text-xs text-graphite-hb">paper</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						variant="paper-md"
 						padding="p-4"
 						className="h-24"
 					>
 						<span className="text-xs text-graphite-hb">paper-md</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						variant="kraft"
 						padding="p-4"
 						className="h-24"
 					>
 						<span className="text-xs text-graphite-2b">kraft</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						variant="tracing"
 						padding="p-4"
 						className="h-24"
 					>
 						<span className="text-xs text-graphite-hb">tracing</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						variant="white"
 						padding="p-4"
 						className="h-24"
 					>
 						<span className="text-xs text-graphite-hb">white</span>
-					</Canvas>
+					</Surface>
 				</div>
 
 				{/* Tracing overlay test */}
@@ -369,52 +369,52 @@ export default function page() {
 						You should see this dimmed through the translucent overlay.
 					</p>
 					<div className="absolute top-4">
-						<Canvas
+						<Surface
 							variant="tracing"
 							padding="p-10"
 						>
 							<p className="text-ink font-bold">This is on tracing paper, layered on top.</p>
-						</Canvas>
+						</Surface>
 					</div>
 				</div>
 
 				{/* Elevation + Interactive */}
 				<p className="text-xs text-graphite-hb">Elevation and interaction (hover and click these)</p>
 				<div className="grid grid-cols-4 gap-4">
-					<Canvas
+					<Surface
 						padding="p-4"
 						className="h-40"
 					>
 						<span className="text-xs text-graphite-hb">flat (default)</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						// raised
 						padding="p-4"
 						className="h-40"
 					>
 						<span className="text-xs text-graphite-hb">raised</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						// interactive
 						padding="p-4"
 						className="h-40"
 					>
 						<span className="text-xs text-graphite-hb">flat + interactive</span>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						// raised
 						// interactive
 						padding="p-4"
 						className="h-40"
 					>
 						<span className="text-xs text-graphite-hb">raised + interactive</span>
-					</Canvas>
+					</Surface>
 				</div>
 
 				{/* Combos */}
 				<p className="text-xs text-graphite-hb">Combinations</p>
 				<div className="grid grid-cols-2 gap-4">
-					<Canvas
+					<Surface
 						texture="handmade"
 						pattern="ruled"
 						// raised
@@ -423,8 +423,8 @@ export default function page() {
 						className="h-40"
 					>
 						<p className="text-sm text-ink">Handmade texture + ruled + raised + interactive</p>
-					</Canvas>
-					<Canvas
+					</Surface>
+					<Surface
 						variant="paper-md"
 						texture="grain"
 						pattern="dotruled"
@@ -434,7 +434,7 @@ export default function page() {
 						className="h-40"
 					>
 						<p className="text-sm text-graphite-2b">Paper-md + grain + dotruled + raised + rounded</p>
-					</Canvas>
+					</Surface>
 				</div>
 			</section>
 
@@ -447,7 +447,7 @@ export default function page() {
 				<div className="bg-desk-oak relative min-h-125 rounded-lg overflow-hidden">
 					{/* Note under tracing layer */}
 					<div className="absolute top-8 right-8 z-10">
-						<Canvas
+						<Surface
 							pattern="dotruled"
 							className="rotate-2 w-2xs"
 							// rounded
@@ -456,11 +456,11 @@ export default function page() {
 							<p className="text-sm text-graphite-2b">
 								This note is between the desk and the tracing layer.
 							</p>
-						</Canvas>
+						</Surface>
 					</div>
 
 					{/* Tracing desk pad layer */}
-					<Canvas
+					<Surface
 						variant="tracing"
 						className="relative z-15 mx-auto max-w-2xl min-h-100"
 						padding="p-8"
@@ -468,11 +468,11 @@ export default function page() {
 						<p className="text-graphite-2b text-sm">
 							Content inside the tracing desk pad. Items below this z-index show through.
 						</p>
-					</Canvas>
+					</Surface>
 
 					{/* Note on top of tracing layer */}
 					<div className="absolute top-40 right-8 z-20">
-						<Canvas
+						<Surface
 							pattern="dotruled"
 							className="-rotate-1 w-2xs"
 							// rounded
@@ -481,12 +481,12 @@ export default function page() {
 						>
 							<h2 className="font-heading text-charcoal text-xl">On top of pad</h2>
 							<p className="text-sm text-graphite-2b">This note sits above the tracing layer.</p>
-						</Canvas>
+						</Surface>
 					</div>
 
 					{/* Note on desk, no pad, left side */}
 					<div className="absolute bottom-8 left-8 z-20">
-						<Canvas
+						<Surface
 							variant="paper-md"
 							texture="grain"
 							pattern="ruled"
@@ -494,7 +494,7 @@ export default function page() {
 							// raised
 						>
 							<p className="text-sm text-ink">A ruled note sitting directly on the desk.</p>
-						</Canvas>
+						</Surface>
 					</div>
 				</div>
 			</section>
