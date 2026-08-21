@@ -19,6 +19,9 @@ export interface SurfaceMaterialProps {
 
 	/** Background color override */
 	bgColor?: string;
+
+	/** Tailwind padding class (default: "p-6") */
+	padding?: string;
 }
 
 /**
@@ -27,9 +30,6 @@ export interface SurfaceMaterialProps {
  * Object components (Sheet, StickyNote, etc.) handle behavior (raised, interactive, etc.)
  */
 interface SurfaceProps extends SurfaceMaterialProps {
-	/** Tailwind padding class (default: "p-6") */
-	padding?: string;
-
 	/** Additional Tailwind classes (escape hatch for one-off styling) */
 	className?: string;
 
