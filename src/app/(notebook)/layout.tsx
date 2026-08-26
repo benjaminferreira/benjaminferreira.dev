@@ -23,6 +23,7 @@ export default function NotebookLayout({ children }: { children: React.ReactNode
 					pattern="grid"
 					texture="grain"
 					padding="p-20"
+					raised
 					className="max-w-2xl mx-auto"
 				>
 					{children}

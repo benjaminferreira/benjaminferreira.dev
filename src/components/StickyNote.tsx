@@ -96,8 +96,8 @@ const noteVariantsReduced: Variants = {
  */
 const shadowVariants: Variants = {
 	stuck: {
-		opacity: 0,
-		scaleY: 0,
+		opacity: 0.15,
+		scaleY: 1,
 		y: 0,
 		transition: { duration: 0.3, ease: "easeOut" },
 	},
@@ -165,7 +165,7 @@ export default function StickyNote({
 				aria-hidden="true"
 				variants={shadowVariants}
 				style={{ originY: 1 }}
-				className="pointer-events-none absolute inset-x-1 top-1/3 rounded-t-2xl bottom-0 z-0 bg-black blur-md"
+				className="pointer-events-none absolute inset-x-1 top-1/3 rounded-t-2xl bottom-2 z-0 bg-black blur-md"
 			/>
 
 			{/* The paper itself */}
