@@ -2,7 +2,7 @@ import Surface from "@/components/Surface";
 import Sheet from "@/components/Sheet";
 import StickyNote from "@/components/StickyNote";
 
-export default function NotebookLayout({ children }: { children: React.ReactNode }) {
+export default function DeskLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="bg-desk-cork relative min-h-screen">
 			<Sheet

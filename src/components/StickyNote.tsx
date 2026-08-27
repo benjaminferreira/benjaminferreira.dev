@@ -63,21 +63,22 @@ const noteVariants: Variants = {
 		rotateX: 0,
 		y: 0,
 		scale: 1,
-		rotate: 0,
 		boxShadow: contactShadow.stuck,
 	},
 	nudge: {
 		rotateX: 5,
+		y: 0,
+		scale: 1,
 		boxShadow: contactShadow.nudge,
 		transition: { duration: 0.25, ease: "easeOut" },
 	},
 	lifted: {
 		// bottom curls first, then the whole note unsticks and floats up
-		rotateX: [0, 18, 2],
-		y: [0, 0, -12],
-		scale: [1, 1, 1.04],
+		rotateX: [null, 15, 0],
+		y: [0, 0, -16],
+		scale: [1, 1, 1.06],
 		boxShadow: contactShadow.lifted,
-		transition: { duration: 0.333, times: [0, 0.45, 1], ease: "easeOut" },
+		transition: { duration: 0.4, times: [0, 0.45, 1], ease: "easeOut" },
 	},
 };
 
@@ -96,8 +97,8 @@ const noteVariantsReduced: Variants = {
  */
 const shadowVariants: Variants = {
 	stuck: {
-		opacity: 0.15,
-		scaleY: 1,
+		opacity: 0.1,
+		scaleY: 0.5,
 		y: 0,
 		transition: { duration: 0.3, ease: "easeOut" },
 	},
@@ -108,8 +109,8 @@ const shadowVariants: Variants = {
 		transition: { duration: 0.25, ease: "easeOut" },
 	},
 	lifted: {
-		opacity: 0.34,
-		scaleY: 1.5,
+		opacity: 0.28,
+		scaleY: 1.55,
 		y: 0,
 		transition: { duration: 0.333, ease: "easeOut" },
 	},
@@ -165,7 +166,7 @@ export default function StickyNote({
 				aria-hidden="true"
 				variants={shadowVariants}
 				style={{ originY: 1 }}
-				className="pointer-events-none absolute inset-x-1 top-1/3 rounded-t-2xl bottom-2 z-0 bg-black blur-md"
+				className="pointer-events-none absolute inset-x-1 top-1/3 bottom-2 z-0 bg-black blur-md"
 			/>
 
 			{/* The paper itself */}
