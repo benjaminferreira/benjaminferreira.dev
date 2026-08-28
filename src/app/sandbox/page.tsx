@@ -1,5 +1,7 @@
 import React from "react";
 import Surface from "@/components/Surface";
+import Sheet from "@/components/Sheet";
+import StickyNote from "@/components/StickyNote";
 
 export default function page() {
 	return (
@@ -7,7 +9,7 @@ export default function page() {
 			<h1 className="text-3xl font-heading text-ink">Design Sandbox</h1>
 
 			{/* ===== SECTION: Typography System ===== */}
-			<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Surface Component Test</h2>
+			<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Typography System</h2>
 			<Surface
 				variant="paper"
 				texture="handmade"
@@ -18,18 +20,18 @@ export default function page() {
 			>
 				<div className="space-y-6">
 					<div>
-						<p className="text-xs text-graphite-hb mb-1">Heading - Instrument Serif</p>
+						<p className="text-xs text-graphite-hb mb-1">Heading - local display font (font-heading)</p>
 						<p className="text-4xl font-heading text-ink">Benjamin Ferreira - Portfolio / Design System</p>
 					</div>
 					<div>
-						<p className="text-xs text-graphite-hb mb-1">Body - Work Sans</p>
+						<p className="text-xs text-graphite-hb mb-1">Body - Work Sans (font-body)</p>
 						<p className="text-base font-body text-ink">
 							Working on building my own design system, creating UI components themed after Japanese
 							stationery. Should be fun :)
 						</p>
 					</div>
 					<div>
-						<p className="text-xs text-graphite-hb mb-1">Mono - Fira Code</p>
+						<p className="text-xs text-graphite-hb mb-1">Mono - Fira Code (font-mono)</p>
 						<p className="text-sm font-mono text-ink">
 							const theme = &quot;stationery&quot;; // 0O1lI =&gt; !=={" "}
 						</p>
@@ -495,6 +497,271 @@ export default function page() {
 						>
 							<p className="text-sm text-ink">A ruled note sitting directly on the desk.</p>
 						</Surface>
+					</div>
+				</div>
+			</section>
+
+			{/* ===== SECTION: Sheet Component ===== */}
+			<section className="space-y-4">
+				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Sheet Component</h2>
+				<p className="text-xs text-graphite-hb">
+					Behavior wrapper around Surface. Material props pass straight through, Sheet adds raised,
+					interactive and scrollable.
+				</p>
+
+				<p className="text-xs text-graphite-hb">Elevation and interaction (hover and click these)</p>
+				<div className="grid grid-cols-4 gap-4">
+					<Sheet
+						padding="p-4"
+						className="h-40"
+					>
+						<span className="text-xs text-graphite-hb">flat (default)</span>
+					</Sheet>
+					<Sheet
+						raised
+						padding="p-4"
+						className="h-40"
+					>
+						<span className="text-xs text-graphite-hb">raised</span>
+					</Sheet>
+					<Sheet
+						interactive
+						padding="p-4"
+						className="h-40"
+					>
+						<span className="text-xs text-graphite-hb">interactive</span>
+					</Sheet>
+					<Sheet
+						raised
+						interactive
+						padding="p-4"
+						className="h-40"
+					>
+						<span className="text-xs text-graphite-hb">raised + interactive</span>
+					</Sheet>
+				</div>
+
+				<p className="text-xs text-graphite-hb">
+					scrollable (left scrolls, right clips, both are the same fixed height and content)
+				</p>
+				<div className="grid grid-cols-2 gap-4">
+					<Sheet
+						raised
+						scrollable
+						pattern="ruled"
+						padding="p-6"
+						className="h-48"
+					>
+						<p className="text-sm text-ink">
+							I&apos;m a sheet with more to say than I have room for, so I scroll 📜
+						</p>
+						<p className="text-sm text-ink mt-3">
+							Keep going. There is more of me down here, and you can reach it.
+						</p>
+						<p className="text-sm text-ink mt-3">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+							labore et dolore magna aliqua.
+						</p>
+						<p className="text-sm text-ink mt-3">Made it to the bottom 🎉</p>
+					</Sheet>
+					<Sheet
+						raised
+						pattern="ruled"
+						padding="p-6"
+						className="h-48"
+					>
+						<p className="text-sm text-ink">
+							I&apos;m the same sheet, but I clip instead, so whatever runs past my edge is gone ✂️
+						</p>
+						<p className="text-sm text-ink mt-3">
+							Keep going. There is more of me down here, and you can reach it.
+						</p>
+						<p className="text-sm text-ink mt-3">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+							labore et dolore magna aliqua.
+						</p>
+						<p className="text-sm text-ink mt-3">You should never see this line 👀</p>
+					</Sheet>
+				</div>
+
+				<p className="text-xs text-graphite-hb">Materials, passed through to Surface</p>
+				<div className="grid grid-cols-3 gap-4">
+					<Sheet
+						variant="kraft"
+						texture="grain"
+						raised
+						padding="p-6"
+						className="h-32"
+					>
+						<p className="text-sm text-graphite-2b">kraft + grain</p>
+					</Sheet>
+					<Sheet
+						variant="paper-md"
+						texture="grain"
+						pattern="dotruled"
+						raised
+						padding="p-6"
+						className="h-32"
+					>
+						<p className="text-sm text-ink">paper-md + grain + dotruled</p>
+					</Sheet>
+					<Sheet
+						variant="white"
+						texture="handmade"
+						raised
+						padding="p-6"
+						className="h-32"
+					>
+						<p className="text-sm text-ink">white + handmade</p>
+					</Sheet>
+				</div>
+			</section>
+
+			{/* ===== SECTION: StickyNote Component ===== */}
+			<section className="space-y-4">
+				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">StickyNote Component</h2>
+				<p className="text-xs text-graphite-hb">
+					Formats are sized true to life at 6rem per inch, since CSS defines 1in as 96px. Size comes from the
+					format, not from className.
+				</p>
+
+				<p className="text-xs text-graphite-hb">small 2in / standard 3in / large 4in</p>
+				<div className="flex flex-wrap items-start gap-6">
+					<StickyNote
+						format="small"
+						bgColor="bg-mild-pink"
+						padding="p-4"
+						interactive
+					>
+						<p className="font-body text-ink text-sm">small, 2 inches square 🐞</p>
+					</StickyNote>
+					<StickyNote
+						format="standard"
+						bgColor="bg-mild-yellow"
+						interactive
+					>
+						<h3 className="font-heading text-charcoal text-2xl">standard</h3>
+						<p className="font-body text-ink mt-2">
+							3 inches square, the classic. Here for important or temporary info!
+						</p>
+					</StickyNote>
+					<StickyNote
+						format="large"
+						bgColor="bg-mild-green"
+						padding="p-8"
+						interactive
+					>
+						<h3 className="font-heading text-charcoal text-3xl">large</h3>
+						<p className="font-body text-ink mt-2">
+							4 inches square. Room for brainstorming, lists, or a quick diagram.
+						</p>
+					</StickyNote>
+				</div>
+
+				<p className="text-xs text-graphite-hb">
+					Peel: hover for the nudge, click to lift and stay lifted. Enter and Space also work, and the whole
+					3D peel collapses to shadow only under prefers-reduced-motion.
+				</p>
+				{/* extra top and bottom room so the lift and the cast shadow are not clipped by the section */}
+				<div className="flex flex-wrap items-start gap-6 pt-6 pb-10">
+					<StickyNote
+						format="standard"
+						bgColor="bg-mild-blue"
+						interactive
+						className="-rotate-2"
+					>
+						<h3 className="font-heading text-charcoal text-2xl">interactive</h3>
+						<p className="font-body text-ink mt-2">Click me. I peel from the top edge and stay up.</p>
+					</StickyNote>
+					<StickyNote
+						format="standard"
+						bgColor="bg-mild-grey"
+						className="rotate-1"
+					>
+						<h3 className="font-heading text-charcoal text-2xl">not interactive</h3>
+						<p className="font-body text-ink mt-2">
+							No hover, no click, no focus stop, no pointer cursor. For comparison.
+						</p>
+					</StickyNote>
+				</div>
+			</section>
+
+			{/* ===== SECTION: Desk Layering with Objects ===== */}
+			<section className="space-y-4">
+				<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">Desk Layering with Objects</h2>
+				<p className="text-xs text-graphite-hb">
+					The same layering idea as the desk layout, built with Sheet and StickyNote instead of raw Surface.
+					Items below the pad z-index show through it.
+				</p>
+				{/*
+					Absolute positioning is fine in here: this is a fixed-size demo box, not page layout.
+					Real page sections use normal flow plus transforms so they collapse to a single column
+					on mobile without overlapping.
+				*/}
+				<div className="bg-desk-cork relative min-h-150 overflow-hidden rounded-lg p-8">
+					{/* under the pad */}
+					<div className="absolute top-8 right-8 z-10">
+						<Sheet
+							pattern="dotruled"
+							className="rotate-2 w-2xs"
+						>
+							<h3 className="font-heading text-charcoal text-xl">Under the pad</h3>
+							<p className="text-sm text-graphite-2b">
+								I&apos;m underneath the transparent desk pad, between it and the desk.
+							</p>
+						</Sheet>
+					</div>
+
+					{/* the tracing desk pad */}
+					<Surface
+						variant="tracing"
+						pattern="dotgrid"
+						padding="p-8"
+						className="relative z-15 mx-auto min-h-100 max-w-xl rounded-3xl"
+					>
+						<p className="text-graphite-2b text-sm">
+							The tracing desk pad. Anything with a lower z-index sits under it and shows through dimmed.
+						</p>
+					</Surface>
+
+					{/* on top of the pad */}
+					<div className="absolute top-44 right-8 z-20">
+						<Sheet
+							pattern="dotruled"
+							raised
+							interactive
+							className="-rotate-1 w-2xs"
+						>
+							<h3 className="font-heading text-charcoal text-xl">On top of the pad</h3>
+							<p className="text-sm text-graphite-2b">I&apos;m above the tracing layer 😳</p>
+						</Sheet>
+					</div>
+
+					{/* sticky notes straight on the desk */}
+					<div className="absolute top-16 left-8 z-20">
+						<StickyNote
+							format="standard"
+							bgColor="bg-mild-yellow"
+							interactive
+							className="-rotate-3"
+						>
+							<h3 className="font-heading text-charcoal text-2xl">Stuck to the desk ✏️</h3>
+							<p className="font-body text-ink mt-2">
+								Peel me. My shadow grows out from under the bottom edge.
+							</p>
+						</StickyNote>
+					</div>
+
+					<div className="absolute bottom-10 left-28 z-20">
+						<StickyNote
+							format="small"
+							bgColor="bg-mild-pink"
+							padding="p-4"
+							interactive
+							className="rotate-1"
+						>
+							<p className="font-body text-ink text-sm">Smaller, but I can still be here 🐞</p>
+						</StickyNote>
 					</div>
 				</div>
 			</section>

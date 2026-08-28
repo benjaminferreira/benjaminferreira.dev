@@ -163,7 +163,7 @@ export default function Surface({
 			{pattern !== "none" && renderPattern(pattern)}
 
 			{/* Content layer - sits on top of texture/pattern */}
-			<div className="relative z-10">{children}</div>
+			<div className="relative z-10 h-full">{children}</div>
 		</div>
 	);
 }

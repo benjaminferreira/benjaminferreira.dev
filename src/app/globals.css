@@ -3,6 +3,8 @@
 :root {
 	font-family: var(--font-body);
 	color: var(--color-ink);
+	--focus-ring-color: var(--color-ink);
+	--focus-ring-width: 2px;
 }
 
 /* COLORS */
@@ -62,8 +64,7 @@
 
 /* FONTS */
 @theme {
-	--font-heading: var(--font-heading);
-	--font-serif: var(--font-instrument-serif);
+	--font-heading: var(--font-serif);
 	--font-body: var(--font-work-sans);
 	--font-mono: var(--font-fira-code);
 }
@@ -72,5 +73,21 @@
 	scrollbar-width: none;
 	&::-webkit-scrollbar {
 		display: none;
+	}
+}
+
+/* style for ring on focused elements */
+@layer base {
+	:focus-visible {
+		outline: var(--focus-ring-width) solid var(--focus-ring-color);
+		outline-offset: 3px;
+	}
+}
+
+/* objects: focus lands on .group, ring draws on this child */
+@utility focus-ring-child {
+	.group:focus-visible & {
+		outline: var(--focus-ring-width) solid var(--focus-ring-color);
+		outline-offset: 4px;
 	}
 }

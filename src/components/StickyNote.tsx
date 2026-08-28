@@ -97,19 +97,22 @@ const noteVariantsReduced: Variants = {
  */
 const shadowVariants: Variants = {
 	stuck: {
-		opacity: 0.1,
+		opacity: 0.12,
+		scaleX: 1,
 		scaleY: 0.5,
-		y: 0,
+		y: 6,
 		transition: { duration: 0.3, ease: "easeOut" },
 	},
 	nudge: {
 		opacity: 0.3,
+		scaleX: 1.02,
 		scaleY: 1,
-		y: 6,
+		y: 10,
 		transition: { duration: 0.25, ease: "easeOut" },
 	},
 	lifted: {
 		opacity: 0.28,
+		scaleX: 1,
 		scaleY: 1.55,
 		y: 0,
 		transition: { duration: 0.333, ease: "easeOut" },
@@ -143,13 +146,14 @@ export default function StickyNote({
 	return (
 		// Stage: perspective and gestures. Variants propagate to both children.
 		<motion.div
-			className={`relative ${formatClasses[format]} ${interactive ? "cursor-pointer" : ""} ${className}`}
+			className={`group focus-visible:outline-none relative ${formatClasses[format]} ${interactive ? "cursor-pointer" : ""} ${className}`}
 			style={{ perspective: 900 }}
 			initial="stuck"
 			{...(interactive && {
 				tabIndex: 0,
 				animate: lifted ? "lifted" : "stuck",
 				whileHover: lifted ? undefined : "nudge", // Don't nudge while already lifted
+				whileFocus: lifted ? undefined : "nudge",
 				onClick: clickHandler,
 				role: "button",
 				"aria-pressed": lifted,
@@ -166,14 +170,14 @@ export default function StickyNote({
 				aria-hidden="true"
 				variants={shadowVariants}
 				style={{ originY: 1 }}
-				className="pointer-events-none absolute inset-x-1 top-1/3 bottom-2 z-0 bg-black blur-md"
+				className="pointer-events-none absolute inset-x-1 top-1/3 bottom-1 z-0 bg-black blur-xs"
 			/>
 
 			{/* The paper itself */}
 			<motion.div
 				variants={reduceMotion ? noteVariantsReduced : noteVariants}
 				style={{ transformOrigin: "top center" }}
-				className="relative z-10 h-full"
+				className="focus-ring-child relative z-10 h-full"
 			>
 				<Surface
 					className="h-full"
