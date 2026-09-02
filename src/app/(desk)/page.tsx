@@ -1,19 +1,42 @@
+import portrait from "@/images/ben-ferreira-portrait.jpg";
+import Image from "next/image";
+
 export default function HomePage() {
 	return (
-		<div className="space-y-8">
-			<section className="space-y-6">
-				<h1 className="text-5xl font-heading text-ink">Hello!</h1>
-				<h2 className="text-3xl font-heading text-ink">
-					My name is{" "}
-					<span className="relative z-0 inline-block after:content-[''] after:absolute after:bottom-1 after:-left-0.5 after:w-0 hover:after:w-[calc(100%+4px)] after:h-5/7 after:bg-mild-yellow/70 after:rotate-[-0.5deg] after:-z-10 after:transition-all after:duration-1000">
+		<div className="flex flex-col gap-6">
+			{/* Hero/Intro Section */}
+			<section
+				id="intro"
+				aria-labelledby="intro-heading"
+				className="flex flex-col min-h-dvh gap-6 justify-center"
+			>
+				<div className="flex flex-col gap-8">
+					<h1
+						id="intro-heading"
+						className="text-4xl md:text-7xl font-heading text-ink"
+					>
 						Benjamin Ferreira
-					</span>{" "}
-					.
-				</h2>
-				<p className="font-mono">A bit about me...</p>
+					</h1>
+					<div className="space-y-4">
+						<Image
+							src={portrait}
+							alt=""
+							priority
+							placeholder="blur"
+							sizes="(min-width: 768px) 18rem, 7rem"
+							className="float-right mb-4 ml-4 w-28 rotate-2 md:mb-6 md:ml-8 md:w-72 md:rotate-3"
+						/>
+
+						<p className="text-lg md:text-xl text-ink">
+							Senior software engineer specializing in front-end. Accessibility, design systems, and
+							data-heavy product UI.
+						</p>
+						<p className="font-mono">A bit about me...</p>
+					</div>
+				</div>
 			</section>
 			<section className="space-y-4">
-				<h3 className="text-2xl font-heading text-ink uppercase">Project #1:</h3>
+				<h2 className="text-2xl font-heading text-ink uppercase">Project #1:</h2>
 				<p className="font-mono">[TEST CONTENT - PLACEHOLDER ONLY]</p>
 				<p className="font-body">
 					The Midnight Garden Observatory is an experimental platform for tracking bioluminescent fungi across
