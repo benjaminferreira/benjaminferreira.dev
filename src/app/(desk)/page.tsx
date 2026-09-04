@@ -1,7 +1,15 @@
+"use client";
+
+import Button from "@/components/Button";
 import portrait from "@/images/ben-ferreira-portrait.jpg";
 import Image from "next/image";
+import { useRef } from "react";
+import { useInView } from "motion/react";
 
 export default function HomePage() {
+	const boxRef = useRef<HTMLDivElement>(null);
+	const boxInView = useInView(boxRef, { once: true, margin: "-20% 0px" });
+
 	return (
 		<div className="flex flex-col gap-6">
 			{/* Hero/Intro Section */}
@@ -31,12 +39,37 @@ export default function HomePage() {
 							Senior software engineer specializing in front-end. Accessibility, design systems, and
 							data-heavy product UI.
 						</p>
-						<p className="font-mono">A bit about me...</p>
+						<div className="flex flex-wrap gap-4">
+							<Button href="#projects">View projects</Button>
+							<Button
+								download
+								variant="secondary"
+							>
+								Download resume
+							</Button>
+							<Button variant="quiet">Quiet button</Button>
+						</div>
+						<button className=" marker-shade px-5 py-3 font-mono font-semibold rounded-xl  text-ink cursor-pointer border-2 border-ink hover:text-paper hover:bg-pen-kujaku hover:border-transparent">
+							Old button test
+						</button>
 					</div>
 				</div>
 			</section>
-			<section className="space-y-4">
-				<h2 className="text-2xl font-heading text-ink uppercase">Project #1:</h2>
+			<section
+				id="projects"
+				className="space-y-4"
+			>
+				<div className="flex justify-between">
+					<h2 className="text-2xl font-heading text-ink uppercase">Project #1:</h2>
+					<span
+						ref={boxRef}
+						data-shaded={boxInView || undefined}
+						className="border border-ink marker-shade [--stroke-color:var(--color-mild-pink)] [--stroke-w:0.5rem] [--stroke-draw:400ms] p-6 w-sm"
+					>
+						This project has some details you're going to want to see! Take a look in this highlighted,
+						drawn-looking box for more details.
+					</span>
+				</div>
 				<p className="font-mono">[TEST CONTENT - PLACEHOLDER ONLY]</p>
 				<p className="font-body">
 					The Midnight Garden Observatory is an experimental platform for tracking bioluminescent fungi across

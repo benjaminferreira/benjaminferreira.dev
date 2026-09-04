@@ -14,7 +14,7 @@ export default function DeskLayout({ children }: { children: React.ReactNode }) 
 			<Surface
 				variant="paper"
 				pattern="dotruled"
-				texture="grain"
+				texture="default"
 				padding="p-0"
 				className="min-h-dvh"
 			>
