@@ -22,7 +22,7 @@ interface ButtonProps {
 const base = "relative inline-flex items-center gap-2 whitespace-nowrap border px-5 py-3";
 
 const variantClasses: Record<ButtonVariant, string> = {
-	primary: "bg-ink text-paper border-ink hover:bg-pen-shinkai hover:border-pen-shinkai marker-shade",
+	primary: "bg-ink text-paper border-ink hocus:bg-pen-shinkai hover:border-pen-shinkai marker-shade",
 	secondary: "text-ink border-ink marker-shade",
 	quiet: "text-ink border-transparent underline underline-offset-4 hover:text-pen-shinkai",
 };
