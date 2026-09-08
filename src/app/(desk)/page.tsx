@@ -21,7 +21,7 @@ export default function HomePage() {
 				<div className="flex flex-col gap-8">
 					<h1
 						id="intro-heading"
-						className="text-4xl md:text-7xl font-heading text-ink"
+						className="text-4xl md:text-7xl font-heading text-charcoal"
 					>
 						Benjamin Ferreira
 					</h1>
@@ -49,9 +49,6 @@ export default function HomePage() {
 							</Button>
 							<Button variant="quiet">Quiet button</Button>
 						</div>
-						<button className=" marker-shade px-5 py-3 font-mono font-semibold rounded-xl  text-ink cursor-pointer border-2 border-ink hover:text-paper hover:bg-pen-kujaku hover:border-transparent">
-							Old button test
-						</button>
 					</div>
 				</div>
 			</section>
@@ -60,7 +57,7 @@ export default function HomePage() {
 				className="space-y-4"
 			>
 				<div className="flex justify-between">
-					<h2 className="text-2xl font-heading text-ink uppercase">Project #1:</h2>
+					<h2 className="text-3xl font-heading text-charcoal uppercase">Project #1:</h2>
 					<span
 						ref={boxRef}
 						data-shaded={boxInView || undefined}

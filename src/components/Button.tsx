@@ -22,9 +22,20 @@ interface ButtonProps {
 const base = "relative inline-flex items-center gap-2 whitespace-nowrap border px-5 py-3";
 
 const variantClasses: Record<ButtonVariant, string> = {
-	primary: "bg-ink text-paper border-ink hocus:bg-pen-shinkai hover:border-pen-shinkai marker-shade",
-	secondary: "text-ink border-ink marker-shade",
-	quiet: "text-ink border-transparent underline underline-offset-4 hover:text-pen-shinkai",
+	primary: `
+        bg-ink text-paper border-ink marker-shade
+        active:bg-charcoal active:border-charcoal
+    `,
+	secondary: `
+        text-ink border-ink marker-shade
+        active:text-charcoal active:border-charcoal active:bg-mild-grey/20
+    `,
+	quiet: `
+        text-ink border-transparent underline underline-offset-4
+        hover:text-pen-shinkai
+        focus-visible:text-pen-shinkai
+        active:text-charcoal
+    `,
 };
 
 export default function Button({

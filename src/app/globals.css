@@ -14,7 +14,8 @@
 	--color-paper-md: #faf4e8;
 	--color-paper-md-dark: #dcd6cb;
 	--color-divider: #eae6df;
-	--color-ink: #2c2a29;
+	/* --color-ink: #2c2a29; - Old ink hex for reference */
+	--color-ink: #393637;
 	--color-charcoal: #1c1c1c;
 	--color-kraft: #d2b48c;
 	--color-tracing: rgba(255, 255, 255, 0.4);
