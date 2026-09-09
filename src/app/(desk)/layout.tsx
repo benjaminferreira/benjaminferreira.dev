@@ -16,9 +16,12 @@ export default function DeskLayout({ children }: { children: React.ReactNode }) 
 				pattern="dotruled"
 				texture="default"
 				padding="p-0"
+				pageTop
 				className="min-h-dvh"
 			>
-				<main className="mx-auto max-w-4xl px-6">{children}</main>
+				<main className="mx-auto max-w-4xl px-6 md:px-8">
+					<div className="border-l-2 border-margin pl-2 md:pl-8">{children}</div>
+				</main>
 			</Surface>
 		</>
 	);

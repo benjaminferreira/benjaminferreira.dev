@@ -32,7 +32,7 @@ export default function HomePage() {
 							priority
 							placeholder="blur"
 							sizes="(min-width: 768px) 18rem, 7rem"
-							className="float-right mb-4 ml-4 w-28 rotate-2 md:mb-6 md:ml-8 md:w-72 md:rotate-3"
+							className="float-right mb-4 ml-4 w-28 rotate-1 md:mb-6 md:ml-8 md:w-72 md:rotate-2"
 						/>
 
 						<p className="text-lg md:text-xl text-ink">
@@ -47,7 +47,6 @@ export default function HomePage() {
 							>
 								Download resume
 							</Button>
-							<Button variant="quiet">Quiet button</Button>
 						</div>
 					</div>
 				</div>
@@ -61,7 +60,7 @@ export default function HomePage() {
 					<span
 						ref={boxRef}
 						data-shaded={boxInView || undefined}
-						className="border border-ink marker-shade [--stroke-color:var(--color-mild-pink)] [--stroke-w:0.5rem] [--stroke-draw:400ms] p-6 w-sm"
+						className="border border-ink marker-shade [--stroke-color:var(--color-mild-blue)] [--stroke-w:0.5rem] [--stroke-draw:400ms] p-6 w-sm"
 					>
 						This project has some details you're going to want to see! Take a look in this highlighted,
 						drawn-looking box for more details.

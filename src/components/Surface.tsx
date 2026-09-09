@@ -22,6 +22,9 @@ export interface SurfaceMaterialProps {
 
 	/** Tailwind padding class (default: "p-6") */
 	padding?: string;
+
+	/** Notebook-style top margin */
+	pageTop?: boolean;
 }
 
 /**
@@ -36,6 +39,24 @@ interface SurfaceProps extends SurfaceMaterialProps {
 	/** Content inside the Surface */
 	children: React.ReactNode;
 }
+
+/**
+ * Ruling pitch per pattern, in px. This is used by both the --rule-pitch variable and the pageTop math.
+ */
+const patternPitch: Record<NonNullable<SurfaceProps["pattern"]>, number> = {
+	none: 24,
+	ruled: 24,
+	dotruled: 24,
+	dotgrid: 20,
+	grid: 20,
+};
+
+/** Real notebook top margin (25.4mm) divided by line spacing (7.1mm) */
+const PAGE_TOP = "calc(var(--rule-pitch) * 3.5775)";
+
+/** Dots inset by their own 2px, grid by its 1px line, so neither prints flush on an edge. Ruled stays full width. */
+const DOT_INSET = "2px";
+const GRID_INSET = "1px";
 
 /**
  * Surface material-type variant classes
@@ -71,62 +92,106 @@ const textureOpacity: Record<NonNullable<SurfaceProps["texture"]>, string> = {
 };
 
 /**
- * Surface line/dot/grid pattern overlay CSS style mappings
+ * Renders the pattern layer(s). Ruling starts at the header under pageTop, else a bit
+ * down so the top isn't a line. Dots keep their 2px shape and sit 1px below the lines.
+ * Dots and grid inset from the edges; ruled lines stay full width.
  */
-const patternStyles: Record<string, React.CSSProperties> = {
-	dotgrid: {
-		backgroundImage: "radial-gradient(circle, var(--color-dot-grey) 1px, transparent 1px)",
-		backgroundSize: "20px 20px",
-	},
-	ruled: {
-		backgroundImage: "linear-gradient(var(--color-lines) 1px, transparent 1px)",
-		backgroundSize: "100% 24px",
-		backgroundPosition: "0 -13px",
-	},
-	grid: {
-		backgroundImage:
-			"linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)",
-		backgroundSize: "20px 20px",
-	},
-};
+function renderPattern(pattern: NonNullable<SurfaceProps["pattern"]>, pageTop: boolean) {
+	const box = "absolute pointer-events-none";
+	const top = pageTop ? "var(--page-top)" : "0";
+	// row phase: on the header under pageTop, else nudged down so the top edge isn't a line
+	const rowY = pageTop ? "0px" : "calc(var(--rule-pitch) / 2 - 1px)";
+	const lineBg = `0 ${rowY}`;
+	const dotBg = `0 calc(${rowY} + 1px - var(--rule-pitch) / 2)`;
 
-/**
- * Function to render the pattern prop selected
- * @param pattern Pattern prop to return associated JSX
- * @returns JSX to render the pattern layer
- */
-function renderPattern(pattern: NonNullable<SurfaceProps["pattern"]>) {
-	// Dotruled pattern needs its own special render since it uses two layers.
+	const lineImg = "linear-gradient(var(--color-lines) 1px, transparent 1px)";
+	const campusLineImg = "linear-gradient(var(--color-campus-dot) 1px, transparent 1px)";
+	const dotImg = (c: string) => `radial-gradient(circle, ${c} 1px, transparent 1px)`;
+
+	if (pattern === "ruled") {
+		return (
+			<div
+				className={box}
+				style={{
+					top,
+					left: 0,
+					right: 0,
+					bottom: 0,
+					backgroundImage: lineImg,
+					backgroundSize: "100% var(--rule-pitch)",
+					backgroundPosition: lineBg,
+				}}
+			/>
+		);
+	}
+
+	if (pattern === "grid") {
+		return (
+			<div
+				className={box}
+				style={{
+					top: pageTop ? "var(--page-top)" : GRID_INSET,
+					left: GRID_INSET,
+					right: GRID_INSET,
+					bottom: GRID_INSET,
+					backgroundImage:
+						"linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)",
+					backgroundSize: "var(--rule-pitch) var(--rule-pitch)",
+				}}
+			/>
+		);
+	}
+
+	if (pattern === "dotgrid") {
+		return (
+			<div
+				className={box}
+				style={{
+					top,
+					left: DOT_INSET,
+					right: DOT_INSET,
+					bottom: DOT_INSET,
+					backgroundImage: dotImg("var(--color-dot-grey)"),
+					backgroundSize: "var(--rule-pitch) var(--rule-pitch)",
+					backgroundPosition: dotBg,
+				}}
+			/>
+		);
+	}
+
+	// dotruled: full-width lines plus dots 1px below them
 	if (pattern === "dotruled") {
 		return (
 			<>
 				<div
-					className="absolute inset-0 opacity-65 pointer-events-none"
+					className={`${box} opacity-65`}
 					style={{
-						backgroundImage: "linear-gradient(var(--color-campus-dot) 1px, transparent 1px)",
-						backgroundSize: "100% 24px",
-						backgroundPosition: "0 -13px",
+						top,
+						left: 0,
+						right: 0,
+						bottom: 0,
+						backgroundImage: campusLineImg,
+						backgroundSize: "100% var(--rule-pitch)",
+						backgroundPosition: lineBg,
 					}}
 				/>
 				<div
-					className="absolute inset-0 pointer-events-none"
+					className={box}
 					style={{
-						backgroundImage: "radial-gradient(circle, var(--color-campus-dot) 1px, transparent 1px)",
-						backgroundSize: "24px 24px",
+						top,
+						left: DOT_INSET,
+						right: DOT_INSET,
+						bottom: DOT_INSET,
+						backgroundImage: dotImg("var(--color-campus-dot)"),
+						backgroundSize: "var(--rule-pitch) var(--rule-pitch)",
+						backgroundPosition: dotBg,
 					}}
 				/>
 			</>
 		);
 	}
 
-	const style = patternStyles[pattern];
-	if (!style) return null;
-	return (
-		<div
-			className="absolute inset-0 pointer-events-none"
-			style={style}
-		/>
-	);
+	return null;
 }
 
 /**
@@ -146,23 +211,43 @@ export default function Surface({
 	pattern = "none",
 	bgColor = "",
 	padding = "p-6",
+	pageTop = false,
 	className = "",
 	children,
 }: SurfaceProps) {
 	return (
 		<div
 			className={`relative overflow-hidden ${bgColor !== "" ? bgColor : variantClasses[variant]} ${padding} ${className}`}
+			style={
+				{
+					"--rule-pitch": `${patternPitch[pattern]}px`,
+					"--page-top": PAGE_TOP,
+				} as React.CSSProperties
+			}
 		>
-			{/* Texture layer */}
+			{/* Texture layer - full bleed, so the top margin is still textured paper */}
 			<div
 				className={`absolute inset-0 ${textureOpacity[texture]} pointer-events-none`}
 				style={textureStyles[texture]}
 			/>
 
-			{/* Pattern layer */}
-			{pattern !== "none" && renderPattern(pattern)}
+			{/* Pattern layer - starts below the top margin when pageTop is set */}
+			{pattern !== "none" && renderPattern(pattern, pageTop)}
 
-			{/* Content layer - sits on top of texture/pattern */}
+			{/* Header rule at the top-margin boundary */}
+			{pageTop && (
+				<div
+					aria-hidden="true"
+					className="border-t border-campus-line pointer-events-none absolute inset-x-0 "
+					style={{ top: "var(--page-top)" }}
+				/>
+			)}
+
+			{/*
+				Content layer. Intentionally NOT padded for pageTop: the consumer owns that,
+				so a full-height margin line can run through the header band while only the
+				content below it is pushed down. Consumers read var(--page-top).
+			*/}
 			<div className="relative z-10 h-full">{children}</div>
 		</div>
 	);
