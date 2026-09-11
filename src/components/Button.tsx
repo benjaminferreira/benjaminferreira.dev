@@ -23,11 +23,11 @@ const base = "relative inline-flex items-center gap-2 whitespace-nowrap border p
 
 const variantClasses: Record<ButtonVariant, string> = {
 	primary: `
-        bg-ink text-paper border-ink marker-shade
+        bg-ink text-paper border-ink highlight-shade
         active:bg-charcoal active:border-charcoal
     `,
 	secondary: `
-        text-ink border-ink marker-shade
+        text-ink border-ink highlight-shade
         active:text-charcoal active:border-charcoal active:bg-mild-grey/20
     `,
 	quiet: `

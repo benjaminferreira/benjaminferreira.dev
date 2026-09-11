@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
+import { HighlightGroup, HighlightText } from "@/components/HighlightGroup";
 import portrait from "@/images/ben-ferreira-portrait.jpg";
 import Image from "next/image";
 import { useRef } from "react";
@@ -13,44 +14,48 @@ export default function HomePage() {
 	return (
 		<div className="flex flex-col gap-6">
 			{/* Hero/Intro Section */}
-			<section
-				id="intro"
-				aria-labelledby="intro-heading"
-				className="flex flex-col min-h-dvh gap-6 justify-center"
-			>
-				<div className="flex flex-col gap-8">
-					<h1
-						id="intro-heading"
-						className="text-4xl md:text-7xl font-heading text-charcoal"
-					>
-						Benjamin Ferreira
-					</h1>
-					<div className="space-y-4">
-						<Image
-							src={portrait}
-							alt=""
-							priority
-							placeholder="blur"
-							sizes="(min-width: 768px) 18rem, 7rem"
-							className="float-right mb-4 ml-4 w-28 rotate-1 md:mb-6 md:ml-8 md:w-72 md:rotate-2"
-						/>
+			<HighlightGroup>
+				<section
+					id="intro"
+					aria-labelledby="intro-heading"
+					className="flex flex-col min-h-dvh gap-6 justify-center"
+				>
+					<div className="flex flex-col gap-8">
+						<h1
+							id="intro-heading"
+							className="text-4xl md:text-7xl font-heading text-charcoal"
+						>
+							<HighlightText>Benjamin Ferreira</HighlightText>
+						</h1>
+						<div className="space-y-4">
+							<Image
+								src={portrait}
+								alt=""
+								priority
+								placeholder="blur"
+								sizes="(min-width: 768px) 18rem, 7rem"
+								className="float-right mb-4 ml-4 w-28 rotate-1 md:mb-6 md:ml-8 md:w-72 md:rotate-2"
+							/>
 
-						<p className="text-lg md:text-xl text-ink">
-							Senior software engineer specializing in front-end. Accessibility, design systems, and
-							data-heavy product UI.
-						</p>
-						<div className="flex flex-wrap gap-4">
-							<Button href="#projects">View projects</Button>
-							<Button
-								download
-								variant="secondary"
-							>
-								Download resume
-							</Button>
+							<p className="text-lg md:text-xl text-ink">
+								Senior software engineer specializing in{" "}
+								<HighlightText color="var(--color-mild-blue)">front-end</HighlightText>. Accessibility,{" "}
+								<HighlightText color="var(--color-mild-blue)">design systems</HighlightText>, and
+								data-heavy product UI.
+							</p>
+							<div className="flex flex-wrap gap-4">
+								<Button href="#projects">View projects</Button>
+								<Button
+									download
+									variant="secondary"
+								>
+									Download resume
+								</Button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
+				</section>
+			</HighlightGroup>
 			<section
 				id="projects"
 				className="space-y-4"
@@ -60,7 +65,7 @@ export default function HomePage() {
 					<span
 						ref={boxRef}
 						data-shaded={boxInView || undefined}
-						className="border border-ink marker-shade [--stroke-color:var(--color-mild-blue)] [--stroke-w:0.5rem] [--stroke-draw:400ms] p-6 w-sm"
+						className="border border-ink highlight-shade [--stroke-color:var(--color-mild-blue)] [--stroke-w:0.5rem] [--stroke-draw:400ms] p-6 w-sm"
 					>
 						This project has some details you're going to want to see! Take a look in this highlighted,
 						drawn-looking box for more details.

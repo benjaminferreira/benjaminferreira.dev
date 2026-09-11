@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Skeleton prototypes are git-ignored, so Tailwind skips them by default. Scan them
+   explicitly so their one-off utilities (space-y-14, text-[13px], etc.) still generate. */
+@source "./sandbox/skeleton";
+
 :root {
 	font-family: var(--font-body);
 	color: var(--color-ink);
@@ -98,7 +102,7 @@
 }
 
 /*
-	marker-shade
+	highlight-shade
 
 	Draws two mildliner strokes along the bottom and right edges, to give a flat element
 	a sense of depth. The bottom stroke draws left to right, then the right stroke draws
@@ -109,10 +113,10 @@
 		[data-shaded]       for anything else, set from JS on scroll into view
 
 	Tune with arbitrary properties, no variants needed:
-		marker-shade [--stroke-color:var(--color-mild-yellow)]
-		marker-shade [--stroke-w:0.5rem] [--stroke-draw:400ms] [--stroke-fade:400ms]
+		highlight-shade [--stroke-color:var(--color-mild-yellow)]
+		highlight-shade [--stroke-w:0.5rem] [--stroke-draw:400ms] [--stroke-fade:400ms]
 */
-@utility marker-shade {
+@utility highlight-shade {
 	position: relative;
 
 	&::after,
@@ -125,7 +129,7 @@
 
 		/* exit: fade at full size, then reset the transform once it is invisible */
 		transition:
-			opacity var(--stroke-fade, 250ms) ease-out,
+			opacity var(--stroke-fade, 250ms) linear,
 			transform 0ms linear var(--stroke-fade, 250ms);
 	}
 
@@ -152,7 +156,7 @@
 	}
 
 	/* enter: opacity snaps on, the stroke draws. pointer and scroll only, not focus.
-	   keyboard focus is handled by the outline, so the marker stays a pointer affordance
+	   keyboard focus is handled by the outline, so the highlight stays a pointer affordance
 	   and the two never stack on the same element. */
 	&:hover::after,
 	&[data-shaded]::after {
@@ -180,6 +184,59 @@
 		&:hover::before,
 		&[data-shaded]::after,
 		&[data-shaded]::before {
+			transition-duration: 0ms;
+			transition-delay: 0ms;
+		}
+	}
+}
+
+/*
+	highlight
+
+	A mildliner band over text, wiping in from the left. Same three triggers as
+	highlight-shade. Fixed thickness, so taller letters poke out and the ink shows.
+	Tune [--hl:<color>], [--hl-thickness:<size>], [--hl-draw:<time>], [--hl-fade:<time>].
+*/
+@utility highlight {
+	position: relative;
+
+	&::before {
+		content: "";
+		position: absolute;
+		left: -0.1em;
+		right: -0.1em;
+		bottom: 0.08em;
+		height: var(--hl-thickness, 0.75rem);
+		pointer-events: none;
+		background-color: var(--hl, var(--color-mild-yellow));
+		mix-blend-mode: multiply;
+		opacity: 0;
+		transform: scaleX(0);
+		transform-origin: left;
+
+		/* exit: fade at full width, then reset the transform once invisible */
+		transition:
+			opacity var(--hl-fade, 250ms) linear,
+			transform 0ms linear var(--hl-fade, 250ms);
+	}
+
+	&:hover::before,
+	&:focus-visible::before,
+	&[data-hl]::before {
+		opacity: 1;
+		transform: scaleX(1);
+
+		/* enter: opacity snaps on, the stroke draws */
+		transition:
+			opacity 0ms,
+			transform var(--hl-draw, 600ms) ease-out;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&::before,
+		&:hover::before,
+		&:focus-visible::before,
+		&[data-hl]::before {
 			transition-duration: 0ms;
 			transition-delay: 0ms;
 		}
