@@ -7,35 +7,32 @@ type Entry = { el: Element; activate: () => void; duration: number };
 
 const SequenceContext = createContext<((entry: Entry) => () => void) | null>(null);
 
-/**
- * Groups highlight marks so they reveal one at a time, top to bottom, as each scrolls
- * into view, like one pen going down the section. Covers both `highlight` text sweeps
- * and `highlight-shade` boxes. Marks register through {@link useHighlight}; only
- * descendants of a group are sequenced. `gap` is the pause between strokes in ms.
- */
+/** Draws its marks one at a time, top to bottom, as each scrolls into view. */
 export function HighlightGroup({ gap = 120, children }: { gap?: number; children: React.ReactNode }) {
 	const reduce = useReducedMotion();
-	const entriesRef = useRef<Entry[]>([]);
-	const seenRef = useRef<Set<Element>>(new Set());
-	const pointerRef = useRef(0);
-	const runningRef = useRef(false);
+	const entriesRef = useRef<Entry[]>([]); // marks, top to bottom
+	const seenRef = useRef<Set<Element>>(new Set()); // marks that have scrolled in
+	const pointerRef = useRef(0); // whose turn is next
+	const runningRef = useRef(false); // a stroke is mid-draw
 	const observerRef = useRef<IntersectionObserver | null>(null);
 
 	const drawNext = useCallback(() => {
 		const entries = entriesRef.current;
 
+		// reduced motion: reveal all, no sequence
 		if (reduce) {
 			entries.forEach((e) => e.activate());
 			pointerRef.current = entries.length;
 			return;
 		}
-		if (runningRef.current) return;
+		if (runningRef.current) return; // one at a time
 
 		const next = entries[pointerRef.current];
-		if (!next || !seenRef.current.has(next.el)) return;
+		if (!next || !seenRef.current.has(next.el)) return; // wait until it's in view
 
 		runningRef.current = true;
 		next.activate();
+		// move on once this stroke has had time to finish
 		window.setTimeout(() => {
 			pointerRef.current += 1;
 			runningRef.current = false;
@@ -44,6 +41,7 @@ export function HighlightGroup({ gap = 120, children }: { gap?: number; children
 	}, [gap, reduce]);
 
 	useEffect(() => {
+		// note marks as they enter view, then try to draw
 		const io = new IntersectionObserver(
 			(records) => {
 				for (const r of records) {
@@ -60,9 +58,8 @@ export function HighlightGroup({ gap = 120, children }: { gap?: number; children
 
 	const register = useCallback((entry: Entry) => {
 		entriesRef.current.push(entry);
-		entriesRef.current.sort(
-			(a, b) => a.el.getBoundingClientRect().top - b.el.getBoundingClientRect().top,
-		);
+		// keep the list top to bottom so the pen moves downward
+		entriesRef.current.sort((a, b) => a.el.getBoundingClientRect().top - b.el.getBoundingClientRect().top);
 		observerRef.current?.observe(entry.el);
 		return () => {
 			entriesRef.current = entriesRef.current.filter((e) => e !== entry);
@@ -74,36 +71,25 @@ export function HighlightGroup({ gap = 120, children }: { gap?: number; children
 	return <SequenceContext.Provider value={register}>{children}</SequenceContext.Provider>;
 }
 
-/**
- * Registers an element with its enclosing {@link HighlightGroup}. Attach the returned
- * `ref`, and wire `active` to the mark's reveal attribute: `data-hl` for `highlight`,
- * `data-shaded` for `highlight-shade`. `duration` is the stroke time in ms and paces the
- * next mark, so pass the mark's real draw time. No-ops outside a HighlightGroup.
- */
+/** Enrolls an element in its HighlightGroup; returns a ref and whether it is its turn. */
 export function useHighlight<T extends Element>(duration = 600) {
 	const register = useContext(SequenceContext);
 	const ref = useRef<T>(null);
 	const [active, setActive] = useState(false);
 
 	useEffect(() => {
-		if (!register || !ref.current) return;
+		if (!register || !ref.current) return; // no group: hover/focus only
 		return register({ el: ref.current, activate: () => setActive(true), duration });
 	}, [register, duration]);
 
 	return { ref, active };
 }
 
-/**
- * Text with a highlighter sweep. A `<span>` using the `highlight` utility: reveals on
- * hover/focus anywhere, and additionally sequences on scroll inside a {@link HighlightGroup}.
- * `color` is any CSS colour/var. `speed` is the draw velocity in px/sec, so a longer run
- * takes proportionally longer to draw. Decorative by default; wrap it in <mark> when the
- * highlight denotes relevance.
- */
+/** Text with a highlighter sweep; reveals on hover/focus, or in sequence inside a HighlightGroup. */
 export function HighlightText({
 	children,
 	color,
-	speed = 1100,
+	speed = 600,
 	className = "",
 }: {
 	children: React.ReactNode;
@@ -111,10 +97,10 @@ export function HighlightText({
 	speed?: number;
 	className?: string;
 }) {
-	// draw time tracks pixel width, so every stroke moves at the same speed
 	const [duration, setDuration] = useState(300);
 	const { ref, active } = useHighlight<HTMLSpanElement>(duration);
 
+	// draw time tracks width, so the sweep speed stays constant
 	useEffect(() => {
 		const el = ref.current;
 		if (!el) return;
@@ -142,5 +128,58 @@ export function HighlightText({
 		>
 			{children}
 		</span>
+	);
+}
+
+/** Box with the shade edge strokes, drawn at the same speed as the text. Assumes 1px box border. */
+export function HighlightBox({
+	children,
+	color,
+	speed = 600,
+	gap = 50,
+	className = "",
+}: {
+	children: React.ReactNode;
+	color?: string;
+	speed?: number;
+	gap?: number;
+	className?: string;
+}) {
+	const [draw, setDraw] = useState({ x: 200, y: 200 });
+	const { ref, active } = useHighlight<HTMLDivElement>(draw.x + gap + draw.y);
+
+	// each edge draws in length/speed, so bigger boxes take longer
+	useEffect(() => {
+		const el = ref.current;
+		if (!el) return;
+		const measure = () => {
+			const r = el.getBoundingClientRect();
+			setDraw({
+				x: Math.max(100, Math.round((r.width / speed) * 1000)),
+				y: Math.max(100, Math.round((r.height / speed) * 1000)),
+			});
+		};
+		measure();
+		const ro = new ResizeObserver(measure);
+		ro.observe(el);
+		return () => ro.disconnect();
+	}, [ref, speed]);
+
+	const style = {
+		"--stroke-draw-x": `${draw.x}ms`,
+		"--stroke-draw-y": `${draw.y}ms`,
+		"--stroke-gap": `${gap}ms`,
+		...(color ? { "--stroke-color": color } : {}),
+	} as React.CSSProperties;
+
+	return (
+		<div
+			ref={ref}
+			data-shaded={active || undefined}
+			style={style}
+			className={`highlight-shade border border-ink ${className}`}
+		>
+			{children}
+		</div>
 	);
 }

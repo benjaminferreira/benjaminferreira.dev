@@ -164,7 +164,7 @@
 		transform: scaleX(1);
 		transition:
 			opacity 0ms,
-			transform var(--stroke-draw, 200ms) ease-out;
+			transform var(--stroke-draw-x, var(--stroke-draw, 200ms)) linear;
 	}
 
 	&:hover::before,
@@ -173,7 +173,8 @@
 		transform: scaleY(1);
 		transition:
 			opacity 0ms,
-			transform var(--stroke-draw, 200ms) ease-out calc(var(--stroke-draw, 200ms) + 50ms);
+			transform var(--stroke-draw-y, var(--stroke-draw, 200ms)) linear
+				calc(var(--stroke-draw-x, var(--stroke-draw, 200ms)) + var(--stroke-gap, 50ms));
 	}
 
 	/* keep the reveal, drop the drawing motion */
@@ -195,7 +196,7 @@
 
 	A mildliner band over text, wiping in from the left. Same three triggers as
 	highlight-shade. Fixed thickness, so taller letters poke out and the ink shows.
-	Tune [--hl:<color>], [--hl-thickness:<size>], [--hl-draw:<time>], [--hl-fade:<time>].
+	Tune [--hl:<color>], [--hl-thickness:<size>], [--hl-bottom:<offset>], [--hl-draw:<time>], [--hl-fade:<time>].
 */
 @utility highlight {
 	position: relative;
@@ -205,7 +206,7 @@
 		position: absolute;
 		left: -0.1em;
 		right: -0.1em;
-		bottom: 0.08em;
+		bottom: var(--hl-bottom, 0.16em);
 		height: var(--hl-thickness, 0.75rem);
 		pointer-events: none;
 		background-color: var(--hl, var(--color-mild-yellow));
@@ -229,7 +230,7 @@
 		/* enter: opacity snaps on, the stroke draws */
 		transition:
 			opacity 0ms,
-			transform var(--hl-draw, 600ms) ease-out;
+			transform var(--hl-draw, 600ms) linear;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
