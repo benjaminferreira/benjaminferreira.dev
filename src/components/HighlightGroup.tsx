@@ -83,7 +83,7 @@ export function useHighlight<T extends Element>(getDuration: () => number) {
 		return register({ el: ref.current, activate: () => setActive(true), getDuration });
 	}, [register, getDuration]);
 
-	return { ref, active };
+	return { ref, active, grouped: register !== null };
 }
 
 /** Text with a highlighter sweep; single line uses the CSS utility, wrapped text draws line by line. */
@@ -107,7 +107,7 @@ export function HighlightText({
 	const [resizing, setResizing] = useState(false);
 	const durationRef = useRef(300);
 	const getDuration = useCallback(() => durationRef.current, []);
-	const { ref, active } = useHighlight<HTMLSpanElement>(getDuration);
+	const { ref, active, grouped } = useHighlight<HTMLSpanElement>(getDuration);
 
 	// measure one band per visual line so wrapped text draws line by line at a constant speed
 	useEffect(() => {
@@ -177,20 +177,24 @@ export function HighlightText({
 	}, [speed]);
 
 	const multiLine = lines.length > 1;
-	const drawn = active || hovered;
+	const drawn = active || (!grouped && hovered);
 
 	return (
 		<span
 			ref={ref}
 			data-hl={(!multiLine && active) || undefined}
-			onMouseEnter={multiLine ? () => setHovered(true) : undefined}
-			onMouseLeave={multiLine ? () => setHovered(false) : undefined}
+			onMouseEnter={!grouped && multiLine ? () => setHovered(true) : undefined}
+			onMouseLeave={!grouped && multiLine ? () => setHovered(false) : undefined}
 			style={
 				multiLine
 					? undefined
 					: ({ "--hl-draw": `${total}ms`, ...(color ? { "--hl": color } : {}) } as React.CSSProperties)
 			}
-			className={multiLine ? `relative ${className}` : `highlight ${className}`}
+			className={
+				multiLine
+					? `relative ${className}`
+					: `highlight ${!grouped ? "highlight-hover " : ""}${className}`
+			}
 		>
 			<span ref={textRef}>{children}</span>
 			<span
@@ -228,7 +232,7 @@ export function HighlightText({
 	);
 }
 
-/** Box with the shade edge strokes, drawn at the same speed as the text. Assumes 1px box border. */
+/** Box with the highlight-box edge strokes, drawn at the same speed as the text. Assumes 1px box border. */
 export function HighlightBox({
 	children,
 	color,
@@ -245,7 +249,7 @@ export function HighlightBox({
 	const [draw, setDraw] = useState({ x: 200, y: 200 });
 	const durationRef = useRef(450);
 	const getDuration = useCallback(() => durationRef.current, []);
-	const { ref, active } = useHighlight<HTMLDivElement>(getDuration);
+	const { ref, active, grouped } = useHighlight<HTMLDivElement>(getDuration);
 
 	// each edge draws in length/speed, so bigger boxes take longer
 	useEffect(() => {
@@ -276,7 +280,7 @@ export function HighlightBox({
 			ref={ref}
 			data-shaded={active || undefined}
 			style={style}
-			className={`highlight-shade border border-ink ${className}`}
+			className={`highlight-box border border-ink ${!grouped ? "highlight-box-hover " : ""}${className}`}
 		>
 			{children}
 		</div>

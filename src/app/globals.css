@@ -102,21 +102,86 @@
 }
 
 /*
-	highlight-shade
+	highlight
 
-	Draws two mildliner strokes along the bottom and right edges, to give a flat element
-	a sense of depth. The bottom stroke draws left to right, then the right stroke draws
-	top to bottom. On the way out it fades away at full size instead of un-drawing.
-
-	Three triggers:
-		:hover              for interactive elements
-		[data-shaded]       for anything else, set from JS on scroll into view
-
-	Tune with arbitrary properties, no variants needed:
-		highlight-shade [--stroke-color:var(--color-mild-yellow)]
-		highlight-shade [--stroke-w:0.5rem] [--stroke-draw:400ms] [--stroke-fade:400ms]
+	A mildliner band over text, wiping in from the left. Reveals on [data-hl]; add
+	highlight-hover for hover/focus. Fixed thickness, so taller letters poke out and the ink shows.
+	Tune [--hl:<color>], [--hl-thickness:<size>], [--hl-bottom:<offset>], [--hl-draw:<time>], [--hl-fade:<time>].
 */
-@utility highlight-shade {
+@utility highlight {
+	position: relative;
+
+	&::before {
+		content: "";
+		position: absolute;
+		left: -0.1em;
+		right: -0.1em;
+		bottom: var(--hl-bottom, 0.16em);
+		height: var(--hl-thickness, 0.75rem);
+		pointer-events: none;
+		background-color: var(--hl, var(--color-mild-yellow));
+		mix-blend-mode: multiply;
+		opacity: 0;
+		transform: scaleX(0);
+		transform-origin: left;
+
+		/* exit: fade at full width, then reset the transform once invisible */
+		transition:
+			opacity var(--hl-fade, 250ms) linear,
+			transform 0ms linear var(--hl-fade, 250ms);
+	}
+
+	&[data-hl]::before {
+		opacity: 1;
+		transform: scaleX(1);
+
+		/* enter: opacity snaps on, the stroke draws */
+		transition:
+			opacity 0ms,
+			transform var(--hl-draw, 600ms) linear;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&::before,
+		&[data-hl]::before {
+			transition-duration: 0ms;
+			transition-delay: 0ms;
+		}
+	}
+}
+
+/* hover/focus reveal version */
+@utility highlight-hover {
+	&:hover::before,
+	&:focus-visible::before {
+		opacity: 1;
+		transform: scaleX(1);
+		transition:
+			opacity 0ms,
+			transform var(--hl-draw, 600ms) linear;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&:hover::before,
+		&:focus-visible::before {
+			transition-duration: 0ms;
+		}
+	}
+}
+
+/*
+	highlight-box
+
+	Two mildliner strokes along the bottom and right edges, giving a flat square element
+	(box or button) a hand-drawn sense of depth. The bottom stroke draws left to right, then
+	the right stroke top to bottom; on exit it fades at full size instead of un-drawing.
+	Reveals on [data-shaded] (set from JS on scroll). Add highlight-box-hover for hover.
+
+	Tune with arbitrary properties:
+		highlight-box [--stroke-color:var(--color-mild-yellow)]
+		highlight-box [--stroke-w:0.5rem] [--stroke-draw:400ms] [--stroke-fade:400ms]
+*/
+@utility highlight-box {
 	position: relative;
 
 	&::after,
@@ -155,10 +220,7 @@
 		transform-origin: top;
 	}
 
-	/* enter: opacity snaps on, the stroke draws. pointer and scroll only, not focus.
-	   keyboard focus is handled by the outline, so the highlight stays a pointer affordance
-	   and the two never stack on the same element. */
-	&:hover::after,
+	/* enter (scroll): opacity snaps on, the strokes draw */
 	&[data-shaded]::after {
 		opacity: 1;
 		transform: scaleX(1);
@@ -167,7 +229,6 @@
 			transform var(--stroke-draw-x, var(--stroke-draw, 200ms)) linear;
 	}
 
-	&:hover::before,
 	&[data-shaded]::before {
 		opacity: 1;
 		transform: scaleY(1);
@@ -177,12 +238,9 @@
 				calc(var(--stroke-draw-x, var(--stroke-draw, 200ms)) + var(--stroke-gap, 50ms));
 	}
 
-	/* keep the reveal, drop the drawing motion */
 	@media (prefers-reduced-motion: reduce) {
 		&::after,
 		&::before,
-		&:hover::after,
-		&:hover::before,
 		&[data-shaded]::after,
 		&[data-shaded]::before {
 			transition-duration: 0ms;
@@ -191,53 +249,28 @@
 	}
 }
 
-/*
-	highlight
-
-	A mildliner band over text, wiping in from the left. Same three triggers as
-	highlight-shade. Fixed thickness, so taller letters poke out and the ink shows.
-	Tune [--hl:<color>], [--hl-thickness:<size>], [--hl-bottom:<offset>], [--hl-draw:<time>], [--hl-fade:<time>].
-*/
-@utility highlight {
-	position: relative;
-
-	&::before {
-		content: "";
-		position: absolute;
-		left: -0.1em;
-		right: -0.1em;
-		bottom: var(--hl-bottom, 0.16em);
-		height: var(--hl-thickness, 0.75rem);
-		pointer-events: none;
-		background-color: var(--hl, var(--color-mild-yellow));
-		mix-blend-mode: multiply;
-		opacity: 0;
-		transform: scaleX(0);
-		transform-origin: left;
-
-		/* exit: fade at full width, then reset the transform once invisible */
-		transition:
-			opacity var(--hl-fade, 250ms) linear,
-			transform 0ms linear var(--hl-fade, 250ms);
-	}
-
-	&:hover::before,
-	&:focus-visible::before,
-	&[data-hl]::before {
+/* opt-in hover reveal for highlight-box (buttons and standalone boxes) */
+@utility highlight-box-hover {
+	&:hover::after {
 		opacity: 1;
 		transform: scaleX(1);
-
-		/* enter: opacity snaps on, the stroke draws */
 		transition:
 			opacity 0ms,
-			transform var(--hl-draw, 600ms) linear;
+			transform var(--stroke-draw-x, var(--stroke-draw, 200ms)) linear;
+	}
+
+	&:hover::before {
+		opacity: 1;
+		transform: scaleY(1);
+		transition:
+			opacity 0ms,
+			transform var(--stroke-draw-y, var(--stroke-draw, 200ms)) linear
+				calc(var(--stroke-draw-x, var(--stroke-draw, 200ms)) + var(--stroke-gap, 50ms));
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		&::before,
-		&:hover::before,
-		&:focus-visible::before,
-		&[data-hl]::before {
+		&:hover::after,
+		&:hover::before {
 			transition-duration: 0ms;
 			transition-delay: 0ms;
 		}
