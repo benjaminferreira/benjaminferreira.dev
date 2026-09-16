@@ -19,7 +19,8 @@ interface ButtonProps {
 }
 
 // Base classes used by all button types
-const base = "relative inline-flex items-center gap-2 whitespace-nowrap border px-5 py-3";
+const base =
+	"relative inline-flex items-center gap-2 justify-center whitespace-nowrap border min-h-11 px-4 py-2.5 text-sm sm:px-5 sm:py-3 sm:text-base";
 
 const variantClasses: Record<ButtonVariant, string> = {
 	primary: `
@@ -62,7 +63,7 @@ export default function Button({
 		);
 
 	// a file or an external target is a plain anchor, not a route
-	if (download || href.startsWith("http")) {
+	if (download || href.startsWith("http") || href.startsWith("#")) {
 		return (
 			<a
 				href={href}

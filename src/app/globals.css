@@ -69,6 +69,12 @@
 	--font-mono: var(--font-fira-code);
 }
 
+/* TEXT SIZES */
+@theme {
+	--text-display-fluid: clamp(2rem, 12cqw, 4.5rem);
+	--text-display-fluid--line-height: 1;
+}
+
 @utility scrollbar-hidden {
 	scrollbar-width: none;
 	&::-webkit-scrollbar {

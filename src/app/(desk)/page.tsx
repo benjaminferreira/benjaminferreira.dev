@@ -15,20 +15,23 @@ export default function HomePage() {
 					aria-labelledby="intro-heading"
 					className="flex flex-col min-h-dvh gap-8 justify-center"
 				>
-					<div className="flex flex-col gap-10 md:flex-row md:gap-12">
-						<div className="flex flex-col gap-8 md:flex-1">
-							<h1
-								id="intro-heading"
-								className="text-5xl md:text-7xl font-heading text-charcoal"
-							>
-								<HighlightText>Benjamin Ferreira</HighlightText>
-							</h1>
-							<p className="text-base md:text-xl text-ink">
-								Senior software engineer specializing in front-end. I make complex, data-heavy software{" "}
-								<HighlightText color="var(--color-mild-blue)">intuitive</HighlightText> and{" "}
-								<HighlightText color="var(--color-mild-pink)">accessible</HighlightText>.
-							</p>
-							<div className="flex gap-4">
+					<div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-12">
+						<div className="@container min-w-0 flex flex-col gap-8 md:gap-12 md:flex-1">
+							<div className="flex flex-col gap-4">
+								<h1
+									id="intro-heading"
+									className="text-display-fluid whitespace-nowrap font-heading text-charcoal"
+								>
+									<HighlightText>Benjamin Ferreira</HighlightText>
+								</h1>
+								<p className="text-base md:text-xl text-ink">
+									Senior software engineer specializing in front-end. I make complex, data-heavy
+									software <HighlightText color="var(--color-mild-blue)">intuitive</HighlightText> and{" "}
+									<HighlightText color="var(--color-mild-pink)">accessible</HighlightText>.
+								</p>
+							</div>
+
+							<div className="grid grid-cols-2 gap-3 md:flex md:gap-4 flex-wrap">
 								<Button href="#projects">View projects</Button>
 								<Button
 									download
@@ -38,14 +41,14 @@ export default function HomePage() {
 								</Button>
 							</div>
 						</div>
-						<div className="flex justify-center items-center md:flex-1 md:justify-end">
+						<div className="flex justify-center rotate-0 md:w-80 md:rotate-1 md:flex-none md:justify-end">
 							<Image
 								src={portrait}
 								alt=""
 								priority
 								placeholder="blur"
 								sizes="(min-width: 768px) 20rem, 66vw"
-								className="w-4/5 h-auto rotate-1 md:w-80 md:rotate-2"
+								className="h-auto w-full"
 							/>
 						</div>
 					</div>
