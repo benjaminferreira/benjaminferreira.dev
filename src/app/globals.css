@@ -60,6 +60,16 @@
 	--color-mild-yellow: #f2ee8e; /* Gentle - Sherbet Yellow */
 	--color-mild-green: #b0d492; /* Cool and Refined - Green */
 	--color-mild-grey: #bdc7c4; /* Cool and Refined - Grey */
+
+	/* Washi Tape (mt-inspired, muted Japanese tones) */
+	--color-tape-usuzumi: #d4cfc8; /* ash grey, light ink wash */
+	--color-tape-sakura: #e8c4c4; /* dusty cherry blossom */
+	--color-tape-matcha: #c4ccb0; /* muted tea green */
+	--color-tape-kinari: #e8dcc8; /* raw unbleached linen */
+	--color-tape-asagi: #b0c4c4; /* pale blue-grey */
+	--color-tape-fuji: #c8bcd0; /* soft wisteria */
+	--color-tape-kitsune: #d4bc9c; /* warm fox tan */
+	--color-tape-sumi: #a8a0a0; /* ink stone grey */
 }
 
 /* FONTS */
@@ -73,6 +83,12 @@
 @theme {
 	--text-display-fluid: clamp(2rem, 12cqw, 4.5rem);
 	--text-display-fluid--line-height: 1;
+}
+
+/* WASHI TAPE STANDARD HEIGHTS */
+@theme {
+	--tape-h: 3rem;
+	--tape-h-slim: 1.5rem;
 }
 
 @utility scrollbar-hidden {

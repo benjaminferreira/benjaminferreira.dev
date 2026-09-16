@@ -168,6 +168,85 @@ export default function page() {
 						</div>
 					</div>
 				</section>
+
+				{/* ===== SECTION: Color Palette - Washi Tape ===== */}
+				<section className="space-y-2">
+					<h2 className="text-sm uppercase tracking-wide text-graphite-hb mb-4">
+						Color Palette - Washi Tape (mt-inspired){" "}
+						<span className="normal-case font-mono text-[10px] text-graphite-hb/60">
+							--color-tape-{"{name}"}
+						</span>
+					</h2>
+					<p className="text-xs text-graphite-hb mb-2">
+						Top row: raw color. Bottom row: at 85% opacity with mix-blend-multiply over paper.
+					</p>
+					<div className="flex gap-4 flex-wrap">
+						<div className="flex flex-col gap-1 items-center">
+							<div className="w-24 h-24 bg-tape-usuzumi rounded flex items-end p-2">
+								<span className="text-xs text-ink">Usuzumi</span>
+							</div>
+							<div className="w-24 h-12 bg-paper rounded border border-ink/10 flex items-center justify-center">
+								<div className="w-full h-full rounded bg-tape-usuzumi/85 mix-blend-multiply" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1 items-center">
+							<div className="w-24 h-24 bg-tape-sakura rounded flex items-end p-2">
+								<span className="text-xs text-ink">Sakura</span>
+							</div>
+							<div className="w-24 h-12 bg-paper rounded border border-ink/10 flex items-center justify-center">
+								<div className="w-full h-full rounded bg-tape-sakura/85 mix-blend-multiply" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1 items-center">
+							<div className="w-24 h-24 bg-tape-matcha rounded flex items-end p-2">
+								<span className="text-xs text-ink">Matcha</span>
+							</div>
+							<div className="w-24 h-12 bg-paper rounded border border-ink/10 flex items-center justify-center">
+								<div className="w-full h-full rounded bg-tape-matcha/85 mix-blend-multiply" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1 items-center">
+							<div className="w-24 h-24 bg-tape-kinari rounded flex items-end p-2">
+								<span className="text-xs text-ink">Kinari</span>
+							</div>
+							<div className="w-24 h-12 bg-paper rounded border border-ink/10 flex items-center justify-center">
+								<div className="w-full h-full rounded bg-tape-kinari/85 mix-blend-multiply" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1 items-center">
+							<div className="w-24 h-24 bg-tape-asagi rounded flex items-end p-2">
+								<span className="text-xs text-ink">Asagi</span>
+							</div>
+							<div className="w-24 h-12 bg-paper rounded border border-ink/10 flex items-center justify-center">
+								<div className="w-full h-full rounded bg-tape-asagi/85 mix-blend-multiply" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1 items-center">
+							<div className="w-24 h-24 bg-tape-fuji rounded flex items-end p-2">
+								<span className="text-xs text-ink">Fuji</span>
+							</div>
+							<div className="w-24 h-12 bg-paper rounded border border-ink/10 flex items-center justify-center">
+								<div className="w-full h-full rounded bg-tape-fuji/85 mix-blend-multiply" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1 items-center">
+							<div className="w-24 h-24 bg-tape-kitsune rounded flex items-end p-2">
+								<span className="text-xs text-ink">Kitsune</span>
+							</div>
+							<div className="w-24 h-12 bg-paper rounded border border-ink/10 flex items-center justify-center">
+								<div className="w-full h-full rounded bg-tape-kitsune/85 mix-blend-multiply" />
+							</div>
+						</div>
+						<div className="flex flex-col gap-1 items-center">
+							<div className="w-24 h-24 bg-tape-sumi rounded flex items-end p-2">
+								<span className="text-xs text-ink">Sumi</span>
+							</div>
+							<div className="w-24 h-12 bg-paper rounded border border-ink/10 flex items-center justify-center">
+								<div className="w-full h-full rounded bg-tape-sumi/85 mix-blend-multiply" />
+							</div>
+						</div>
+					</div>
+				</section>
 			</section>
 
 			{/* ===== SECTION: Buttons ===== */}

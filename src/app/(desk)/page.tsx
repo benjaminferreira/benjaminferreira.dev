@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
+import WashiTape from "@/components/WashiTape";
 import { HighlightBox, HighlightGroup, HighlightText } from "@/components/HighlightGroup";
 import portrait from "@/images/ben-ferreira-portrait.jpg";
 import Image from "next/image";
@@ -30,7 +31,7 @@ export default function HomePage() {
 									<HighlightText color="var(--color-mild-pink)">accessible</HighlightText>.
 								</p>
 							</div>
-
+							<WashiTape>Test label on a full sized washi tape strip... </WashiTape>
 							<div className="grid grid-cols-2 gap-3 md:flex md:gap-4 flex-wrap">
 								<Button href="#projects">View projects</Button>
 								<Button
@@ -61,7 +62,7 @@ export default function HomePage() {
 				>
 					<div className="flex justify-between gap-4">
 						<h2 className="text-3xl font-heading text-charcoal uppercase">
-							<HighlightText>Project #1:</HighlightText>
+							<HighlightText color="var(--color-mild-green)">Project #1:</HighlightText>
 						</h2>
 						<HighlightBox
 							color="var(--color-mild-green)"
