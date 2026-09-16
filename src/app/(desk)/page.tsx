@@ -13,31 +13,22 @@ export default function HomePage() {
 				<section
 					id="intro"
 					aria-labelledby="intro-heading"
-					className="flex flex-col min-h-dvh gap-6 justify-center"
+					className="flex flex-col min-h-dvh gap-8 justify-center"
 				>
-					<div className="flex flex-col gap-8">
-						<h1
-							id="intro-heading"
-							className="text-4xl md:text-7xl font-heading text-charcoal"
-						>
-							<HighlightText>Benjamin Ferreira</HighlightText>
-						</h1>
-						<div className="space-y-4">
-							<Image
-								src={portrait}
-								alt=""
-								priority
-								placeholder="blur"
-								sizes="(min-width: 768px) 18rem, 7rem"
-								className="float-right mb-4 ml-4 w-28 rotate-1 md:mb-6 md:ml-8 md:w-72 md:rotate-2"
-							/>
-
-							<p className="text-lg md:text-xl text-ink">
+					<div className="flex flex-col gap-10 md:flex-row md:gap-12">
+						<div className="flex flex-col gap-8 md:flex-1">
+							<h1
+								id="intro-heading"
+								className="text-5xl md:text-7xl font-heading text-charcoal"
+							>
+								<HighlightText>Benjamin Ferreira</HighlightText>
+							</h1>
+							<p className="text-base md:text-xl text-ink">
 								Senior software engineer specializing in front-end. I make complex, data-heavy software{" "}
 								<HighlightText color="var(--color-mild-blue)">intuitive</HighlightText> and{" "}
 								<HighlightText color="var(--color-mild-pink)">accessible</HighlightText>.
 							</p>
-							<div className="flex flex-wrap gap-4">
+							<div className="flex gap-4">
 								<Button href="#projects">View projects</Button>
 								<Button
 									download
@@ -46,6 +37,16 @@ export default function HomePage() {
 									Download resume
 								</Button>
 							</div>
+						</div>
+						<div className="flex justify-center items-center md:flex-1 md:justify-end">
+							<Image
+								src={portrait}
+								alt=""
+								priority
+								placeholder="blur"
+								sizes="(min-width: 768px) 20rem, 66vw"
+								className="w-4/5 h-auto rotate-1 md:w-80 md:rotate-2"
+							/>
 						</div>
 					</div>
 				</section>
