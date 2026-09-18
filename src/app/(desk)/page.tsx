@@ -31,7 +31,6 @@ export default function HomePage() {
 									<HighlightText color="var(--color-mild-pink)">accessible</HighlightText>.
 								</p>
 							</div>
-							<WashiTape>Test label on a full sized washi tape strip... </WashiTape>
 							<div className="grid grid-cols-2 gap-3 md:flex md:gap-4 flex-wrap">
 								<Button href="#projects">View projects</Button>
 								<Button
@@ -43,14 +42,26 @@ export default function HomePage() {
 							</div>
 						</div>
 						<div className="flex justify-center rotate-0 md:w-80 md:rotate-1 md:flex-none md:justify-end">
-							<Image
-								src={portrait}
-								alt=""
-								priority
-								placeholder="blur"
-								sizes="(min-width: 768px) 20rem, 66vw"
-								className="h-auto w-full"
-							/>
+							<div className="relative w-full">
+								<Image
+									src={portrait}
+									alt=""
+									priority
+									placeholder="blur"
+									sizes="(min-width: 768px) 20rem, 66vw"
+									className="h-auto w-full"
+								/>
+								<WashiTape
+									color="matcha"
+									absolute
+									className="-top-2 left-6 w-20 -rotate-6"
+								/>
+								<WashiTape
+									color="fuji"
+									absolute
+									className="-bottom-2 right-8 w-16 rotate-3"
+								/>
+							</div>
 						</div>
 					</div>
 				</section>

@@ -2,6 +2,7 @@ import React from "react";
 import Surface from "@/components/Surface";
 import Sheet from "@/components/Sheet";
 import StickyNote from "@/components/StickyNote";
+import WashiTape from "@/components/WashiTape";
 
 export default function page() {
 	return (
@@ -842,6 +843,129 @@ export default function page() {
 							<p className="font-body text-ink text-sm">Smaller, but I can still be here 🐞</p>
 						</StickyNote>
 					</div>
+				</div>
+			</section>
+
+			{/* ===== SECTION: Washi Tape Component ===== */}
+			<section className="space-y-8">
+				<h2 className="text-sm uppercase tracking-wide text-graphite-hb">
+					Washi Tape Component{" "}
+					<span className="normal-case font-mono text-[10px] text-graphite-hb/60">
+						&lt;WashiTape /&gt;
+					</span>
+				</h2>
+
+				{/* Props overview */}
+				<div className="bg-white p-8 rounded grid md:grid-cols-2 gap-8">
+					{/* Edges */}
+					<div className="space-y-3">
+						<h3 className="text-xs uppercase tracking-wide text-graphite-hb">Edge variants</h3>
+						<div className="space-y-2">
+							<div className="space-y-0.5">
+								<span className="text-[10px] font-mono text-graphite-hb">torn (default)</span>
+								<WashiTape color="sakura" edge="torn" className="w-48" />
+							</div>
+							<div className="space-y-0.5">
+								<span className="text-[10px] font-mono text-graphite-hb">cut</span>
+								<WashiTape color="sakura" edge="cut" className="w-48" />
+							</div>
+							<div className="space-y-0.5">
+								<span className="text-[10px] font-mono text-graphite-hb">flag</span>
+								<WashiTape color="sakura" edge="flag" className="w-48" />
+							</div>
+						</div>
+					</div>
+					{/* Sizes */}
+					<div className="space-y-3">
+						<h3 className="text-xs uppercase tracking-wide text-graphite-hb">Sizes</h3>
+						<div className="space-y-2">
+							<div className="space-y-0.5">
+								<span className="text-[10px] font-mono text-graphite-hb">default</span>
+								<WashiTape color="matcha" className="w-48" />
+							</div>
+							<div className="space-y-0.5">
+								<span className="text-[10px] font-mono text-graphite-hb">slim</span>
+								<WashiTape color="matcha" size="slim" className="w-48" />
+							</div>
+							<div className="space-y-0.5">
+								<span className="text-[10px] font-mono text-graphite-hb">slim flag</span>
+								<WashiTape color="matcha" size="slim" edge="flag" className="w-48" />
+							</div>
+						</div>
+					</div>
+					{/* Colors */}
+					<div className="space-y-3">
+						<h3 className="text-xs uppercase tracking-wide text-graphite-hb">All colors</h3>
+						<div className="flex flex-wrap gap-2">
+							<WashiTape color="usuzumi" className="w-32">usuzumi</WashiTape>
+							<WashiTape color="sakura" className="w-32">sakura</WashiTape>
+							<WashiTape color="matcha" className="w-32">matcha</WashiTape>
+							<WashiTape color="kinari" className="w-32">kinari</WashiTape>
+							<WashiTape color="asagi" className="w-32">asagi</WashiTape>
+							<WashiTape color="fuji" className="w-32">fuji</WashiTape>
+							<WashiTape color="kitsune" className="w-32">kitsune</WashiTape>
+							<WashiTape color="sumi" className="w-32">sumi</WashiTape>
+						</div>
+					</div>
+					{/* Labels + rotated */}
+					<div className="space-y-3">
+						<h3 className="text-xs uppercase tracking-wide text-graphite-hb">Labels &amp; taping</h3>
+						<div className="flex flex-wrap gap-2">
+							<WashiTape color="asagi" edge="flag" className="w-44">Important note</WashiTape>
+							<WashiTape color="kitsune" edge="flag" size="slim" className="w-36">Sep 2026</WashiTape>
+							<WashiTape color="fuji" edge="flag" className="w-48">Design systems</WashiTape>
+						</div>
+						<div className="flex gap-8 items-center justify-center pt-2">
+							<WashiTape color="usuzumi" size="slim" className="w-20 -rotate-12" />
+							<WashiTape color="kinari" size="slim" className="w-16 rotate-6" />
+							<WashiTape color="matcha" className="w-24 -rotate-3" />
+							<WashiTape color="sumi" size="slim" className="w-20 rotate-[15deg]" />
+						</div>
+					</div>
+				</div>
+
+				{/* Over different surfaces */}
+				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+					<div className="bg-white p-6 rounded space-y-3">
+						<h3 className="text-[10px] uppercase tracking-wide text-graphite-hb">Flat white</h3>
+						<WashiTape color="sakura" className="w-full" />
+						<WashiTape color="asagi" edge="flag" className="w-3/4">On flat white</WashiTape>
+					</div>
+					<Surface variant="paper" pattern="ruled" padding="p-6" className="rounded">
+						<div className="space-y-3">
+							<h3 className="text-[10px] uppercase tracking-wide text-graphite-hb">Ruled</h3>
+							<WashiTape color="fuji" className="w-full" />
+							<WashiTape color="kitsune" edge="flag" className="w-3/4">Ruled surface</WashiTape>
+						</div>
+					</Surface>
+					<Surface variant="paper" pattern="grid" padding="p-6" className="rounded">
+						<div className="space-y-3">
+							<h3 className="text-[10px] uppercase tracking-wide text-graphite-hb">Grid</h3>
+							<WashiTape color="matcha" className="w-full" />
+							<WashiTape color="sumi" size="slim" edge="flag" className="w-3/4">Grid surface</WashiTape>
+						</div>
+					</Surface>
+					<Surface variant="paper" pattern="dotruled" padding="p-6" className="rounded">
+						<div className="space-y-3">
+							<h3 className="text-[10px] uppercase tracking-wide text-graphite-hb">Dotruled</h3>
+							<WashiTape color="usuzumi" className="w-full" />
+							<WashiTape color="sakura" edge="flag" className="w-3/4">Dotruled</WashiTape>
+						</div>
+					</Surface>
+					<Surface variant="paper-md" texture="grain" padding="p-6" className="rounded">
+						<div className="space-y-3">
+							<h3 className="text-[10px] uppercase tracking-wide text-graphite-hb">Grain texture</h3>
+							<WashiTape color="kinari" className="w-full" />
+							<WashiTape color="asagi" edge="flag" className="w-3/4">Grainy surface</WashiTape>
+						</div>
+					</Surface>
+					<Surface variant="paper-md" texture="handmade" padding="p-6" className="rounded">
+						<div className="space-y-3">
+							<h3 className="text-[10px] uppercase tracking-wide text-graphite-hb">Handmade texture</h3>
+							<WashiTape color="fuji" className="w-full" />
+							<WashiTape color="kitsune" edge="flag" className="w-3/4">Handmade</WashiTape>
+						</div>
+					</Surface>
 				</div>
 			</section>
 		</main>
