@@ -16,7 +16,7 @@ export default function HomePage() {
 					aria-labelledby="intro-heading"
 					className="flex flex-col min-h-dvh gap-8 justify-center"
 				>
-					<div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-12">
+					<div className="flex flex-col gap-16 md:flex-row md:items-center md:gap-12">
 						<div className="@container min-w-0 flex flex-col gap-8 md:gap-12 md:flex-1">
 							<div className="flex flex-col gap-4">
 								<h1
@@ -41,7 +41,7 @@ export default function HomePage() {
 								</Button>
 							</div>
 						</div>
-						<div className="flex justify-center rotate-0 md:w-80 md:rotate-1 md:flex-none md:justify-end">
+						<div className="flex justify-center self-center rotate-1 max-w-80 md:flex-none md:justify-end">
 							<div className="relative w-full">
 								<Image
 									src={portrait}
@@ -54,12 +54,12 @@ export default function HomePage() {
 								<WashiTape
 									color="matcha"
 									absolute
-									className="-top-2 left-6 w-20 -rotate-6"
+									className="-top-4 -left-9 w-30 -rotate-32"
 								/>
 								<WashiTape
 									color="fuji"
 									absolute
-									className="-bottom-2 right-8 w-16 rotate-3"
+									className="-bottom-5 -right-4 w-30 -rotate-3"
 								/>
 							</div>
 						</div>
@@ -71,13 +71,13 @@ export default function HomePage() {
 					id="projects"
 					className="space-y-4"
 				>
-					<div className="flex justify-between gap-4">
+					<div className="flex flex-col justify-between gap-4 md:flex-row">
 						<h2 className="text-3xl font-heading text-charcoal uppercase">
 							<HighlightText color="var(--color-mild-green)">Project #1:</HighlightText>
 						</h2>
 						<HighlightBox
 							color="var(--color-mild-green)"
-							className="p-6 w-sm"
+							className="p-6 max-w-sm"
 						>
 							This project has some details you're going to want to see! Take a look in this highlighted,
 							drawn-looking box for more details.
