@@ -113,7 +113,7 @@ export default function WashiTape({
 					backgroundImage: "url('/textures/handmade-paper.png')",
 					backgroundSize: "100px",
 					backgroundBlendMode: "overlay",
-					opacity: 0.8,
+					opacity: 0.85,
 					...edgeMask(edge, size),
 				}}
 			/>
