@@ -69,6 +69,7 @@ export default function Button({
 			<a
 				href={href}
 				download={download}
+				draggable={false}
 				className={classes}
 			>
 				{children}
@@ -80,6 +81,7 @@ export default function Button({
 	return (
 		<Link
 			href={href}
+			draggable={false}
 			className={classes}
 		>
 			{children}

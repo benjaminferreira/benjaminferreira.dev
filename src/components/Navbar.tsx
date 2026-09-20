@@ -31,6 +31,7 @@ export default function Navbar() {
 			<nav className="flex items-center justify-between h-full">
 				<Link
 					href="/"
+					draggable={false}
 					className="font-heading text-lg text-charcoal px-4 py-2"
 				>
 					Benjamin Ferreira
@@ -41,6 +42,7 @@ export default function Navbar() {
 							{item.href.startsWith("#") ? (
 								<a
 									href={item.href}
+									draggable={false}
 									className={linkClasses}
 								>
 									{item.label}
@@ -48,6 +50,7 @@ export default function Navbar() {
 							) : (
 								<Link
 									href={item.href}
+									draggable={false}
 									className={linkClasses}
 								>
 									{item.label}

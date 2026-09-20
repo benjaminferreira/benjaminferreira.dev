@@ -49,6 +49,7 @@ export default function HomePage() {
 									priority
 									placeholder="blur"
 									sizes="(min-width: 768px) 20rem, 66vw"
+									draggable={false}
 									className="h-auto w-full"
 								/>
 								<WashiTape
