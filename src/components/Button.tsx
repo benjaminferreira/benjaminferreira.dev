@@ -1,7 +1,6 @@
 import Link from "next/link";
 
-type ButtonVariant = "primary" | "secondary" | "quiet" | "nav";
-type ButtonSize = "default" | "small";
+type ButtonVariant = "primary" | "secondary" | "quiet";
 
 interface ButtonProps {
 	// href means this button navigates
@@ -10,8 +9,6 @@ interface ButtonProps {
 	download?: boolean;
 	// visual emphasis
 	variant?: ButtonVariant;
-	// button size to include small variant
-	size?: ButtonSize;
 	// onClick method. NOTE: only used when there is no href.
 	onClick?: () => void;
 	// button type. NOTE: only used when there is no href.
@@ -22,7 +19,8 @@ interface ButtonProps {
 }
 
 // Base classes used by all button types
-const base = "relative inline-flex items-center gap-2 justify-center whitespace-nowrap border";
+const base =
+	"relative inline-flex items-center gap-2 justify-center whitespace-nowrap border min-h-11 px-4 py-2.5 text-sm sm:px-5 sm:py-3 sm:text-base";
 
 // Button variants per usage type
 const variantClasses: Record<ButtonVariant, string> = {
@@ -40,40 +38,18 @@ const variantClasses: Record<ButtonVariant, string> = {
         focus-visible:text-pen-shinkai
         active:text-charcoal
     `,
-	nav: `
-        text-ink border-transparent
-        hover:text-pen-shinkai
-        focus-visible:text-pen-shinkai
-        active:text-charcoal
-    `,
-};
-
-// Button size defaults
-const sizeClasses: Record<ButtonSize, string> = {
-	default: "min-h-11 px-4 py-2.5 text-sm sm:px-5 sm:py-3 sm:text-base",
-	small: "px-2 py-1 text-sm",
-};
-
-// Button default size mapping
-const defaultSize: Record<ButtonVariant, ButtonSize> = {
-	primary: "default",
-	secondary: "default",
-	quiet: "default",
-	nav: "small",
 };
 
 export default function Button({
 	href,
 	download,
 	variant = "primary",
-	size = "default",
 	onClick,
 	type = "button",
 	className = "",
 	children,
 }: ButtonProps) {
-	const resolvedSize = size ?? defaultSize[variant];
-	const classes = `${base} ${variantClasses[variant]} ${sizeClasses[resolvedSize]} ${className}`;
+	const classes = `${base} ${variantClasses[variant]} ${className}`;
 
 	// no href means it is a real button doing an action
 	if (!href)
