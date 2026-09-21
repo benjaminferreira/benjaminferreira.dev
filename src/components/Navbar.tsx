@@ -14,14 +14,14 @@ import { useState } from "react";
  * Nav links (non-title/icons)
  */
 const navLinks = [
-	{ label: "Home", href: "#" },
-	{ label: "Projects", href: "#projects" },
-	{ label: "About", href: "#about" },
-	{ label: "Design System", href: "/" }, // TODO: update with real page
+	{ label: "Home", href: "#", colorClass: "bg-paper-md-dark/70" },
+	{ label: "Projects", href: "#projects", colorClass: "bg-dot-grey/70" },
+	{ label: "About", href: "#about", colorClass: "bg-margin/70" },
+	{ label: "Design System", href: "#design-system", colorClass: "bg-dot-blue/70" }, // TODO: update with real page
 ];
 
 const linkClasses =
-	"relative text-sm px-4 py-2.5 text-ink font-semibold hover:text-pen-shinkai focus-visible:text-pen-shinkai active:text-charcoal";
+	"text-base px-4 py-2.5 text-ink z-10 rounded-xl hover:text-ink/80 focus-visible:text-ink/80 active:text-charcoal";
 
 /**
  * TODO
@@ -31,23 +31,23 @@ const linkClasses =
  */
 export default function Navbar() {
 	const reduce = useReducedMotion();
-	let [activeIndex, setActiveIndex] = useState(0);
+	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
-		<header className="fixed top-0 left-0 right-0 h-13.25 z-50 px-1 backdrop-blur-xs bg-paper/70 border-b border-ink">
+		<header className="fixed top-0 left-0 right-0 z-50 py-1 px-1 backdrop-blur-xs bg-paper/70 border-b border-ink">
 			<nav className="flex items-center justify-between h-full">
-				<Link
-					href="/"
+				<a
+					href="#"
 					draggable={false}
-					className="font-heading text-lg text-charcoal px-4 py-2"
+					className="font-heading text-lg text-charcoal px-4 py-2.5"
 				>
 					Benjamin Ferreira
-				</Link>
+				</a>
 				<ul className="flex items-center">
 					{navLinks.map((item, i) => (
 						<li
-							key={i}
-							className="flex flex-col items-center"
+							key={item.href}
+							className="relative flex flex-col items-center"
 						>
 							{item.href.startsWith("#") ? (
 								<a
@@ -75,7 +75,7 @@ export default function Navbar() {
 									transition={
 										reduce ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 30 }
 									}
-									className="absolute bottom-1.5 h-1.5 w-1.5 rounded-full bg-ink"
+									className={`absolute bottom-1 h-8.5 w-8.5 rounded-[1000px] ${item.colorClass}`}
 								/>
 							)}
 						</li>
