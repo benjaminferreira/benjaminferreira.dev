@@ -9,6 +9,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
+import { SunIcon, MoonStarsIcon } from "@phosphor-icons/react";
 
 /**
  * Nav links (non-title/icons)
@@ -21,7 +22,7 @@ const navLinks = [
 ];
 
 const linkClasses =
-	"text-base px-4 py-2.5 text-ink z-10 rounded-xl hover:text-ink/80 focus-visible:text-ink/80 active:text-charcoal";
+	"px-4 py-2.5 text-ink z-10 rounded-full hover:text-ink/80 focus-visible:text-ink/80 active:text-charcoal";
 
 /**
  * TODO
@@ -81,12 +82,15 @@ export default function Navbar() {
 						</li>
 					))}
 					{/* dark-mode toggle placeholder */}
-					<li>
+					<li className="px-1.5">
 						<button
 							type="button"
-							className={linkClasses}
+							className="text-base px-2.5 py-2.5 text-ink z-10 rounded-full cursor-pointer hover:text-ink/80 focus-visible:text-ink/80 active:text-charcoal"
 						>
-							🌙
+							<MoonStarsIcon
+								size={26}
+								weight="light"
+							/>
 						</button>
 					</li>
 				</ul>
