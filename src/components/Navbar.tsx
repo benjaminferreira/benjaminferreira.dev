@@ -33,6 +33,7 @@ const linkClasses =
 export default function Navbar() {
 	const reduce = useReducedMotion();
 	const [activeIndex, setActiveIndex] = useState(0);
+	const [isDarkMode, setIsDarkMode] = useState(false);
 
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 py-1 px-1 backdrop-blur-xs bg-paper/70 border-b border-ink">
@@ -40,6 +41,7 @@ export default function Navbar() {
 				<a
 					href="#"
 					draggable={false}
+					onClick={() => setActiveIndex(0)}
 					className="font-heading text-lg text-charcoal px-4 py-2.5"
 				>
 					Benjamin Ferreira
@@ -85,12 +87,22 @@ export default function Navbar() {
 					<li className="px-1.5">
 						<button
 							type="button"
+							aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+							title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"} // TODO - placeholder until we implement themed hocus tooltips
+							onClick={() => setIsDarkMode(!isDarkMode)}
 							className="text-base px-2.5 py-2.5 text-ink z-10 rounded-full cursor-pointer hover:text-ink/80 focus-visible:text-ink/80 active:text-charcoal"
 						>
-							<MoonStarsIcon
-								size={26}
-								weight="light"
-							/>
+							{isDarkMode ? (
+								<SunIcon
+									size={26}
+									weight="light"
+								/>
+							) : (
+								<MoonStarsIcon
+									size={26}
+									weight="light"
+								/>
+							)}
 						</button>
 					</li>
 				</ul>
