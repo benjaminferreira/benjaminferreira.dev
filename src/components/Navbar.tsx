@@ -14,10 +14,10 @@ import { useState } from "react";
  * Nav links (non-title/icons)
  */
 const navLinks = [
-	{ label: "Home", href: "#", colorClass: "bg-paper-md-dark/70" },
-	{ label: "Projects", href: "#projects", colorClass: "bg-dot-grey/70" },
-	{ label: "About", href: "#about", colorClass: "bg-margin/70" },
-	{ label: "Design System", href: "#design-system", colorClass: "bg-dot-blue/70" }, // TODO: update with real page
+	{ label: "Home", href: "#", colorClass: "bg-mild-yellow" },
+	{ label: "Projects", href: "#projects", colorClass: "bg-mild-green" },
+	{ label: "About", href: "#about", colorClass: "bg-mild-pink" },
+	{ label: "Design System", href: "#design-system", colorClass: "bg-mild-blue" }, // TODO: update with real page
 ];
 
 const linkClasses =
@@ -73,9 +73,9 @@ export default function Navbar() {
 								<motion.span
 									layoutId="active-dot"
 									transition={
-										reduce ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 30 }
+										reduce ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 32 }
 									}
-									className={`absolute bottom-1 h-8.5 w-8.5 rounded-[1000px] ${item.colorClass}`}
+									className={`absolute bottom-1 h-2 w-2 rounded-full border border-ink ${item.colorClass}`}
 								/>
 							)}
 						</li>
