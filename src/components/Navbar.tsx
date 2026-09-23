@@ -8,14 +8,14 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SunIcon, MoonStarsIcon } from "@phosphor-icons/react";
 
 /**
  * Nav links (non-title/icons)
  */
 const navLinks = [
-	{ label: "Home", href: "#", colorClass: "bg-mild-yellow" },
+	{ label: "Intro", href: "#intro", colorClass: "bg-mild-yellow" },
 	{ label: "Projects", href: "#projects", colorClass: "bg-mild-green" },
 	{ label: "About", href: "#about", colorClass: "bg-mild-pink" },
 	{ label: "Design System", href: "#design-system", colorClass: "bg-mild-blue" }, // TODO: update with real page
@@ -34,14 +34,60 @@ export default function Navbar() {
 	const reduce = useReducedMotion();
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [isDarkMode, setIsDarkMode] = useState(false);
+	const observerRef = useRef<IntersectionObserver | null>(null);
+	const isClickScrolling = useRef(false);
+
+	// Hook to set active index state on scroll location
+	useEffect(() => {
+		// Parse section names from navLinks
+		const sectionIds = navLinks.map((item) => item.href.replace("#", ""));
+
+		// Get list of HTML section elements from the DOM
+		const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+		// Create intersection observer
+		const io = new IntersectionObserver(
+			(entries) => {
+				// If the user clicked on a nav link, ignore changes while scrolling to that section
+				if (isClickScrolling.current) return;
+
+				// Loop through each change and set active index when isIntersecting
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						const index = sectionIds.indexOf(entry.target.id);
+						if (index !== -1) {
+							setActiveIndex(index);
+						}
+					}
+				}
+			},
+			{ rootMargin: "-40% 0px -55% 0px" },
+		);
+
+		sections.forEach((el) => io.observe(el));
+		observerRef.current = io;
+		return () => io.disconnect();
+	}, []);
+
+	/**
+	 * Navbar item click handler - updates scroll location and active index
+	 * @param i index of navbar item clicked
+	 */
+	const handleNavClick = (i: number) => {
+		setActiveIndex(i);
+		isClickScrolling.current = true;
+		setTimeout(() => {
+			isClickScrolling.current = false;
+		}, 800);
+	};
 
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 py-1 px-1 backdrop-blur-xs bg-paper/70 border-b border-ink">
-			<nav className="flex items-center justify-between h-full">
+			<nav className="flex items-center justify-between h-full whitespace-nowrap">
 				<a
-					href="#"
+					href="#intro"
 					draggable={false}
-					onClick={() => setActiveIndex(0)}
+					onClick={() => handleNavClick(0)}
 					className="font-heading text-lg text-charcoal px-4 py-2.5"
 				>
 					Benjamin Ferreira
@@ -56,7 +102,7 @@ export default function Navbar() {
 								<a
 									href={item.href}
 									draggable={false}
-									onClick={() => setActiveIndex(i)}
+									onClick={() => handleNavClick(i)}
 									className={linkClasses}
 								>
 									{item.label}
@@ -65,7 +111,7 @@ export default function Navbar() {
 								<Link
 									href={item.href}
 									draggable={false}
-									onClick={() => setActiveIndex(i)}
+									onClick={() => handleNavClick(i)}
 									className={linkClasses}
 								>
 									{item.label}
