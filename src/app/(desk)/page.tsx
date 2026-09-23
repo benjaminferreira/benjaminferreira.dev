@@ -171,7 +171,7 @@ export default function HomePage() {
 			<HighlightGroup>
 				<section
 					id="design-system"
-					className="space-y-4 pb-[1000px]"
+					className="space-y-4 pb-250"
 				>
 					<div className="flex flex-col justify-between gap-4 md:flex-row">
 						<h2 className="text-3xl font-heading text-charcoal uppercase">

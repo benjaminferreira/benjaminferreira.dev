@@ -73,9 +73,19 @@ export default function Navbar() {
 	 * Navbar item click handler - updates scroll location and active index
 	 * @param i index of navbar item clicked
 	 */
-	const handleNavClick = (i: number) => {
+	const handleNavClick = (i: number, e: React.MouseEvent) => {
+		e.preventDefault();
 		setActiveIndex(i);
 		isClickScrolling.current = true;
+
+		// Smooth scroll on nav item click
+		if (i === 0) {
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		} else {
+			const id = navLinks[i].href.replace("#", "");
+			document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+		}
+
 		setTimeout(() => {
 			isClickScrolling.current = false;
 		}, 800);
@@ -87,7 +97,7 @@ export default function Navbar() {
 				<a
 					href="#intro"
 					draggable={false}
-					onClick={() => handleNavClick(0)}
+					onClick={(e) => handleNavClick(0, e)}
 					className="font-heading text-lg text-charcoal px-4 py-2.5"
 				>
 					Benjamin Ferreira
@@ -102,7 +112,7 @@ export default function Navbar() {
 								<a
 									href={item.href}
 									draggable={false}
-									onClick={() => handleNavClick(i)}
+									onClick={(e) => handleNavClick(i, e)}
 									className={linkClasses}
 								>
 									{item.label}
@@ -111,7 +121,7 @@ export default function Navbar() {
 								<Link
 									href={item.href}
 									draggable={false}
-									onClick={() => handleNavClick(i)}
+									onClick={(e) => handleNavClick(i, e)}
 									className={linkClasses}
 								>
 									{item.label}

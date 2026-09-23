@@ -4,6 +4,7 @@
    explicitly so their one-off utilities (space-y-14, text-[13px], etc.) still generate. */
 @source "./sandbox/skeleton";
 
+/* GLOBAL CUSTOM PROPERTIES */
 :root {
 	font-family: var(--font-body);
 	color: var(--color-ink);
@@ -91,18 +92,24 @@
 	--tape-h-slim: 1.5rem;
 }
 
+/* ELEMENT DEFAULTS */
+@layer base {
+	/* style for ring on focused elements */
+	:focus-visible {
+		outline: var(--focus-ring-width) dashed var(--focus-ring-color);
+		outline-offset: 3px;
+	}
+
+	/* Default section scroll margin */
+	section {
+		scroll-margin-top: 5rem;
+	}
+}
+
 @utility scrollbar-hidden {
 	scrollbar-width: none;
 	&::-webkit-scrollbar {
 		display: none;
-	}
-}
-
-/* style for ring on focused elements */
-@layer base {
-	:focus-visible {
-		outline: var(--focus-ring-width) dashed var(--focus-ring-color);
-		outline-offset: 3px;
 	}
 }
 
@@ -111,15 +118,6 @@
 	.group:focus-visible & {
 		outline: var(--focus-ring-width) dashed var(--focus-ring-color);
 		outline-offset: 4px;
-	}
-}
-
-@custom-variant hocus {
-	&:hover {
-		@slot;
-	}
-	&:focus-visible {
-		@slot;
 	}
 }
 
@@ -296,5 +294,14 @@
 			transition-duration: 0ms;
 			transition-delay: 0ms;
 		}
+	}
+}
+
+@custom-variant hocus {
+	&:hover {
+		@slot;
+	}
+	&:focus-visible {
+		@slot;
 	}
 }
