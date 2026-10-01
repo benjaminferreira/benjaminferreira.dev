@@ -72,16 +72,25 @@ export function HighlightGroup({ gap = 120, children }: { gap?: number; children
 	return <SequenceContext.Provider value={register}>{children}</SequenceContext.Provider>;
 }
 
-/** Enrolls an element in its HighlightGroup; returns a ref and whether it is its turn. */
-export function useHighlight<T extends Element>(getDuration: () => number) {
+/** Enrolls an element in its HighlightGroup; returns a ref and whether it is its turn.
+ *      - `onActivate` runs just before the mark draws.
+ **/
+export function useHighlight<T extends Element>(getDuration: () => number, onActivate?: () => void) {
 	const register = useContext(SequenceContext);
 	const ref = useRef<T>(null);
 	const [active, setActive] = useState(false);
 
 	useEffect(() => {
 		if (!register || !ref.current) return; // no group: hover/focus only
-		return register({ el: ref.current, activate: () => setActive(true), getDuration });
-	}, [register, getDuration]);
+		return register({
+			el: ref.current,
+			activate: () => {
+				onActivate?.();
+				setActive(true);
+			},
+			getDuration,
+		});
+	}, [register, getDuration, onActivate]);
 
 	return { ref, active, grouped: register !== null };
 }
@@ -107,7 +116,9 @@ export function HighlightText({
 	const [resizing, setResizing] = useState(false);
 	const durationRef = useRef(300);
 	const getDuration = useCallback(() => durationRef.current, []);
-	const { ref, active, grouped } = useHighlight<HTMLSpanElement>(getDuration);
+	const measureRef = useRef<(() => void) | null>(null);
+	const remeasure = useCallback(() => measureRef.current?.(), []);
+	const { ref, active, grouped } = useHighlight<HTMLSpanElement>(getDuration, remeasure);
 
 	// measure one band per visual line so wrapped text draws line by line at a constant speed
 	useEffect(() => {
@@ -154,6 +165,7 @@ export function HighlightText({
 			durationRef.current = Math.max(120, delay);
 			setTotal(durationRef.current);
 		};
+		measureRef.current = measure;
 		measure();
 		let first = true;
 		let settle: number | undefined;
@@ -191,9 +203,7 @@ export function HighlightText({
 					: ({ "--hl-draw": `${total}ms`, ...(color ? { "--hl": color } : {}) } as React.CSSProperties)
 			}
 			className={
-				multiLine
-					? `relative ${className}`
-					: `highlight ${!grouped ? "highlight-hover " : ""}${className}`
+				multiLine ? `relative ${className}` : `highlight ${!grouped ? "highlight-hover " : ""}${className}`
 			}
 		>
 			<span ref={textRef}>{children}</span>

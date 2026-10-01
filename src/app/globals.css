@@ -100,6 +100,11 @@
 		outline-offset: 3px;
 	}
 
+	/* clip rotated elements that extend past the viewport */
+	html {
+		overflow-x: clip;
+	}
+
 	/* Default section scroll margin */
 	section {
 		scroll-margin-top: 5rem;
