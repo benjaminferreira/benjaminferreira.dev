@@ -222,7 +222,7 @@ export function HighlightText({
 								top: ln.top,
 								width: ln.width,
 								height: ln.height,
-								backgroundColor: color ?? "var(--color-mild-yellow)",
+								backgroundColor: color ?? "var(--color-accent-1)",
 								mixBlendMode: "multiply",
 								transformOrigin: "left",
 								transform: drawn ? "scaleX(1)" : "scaleX(0)",

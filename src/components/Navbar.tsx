@@ -15,10 +15,10 @@ import { SunIcon, MoonStarsIcon } from "@phosphor-icons/react";
  * Nav links (non-title/icons)
  */
 const navLinks = [
-	{ label: "Intro", href: "#intro", colorClass: "bg-mild-yellow" },
-	{ label: "Projects", href: "#projects", colorClass: "bg-mild-green" },
-	{ label: "About", href: "#about", colorClass: "bg-mild-pink" },
-	{ label: "Design System", href: "#design-system", colorClass: "bg-mild-blue" }, // TODO: update with real page
+	{ label: "Intro", href: "#intro", colorClass: "bg-accent-1" },
+	{ label: "Projects", href: "#projects", colorClass: "bg-accent-2" },
+	{ label: "About", href: "#about", colorClass: "bg-accent-3" },
+	{ label: "Design System", href: "#design-system", colorClass: "bg-accent-4" }, // TODO: update with real page
 ];
 
 const linkClasses =

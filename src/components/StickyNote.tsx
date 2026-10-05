@@ -125,7 +125,7 @@ const shadowVariants: Variants = {
  * object-level behavior: elevation, interactivity, and scrollability.
  *
  * @example
- * <StickyNote format="standard" bgColor="bg-mild-yellow" interactive>
+ * <StickyNote format="standard" bgColor="bg-accent-3" interactive>
  *   <p>Remember to water the plants</p>
  * </StickyNote>
  */

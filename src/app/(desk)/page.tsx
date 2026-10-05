@@ -27,8 +27,8 @@ export default function HomePage() {
 								</h1>
 								<p className="text-base md:text-xl text-ink">
 									Senior software engineer specializing in front-end. I make complex, data-heavy
-									software <HighlightText color="var(--color-mild-blue)">intuitive</HighlightText> and{" "}
-									<HighlightText color="var(--color-mild-pink)">accessible</HighlightText>.
+									software <HighlightText color="var(--color-accent-4)">intuitive</HighlightText> and{" "}
+									<HighlightText color="var(--color-accent-3)">accessible</HighlightText>.
 								</p>
 							</div>
 							<div className="grid grid-cols-2 gap-3 md:flex md:gap-4 flex-wrap">
@@ -75,10 +75,10 @@ export default function HomePage() {
 				>
 					<div className="flex flex-col justify-between gap-4 md:flex-row">
 						<h2 className="text-3xl font-heading text-charcoal uppercase">
-							<HighlightText color="var(--color-mild-green)">Project #1:</HighlightText>
+							<HighlightText color="var(--color-accent-2)">Project #1:</HighlightText>
 						</h2>
 						<HighlightBox
-							color="var(--color-mild-green)"
+							color="var(--color-accent-2)"
 							className="p-6 max-w-sm"
 						>
 							This project has some details you're going to want to see! Take a look in this highlighted,
@@ -125,10 +125,10 @@ export default function HomePage() {
 				>
 					<div className="flex flex-col justify-between gap-4 md:flex-row">
 						<h2 className="text-3xl font-heading text-charcoal uppercase">
-							<HighlightText color="var(--color-mild-pink)">About Me:</HighlightText>
+							<HighlightText color="var(--color-accent-3)">About Me:</HighlightText>
 						</h2>
 						<HighlightBox
-							color="var(--color-mild-pink)"
+							color="var(--color-accent-3)"
 							className="p-6 max-w-sm"
 						>
 							This project has some details you're going to want to see! Take a look in this highlighted,
@@ -175,10 +175,10 @@ export default function HomePage() {
 				>
 					<div className="flex flex-col justify-between gap-4 md:flex-row">
 						<h2 className="text-3xl font-heading text-charcoal uppercase">
-							<HighlightText color="var(--color-mild-blue)">Design System:</HighlightText>
+							<HighlightText color="var(--color-accent-4)">Design System:</HighlightText>
 						</h2>
 						<HighlightBox
-							color="var(--color-mild-blue)"
+							color="var(--color-accent-4)"
 							className="p-6 max-w-sm"
 						>
 							This is a little temp blurb about the design system

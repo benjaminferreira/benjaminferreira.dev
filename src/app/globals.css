@@ -71,6 +71,13 @@
 	--color-tape-fuji: #c8bcd0; /* soft wisteria */
 	--color-tape-kitsune: #d4bc9c; /* warm fox tan */
 	--color-tape-sumi: #a8a0a0; /* ink stone grey */
+
+	/* Accent slots. Sections, nav dots, and highlights use these.
+        - Based off of a highlighter color group */
+	--color-accent-1: var(--color-mild-yellow);
+	--color-accent-2: var(--color-mild-green);
+	--color-accent-3: var(--color-mild-pink);
+	--color-accent-4: var(--color-mild-blue);
 }
 
 /* FONTS */
@@ -144,7 +151,7 @@
 		bottom: var(--hl-bottom, 0.16em);
 		height: var(--hl-thickness, 0.75rem);
 		pointer-events: none;
-		background-color: var(--hl, var(--color-mild-yellow));
+		background-color: var(--hl, var(--color-accent-1));
 		mix-blend-mode: multiply;
 		opacity: 0;
 		transform: scaleX(0);
