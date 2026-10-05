@@ -116,6 +116,13 @@
 	section {
 		scroll-margin-top: 5rem;
 	}
+
+	/* Smooth # links throughout site */
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
+	}
 }
 
 @utility scrollbar-hidden {
