@@ -1014,7 +1014,7 @@ export default function page() {
 							<WashiTape
 								color="sumi"
 								size="slim"
-								className="w-20 rotate-[15deg]"
+								className="w-20 rotate-15"
 							/>
 						</div>
 					</div>
