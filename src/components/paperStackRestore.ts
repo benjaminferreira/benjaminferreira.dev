@@ -12,7 +12,7 @@ export const restoreScript = `(function () {
     try {
         history.scrollRestoration = "manual";
         var nav = performance.getEntriesByType("navigation")[0];
-        var type = nav && nav.entryType;
+        var type = nav && nav.type;
         if (type !== "reload" && type !== "back_forward") sessionStorage.removeItem("${POS_KEY}");
         if (!sessionStorage.getItem("${POS_KEY}") && !location.hash) return;
         var style = document.createElement("style");
