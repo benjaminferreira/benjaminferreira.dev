@@ -16,6 +16,8 @@ import Surface, { type SurfaceMaterialProps } from "./Surface";
 import { useSetActiveSheet } from "./ActiveSheet";
 //import { POS_KEY, HIDE_STYLE_ID } from "./paperStackRestore"; // added in step 5
 import type { SectionId } from "@/content/sections";
+import { HIDE_STYLE_ID, POS_KEY } from "./paperStackRestore";
+import { shouldUseReactServerCondition } from "next/dist/build/utils";
 
 // shadow layers inset this far inside of paper and spread this far out by the same amount
 const SHADOW_INSET = 40;
@@ -225,7 +227,77 @@ function PaperStack({ children }: { children: React.ReactNode }) {
 		return () => document.removeEventListener("click", onClick);
 	}, [sheets, scrollToSheet]);
 
-	// 7. sheetRange, restore effect, save effect - TODO
+	// 7. the scroll range a sheet has: its top to the next sheet's top (or the end of the page)
+	const sheetRange = useCallback((i: number) => {
+		const tops = topsRef.current;
+		const start = tops[i] ?? 0;
+		const end = i < tops.length - 1 ? tops[i + 1] : document.documentElement.scrollHeight - window.innerHeight;
+		return { start, end };
+	}, []);
+
+	// once measured, jump to the saved spot (or #hash), then let the stack fade in.
+	useEffect(() => {
+		if (!measured || restoredRef.current) return;
+		restoredRef.current = true; // only ever restore once per page load.
+
+		let target: number | null = null;
+		try {
+			const saved = sessionStorage.getItem(POS_KEY);
+			if (saved) {
+				const { sheet, progress } = JSON.parse(saved);
+				if (sheet >= 0 && sheet < sheets.length) {
+					const { start, end } = sheetRange(sheet);
+					target = start + progress * (end - start);
+				}
+			}
+		} catch {
+			// bad or missing data: just start where we are right now
+		}
+		if (target === null) {
+			const hashIndex = sheets.findIndex((s) => `#${s.props.id}` === window.location.hash);
+			if (hashIndex >= 0) target = sheetRange(hashIndex).start;
+		}
+
+		if (target !== null) {
+			window.scrollTo({ top: target, behavior: "instant" });
+			onScroll(); // put every transform in place in this same frame
+		}
+		// removing the hide style lets the opacity transition run
+		requestAnimationFrame(() => document.getElementById(HIDE_STYLE_ID)?.remove());
+	}, [measured, onScroll, sheetRange, sheets]);
+
+	// save which sheet we're on and how far through it, when the page is going away
+	useEffect(() => {
+		const save = () => {
+			if (!restoredRef.current) return; // don't save a half-restored position
+			const y = window.scrollY;
+			if (y < 1) {
+				sessionStorage.removeItem(POS_KEY); // at the top: nothing to restore
+				return;
+			}
+			let sheet = 0;
+			for (let i = topsRef.current.length - 1; i >= 0; i--) {
+				if (topsRef.current[i] <= y) {
+					sheet = i;
+					break;
+				}
+			}
+			const { start, end } = sheetRange(sheet);
+			const progress = end > start ? (y - start) / (end - start) : 0;
+			sessionStorage.setItem(POS_KEY, JSON.stringify({ sheet, progress }));
+		};
+
+		// mobile can kill a tab without pagehide, so also save when it's hidden
+		const onVisibility = () => {
+			if (document.visibilityState === "hidden") save();
+		};
+		window.addEventListener("pagehide", save);
+		document.addEventListener("visibilitychange", onVisibility);
+		return () => {
+			window.removeEventListener("pagehide", save);
+			document.removeEventListener("visibilitychange", onVisibility);
+		};
+	}, [sheetRange]);
 
 	// 8. slotFor(i), then return the markup
 	const slotFor = (i: number): SheetSlot => {
