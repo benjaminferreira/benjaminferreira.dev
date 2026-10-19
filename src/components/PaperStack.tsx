@@ -13,7 +13,7 @@ import {
 } from "react";
 import { useReducedMotion } from "motion/react";
 import Surface, { type SurfaceMaterialProps } from "./Surface";
-import { useSetActiveSheet } from "./ActiveSheet";
+import { useSetActiveSheet, useSetOnHero } from "./ActiveSheet";
 import type { SectionId } from "@/content/sections";
 import { HIDE_STYLE_ID, POS_KEY } from "./paperStackRestore";
 
@@ -101,6 +101,7 @@ const SheetSlotContext = createContext<SheetSlot | null>(null);
 function PaperStack({ children }: { children: React.ReactNode }) {
 	const reduce = useReducedMotion();
 	const setActiveId = useSetActiveSheet();
+	const setOnHero = useSetOnHero();
 
 	// collect the sheets from children
 	const sheets = Children.toArray(children).filter((c): c is React.ReactElement<PaperStackSheetProps> =>
@@ -181,18 +182,21 @@ function PaperStack({ children }: { children: React.ReactNode }) {
 		});
 
 		// scroll-spy: the last sheet whose top has passed 60% up the screen is "on top"
-		if (!lockRef.current) {
-			let active = 0;
-			for (let i = tops.length - 1; i >= 0; i--) {
-				if (tops[i] - y <= vh * 0.4) {
-					active = i;
-					break;
-				}
+		let active = 0;
+		for (let i = tops.length - 1; i >= 0; i--) {
+			if (tops[i] - y <= vh * 0.4) {
+				active = i;
+				break;
 			}
+		}
+		// the bar follows what's on screen, even mid nav-scroll
+		setOnHero(active === 0);
+		// the dot waits out the nav click lock so it doesn't flick through sheets
+		if (!lockRef.current) {
 			const id = sheets[active]?.props.id;
 			if (id) setActiveId(id);
 		}
-	}, [sheets, overflows, reduce, setActiveId]);
+	}, [sheets, overflows, reduce, setActiveId, setOnHero]);
 
 	// attach the onScroll: re-attaches whenever onScroll is rebuilt (after each measure)
 	useEffect(() => {

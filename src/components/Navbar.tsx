@@ -9,7 +9,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { sections } from "@/content/sections";
-import { useActiveSheetId } from "@/components/ActiveSheet";
+import { useActiveSheetId, useOnHero } from "@/components/ActiveSheet";
 import { SunIcon, MoonStarsIcon } from "@phosphor-icons/react";
 
 const linkClasses =
@@ -34,8 +34,8 @@ const clearBar = "border-transparent";
 export default function Navbar() {
 	const reduce = useReducedMotion();
 	const activeId = useActiveSheetId();
+	const onHero = useOnHero();
 	const [isDarkMode, setIsDarkMode] = useState(false);
-	const onHero = activeId === sections[0].id;
 
 	return (
 		<header
