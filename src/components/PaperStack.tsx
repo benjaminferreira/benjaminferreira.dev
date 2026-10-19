@@ -14,10 +14,8 @@ import {
 import { useReducedMotion } from "motion/react";
 import Surface, { type SurfaceMaterialProps } from "./Surface";
 import { useSetActiveSheet } from "./ActiveSheet";
-//import { POS_KEY, HIDE_STYLE_ID } from "./paperStackRestore"; // added in step 5
 import type { SectionId } from "@/content/sections";
 import { HIDE_STYLE_ID, POS_KEY } from "./paperStackRestore";
-import { shouldUseReactServerCondition } from "next/dist/build/utils";
 
 // shadow layers inset this far inside of paper and spread this far out by the same amount
 const SHADOW_INSET = 40;
@@ -38,18 +36,28 @@ function placeShadow(el: HTMLElement | null, y: number, opacity: number) {
 }
 
 /**
+ * Sheet layout class lists
+ */
+const layouts = {
+	column: "mx-auto max-w-5xl px-5 md:px-8", // default: the reading pages
+	full: "px-5 md:px-12 lg:px-20", // edge to edge, roomy padding
+};
+
+/**
  * Props interface based on Surface Material Props
  */
 interface PaperStackSheetProps extends SurfaceMaterialProps {
-	// Becomes the section id, must match ids in sections.ts
+	/** Becomes the section id, must match ids in sections.ts */
 	id: SectionId;
-	// Tilt in degrees while the sheet slides in (ignored on sheet #1)
+	/** Sheet layout (column or full) */
+	layout?: keyof typeof layouts;
+	/** Tilt in degrees while the sheet slides in (ignored on sheet #1) */
 	rotate?: number;
-	// Draws the red notebook paper margin line
+	/** Draws the red notebook paper margin line */
 	hasMargin?: boolean;
-	// ID of the heading that names this section - for screen readers
+	/** ID of the heading that names this section - for screen readers */
 	labelledBy?: string;
-	// Replaces the default padding (pt-24 pb-[40vh])
+	/** Replaces the default padding (pt-24 pb-[40vh]) */
 	contentClassName?: string;
 	children: React.ReactNode;
 }
@@ -94,12 +102,12 @@ function PaperStack({ children }: { children: React.ReactNode }) {
 	const reduce = useReducedMotion();
 	const setActiveId = useSetActiveSheet();
 
-	// 1. collect the sheets from children
+	// collect the sheets from children
 	const sheets = Children.toArray(children).filter((c): c is React.ReactElement<PaperStackSheetProps> =>
 		isValidElement(c),
 	);
 
-	// 2. refs and state
+	// refs and state
 	const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 	const stickyRefs = useRef<(HTMLDivElement | null)[]>([]);
 	const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -116,7 +124,7 @@ function PaperStack({ children }: { children: React.ReactNode }) {
 	const [overflows, setOverflows] = useState<number[]>([]);
 	const [measured, setMeasured] = useState(false);
 
-	// 3. measure how far each sheet's content runs past the bottom of the screen
+	// measure how far each sheet's content runs past the bottom of the screen
 	useEffect(() => {
 		const measure = () => {
 			const vh = window.innerHeight;
@@ -136,12 +144,12 @@ function PaperStack({ children }: { children: React.ReactNode }) {
 		};
 	}, [sheets.length]);
 
-	// 4. read section tops once per measure instead of every frame
+	// read section tops once per measure instead of every frame
 	useLayoutEffect(() => {
 		topsRef.current = sectionRefs.current.map((el) => el?.offsetTop ?? 0);
 	}, [overflows]);
 
-	// 5. runs on every scroll event to read cached numbers, write styles etc.
+	// runs on every scroll event to read cached numbers, write styles etc.
 	const onScroll = useCallback(() => {
 		const vh = window.innerHeight;
 		const y = window.scrollY;
@@ -193,7 +201,7 @@ function PaperStack({ children }: { children: React.ReactNode }) {
 		return () => window.removeEventListener("scroll", onScroll);
 	}, [onScroll]);
 
-	// 6. smooth (or instant) scroll to a sheet, then hand it keyboard focus like a real # jump would
+	// smooth (or instant) scroll to a sheet, then hand it keyboard focus like a real # jump would
 	const scrollToSheet = useCallback(
 		(i: number) => {
 			setActiveId(sheets[i].props.id);
@@ -227,7 +235,7 @@ function PaperStack({ children }: { children: React.ReactNode }) {
 		return () => document.removeEventListener("click", onClick);
 	}, [sheets, scrollToSheet]);
 
-	// 7. the scroll range a sheet has: its top to the next sheet's top (or the end of the page)
+	// the scroll range a sheet has: its top to the next sheet's top (or the end of the page)
 	const sheetRange = useCallback((i: number) => {
 		const tops = topsRef.current;
 		const start = tops[i] ?? 0;
@@ -299,7 +307,7 @@ function PaperStack({ children }: { children: React.ReactNode }) {
 		};
 	}, [sheetRange]);
 
-	// 8. slotFor(i), then return the markup
+	// slotFor(i), then return the markup
 	const slotFor = (i: number): SheetSlot => {
 		const overflow = overflows[i] ?? 0;
 		const isLast = i === sheets.length - 1;
@@ -357,6 +365,7 @@ function PaperStack({ children }: { children: React.ReactNode }) {
  */
 function PaperStackSheet({
 	id,
+	layout = "column",
 	rotate,
 	hasMargin,
 	labelledBy,
@@ -389,7 +398,7 @@ function PaperStackSheet({
 							className="min-h-dvh"
 							{...surface}
 						>
-							<div className="mx-auto max-w-5xl px-5 md:px-8">
+							<div className={layouts[layout]}>
 								<div
 									className={`${hasMargin ? "border-l-2 border-margin pl-3 md:pl-8" : ""} ${contentClassName ?? "pt-24 pb-[40vh]"}`}
 								>

@@ -92,7 +92,7 @@ export default function Navbar() {
 	};
 
 	return (
-		<header className="fixed top-0 left-0 right-0 z-50 py-1 px-1 backdrop-blur-xs bg-paper/70 border-b border-ink">
+		<header className="fixed top-0 left-0 right-0 z-50 py-1 px-1 hover:backdrop-blur-xs hover:bg-paper/70 border-b border-transparent hover:border-ink border-dashed">
 			<nav className="flex items-center justify-between h-full whitespace-nowrap">
 				<a
 					href="#intro"

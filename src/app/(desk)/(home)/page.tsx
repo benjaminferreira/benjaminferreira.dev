@@ -13,7 +13,8 @@ export default function HomePage() {
 			{/* Hero/Intro (nothing slides in under it) */}
 			<PaperStack.Sheet
 				id="intro"
-				variant="paper-md"
+				layout="full"
+				variant="paper"
 				pattern="dotgrid"
 				texture="grain"
 				labelledBy="intro-heading"
