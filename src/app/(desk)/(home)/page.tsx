@@ -95,7 +95,7 @@ export default function HomePage() {
 								color="var(--color-accent-2)"
 								className="p-6 max-w-sm"
 							>
-								This project has some details you're going to want to see! Take a look in this
+								This project has some details you’re going to want to see! Take a look in this
 								highlighted, drawn-looking box for more details.
 							</HighlightBox>
 						</div>
@@ -124,7 +124,7 @@ export default function HomePage() {
 						</p>
 						<p className="font-body">
 							The notification system sends weekly digest emails summarizing new sightings within a
-							researcher's defined areas of interest, along with automatically generated statistical
+							researcher’s defined areas of interest, along with automatically generated statistical
 							comparisons against historical data for the same geographic regions. A companion mobile
 							application provides simplified logging capabilities with GPS-tagged photo capture and
 							voice-to-text field notes for use during nighttime observation sessions when screen
@@ -155,7 +155,7 @@ export default function HomePage() {
 								color="var(--color-accent-3)"
 								className="p-6 max-w-sm"
 							>
-								This project has some details you're going to want to see! Take a look in this
+								This project has some details you’re going to want to see! Take a look in this
 								highlighted, drawn-looking box for more details.
 							</HighlightBox>
 						</div>
@@ -184,7 +184,7 @@ export default function HomePage() {
 						</p>
 						<p className="font-body">
 							The notification system sends weekly digest emails summarizing new sightings within a
-							researcher's defined areas of interest, along with automatically generated statistical
+							researcher’s defined areas of interest, along with automatically generated statistical
 							comparisons against historical data for the same geographic regions. A companion mobile
 							application provides simplified logging capabilities with GPS-tagged photo capture and
 							voice-to-text field notes for use during nighttime observation sessions when screen
@@ -243,7 +243,7 @@ export default function HomePage() {
 						</p>
 						<p className="font-body">
 							The notification system sends weekly digest emails summarizing new sightings within a
-							researcher's defined areas of interest, along with automatically generated statistical
+							researcher’s defined areas of interest, along with automatically generated statistical
 							comparisons against historical data for the same geographic regions. A companion mobile
 							application provides simplified logging capabilities with GPS-tagged photo capture and
 							voice-to-text field notes for use during nighttime observation sessions when screen

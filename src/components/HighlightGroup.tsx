@@ -17,31 +17,32 @@ export function HighlightGroup({ gap = 120, children }: { gap?: number; children
 	const runningRef = useRef(false); // a stroke is mid-draw
 	const observerRef = useRef<IntersectionObserver | null>(null);
 
-	const drawNext = useCallback(() => {
-		const entries = entriesRef.current;
-
-		// reduced motion: reveal all, no sequence
-		if (reduce) {
-			entries.forEach((e) => e.activate());
-			pointerRef.current = entries.length;
-			return;
-		}
-		if (runningRef.current) return; // one at a time
-
-		const next = entries[pointerRef.current];
-		if (!next || !seenRef.current.has(next.el)) return; // wait until it's in view
-
-		runningRef.current = true;
-		next.activate();
-		// move on once this stroke has had time to finish
-		window.setTimeout(() => {
-			pointerRef.current += 1;
-			runningRef.current = false;
-			drawNext();
-		}, next.getDuration() + gap);
-	}, [gap, reduce]);
-
 	useEffect(() => {
+		// draws the next mark if it's in view, then queues the one after it
+		const drawNext = () => {
+			const entries = entriesRef.current;
+
+			// reduced motion: reveal all, no sequence
+			if (reduce) {
+				entries.forEach((e) => e.activate());
+				pointerRef.current = entries.length;
+				return;
+			}
+			if (runningRef.current) return; // one at a time
+
+			const next = entries[pointerRef.current];
+			if (!next || !seenRef.current.has(next.el)) return; // wait until it's in view
+
+			runningRef.current = true;
+			next.activate();
+			// move on once this stroke has had time to finish
+			window.setTimeout(() => {
+				pointerRef.current += 1;
+				runningRef.current = false;
+				drawNext();
+			}, next.getDuration() + gap);
+		};
+
 		// note marks as they enter view, then try to draw
 		const io = new IntersectionObserver(
 			(records) => {
@@ -55,7 +56,7 @@ export function HighlightGroup({ gap = 120, children }: { gap?: number; children
 		observerRef.current = io;
 		entriesRef.current.forEach((e) => io.observe(e.el));
 		return () => io.disconnect();
-	}, [drawNext]);
+	}, [gap, reduce]);
 
 	const register = useCallback((entry: Entry) => {
 		entriesRef.current.push(entry);
@@ -276,7 +277,7 @@ export function HighlightBox({
 		const ro = new ResizeObserver(measure);
 		ro.observe(el);
 		return () => ro.disconnect();
-	}, [ref, speed]);
+	}, [ref, speed, gap]);
 
 	const style = {
 		"--stroke-draw-x": `${draw.x}ms`,

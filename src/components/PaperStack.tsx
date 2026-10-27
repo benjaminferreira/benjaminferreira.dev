@@ -380,23 +380,25 @@ function PaperStackSheet({
 	const slot = useContext(SheetSlotContext);
 	if (!slot) throw new Error("PaperStack.Sheet must be a direct child of PaperStack");
 	const { index, height, refs } = slot;
+	// plain locals: the React Compiler lint flags refs.x read straight inside JSX
+	const { section, sticky, wrapper, shadowMain, shadowContact } = refs;
 
 	return (
 		<section
 			id={id}
 			aria-labelledby={labelledBy}
-			ref={refs.section}
+			ref={section}
 			tabIndex={-1}
 			className="relative outline-none"
 			style={{ height, marginTop: index > 0 ? "-100dvh" : undefined, zIndex: index + 1 }}
 		>
 			<div
-				ref={refs.sticky}
+				ref={sticky}
 				className="sticky top-0 h-dvh origin-top-left"
 			>
-				{index > 0 && <ShadowLayers refs={refs} />}
+				{index > 0 && <ShadowLayers main={shadowMain} contact={shadowContact} />}
 				<div className="relative h-full overflow-clip">
-					<div ref={refs.wrapper}>
+					<div ref={wrapper}>
 						<Surface
 							padding="p-0"
 							className="min-h-dvh"
@@ -419,21 +421,22 @@ function PaperStackSheet({
 
 /**
  * The incoming sheet's shadow: two soft blocks that the scroll handler slides and fades in/out
- * @param refs The sheet's refs
+ * @param main Ref callback for the main shadow block
+ * @param contact Ref callback for the contact shadow block
  */
-function ShadowLayers({ refs }: { refs: SheetRefs }) {
+function ShadowLayers({ main, contact }: { main: SheetRefs["shadowMain"]; contact: SheetRefs["shadowContact"] }) {
 	return (
 		<>
 			{/* Shadow Main: main larger, blurrier shadow */}
 			<div
-				ref={refs.shadowMain}
+				ref={main}
 				aria-hidden
 				className="absolute pointer-events-none will-change-[transform,opacity]"
 				style={{ inset: SHADOW_INSET, boxShadow: `0 0 6px ${SHADOW_INSET}px rgb(60 50 40)`, opacity: 0 }}
 			/>
 			{/* Shadow Contact: smaller, less blurry shadow right at the paper's edge for more definition */}
 			<div
-				ref={refs.shadowContact}
+				ref={contact}
 				aria-hidden
 				className="absolute pointer-events-none will-change-[transform,opacity]"
 				style={{ inset: SHADOW_INSET, boxShadow: `0 0 3px ${SHADOW_INSET}px rgb(60 50 40)`, opacity: 0 }}
